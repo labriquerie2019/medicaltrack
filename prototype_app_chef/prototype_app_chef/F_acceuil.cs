@@ -23,6 +23,7 @@ namespace prototype_app_chef
             this.FormBorderStyle = FormBorderStyle.None;
             // fill the screen
             this.Bounds = Screen.PrimaryScreen.Bounds;
+            //test
         }
 
         private void m_menu_quitter_Click(object sender, EventArgs e)
