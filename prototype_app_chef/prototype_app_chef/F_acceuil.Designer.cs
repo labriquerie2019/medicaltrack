@@ -32,6 +32,7 @@
             this.m_menu_quitter = new System.Windows.Forms.ToolStripMenuItem();
             this.m_config = new System.Windows.Forms.ToolStripMenuItem();
             this.b_add_patient = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.m_menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,12 +71,22 @@
             this.b_add_patient.UseVisualStyleBackColor = true;
             this.b_add_patient.Click += new System.EventHandler(this.b_add_patient_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(419, 217);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(312, 142);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // f_acceuil
             // 
             this.AccessibleName = "f_acceuil";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 632);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.b_add_patient);
             this.Controls.Add(this.m_menu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -97,6 +108,7 @@
         private System.Windows.Forms.ToolStripMenuItem m_menu_quitter;
         private System.Windows.Forms.ToolStripMenuItem m_config;
         private System.Windows.Forms.Button b_add_patient;
+        private System.Windows.Forms.Button button1;
     }
 }
 
