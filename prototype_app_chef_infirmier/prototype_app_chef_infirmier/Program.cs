@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace prototype_app_chef
+namespace prototype_app_chef_infirmier
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace prototype_app_chef
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new f_acceuil());
+            Application.Run(new F_Acceuil());
         }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace prototype_app_chef.Properties
+namespace prototype_app_chef_infirmier.Properties
 {
 
 
