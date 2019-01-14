@@ -32,14 +32,15 @@
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
             this.m_configuration = new System.Windows.Forms.ToolStripMenuItem();
             this.p_showbutton = new System.Windows.Forms.Panel();
+            this.b_edit_patient = new System.Windows.Forms.Button();
+            this.b_add_patient = new System.Windows.Forms.Button();
             this.t_ndc = new System.Windows.Forms.TextBox();
             this.t_mdp = new System.Windows.Forms.TextBox();
             this.l_ndc = new System.Windows.Forms.Label();
             this.l_mdp = new System.Windows.Forms.Label();
             this.b_connexion = new System.Windows.Forms.Button();
-            this.b_add_patient = new System.Windows.Forms.Button();
-            this.b_edit_patient = new System.Windows.Forms.Button();
             this.l_date_heure = new System.Windows.Forms.Label();
+            this.b_check_planning = new System.Windows.Forms.Button();
             this.m_menu.SuspendLayout();
             this.p_showbutton.SuspendLayout();
             this.SuspendLayout();
@@ -73,6 +74,7 @@
             // 
             // p_showbutton
             // 
+            this.p_showbutton.Controls.Add(this.b_check_planning);
             this.p_showbutton.Controls.Add(this.b_edit_patient);
             this.p_showbutton.Controls.Add(this.b_add_patient);
             this.p_showbutton.Location = new System.Drawing.Point(0, 27);
@@ -80,6 +82,24 @@
             this.p_showbutton.Size = new System.Drawing.Size(1240, 510);
             this.p_showbutton.TabIndex = 1;
             this.p_showbutton.Visible = false;
+            // 
+            // b_edit_patient
+            // 
+            this.b_edit_patient.Location = new System.Drawing.Point(764, 219);
+            this.b_edit_patient.Name = "b_edit_patient";
+            this.b_edit_patient.Size = new System.Drawing.Size(193, 58);
+            this.b_edit_patient.TabIndex = 1;
+            this.b_edit_patient.Text = "Modifier/supprimer un patient";
+            this.b_edit_patient.UseVisualStyleBackColor = true;
+            // 
+            // b_add_patient
+            // 
+            this.b_add_patient.Location = new System.Drawing.Point(764, 146);
+            this.b_add_patient.Name = "b_add_patient";
+            this.b_add_patient.Size = new System.Drawing.Size(193, 52);
+            this.b_add_patient.TabIndex = 0;
+            this.b_add_patient.Text = "Ajouter un patient";
+            this.b_add_patient.UseVisualStyleBackColor = true;
             // 
             // t_ndc
             // 
@@ -92,6 +112,7 @@
             // 
             this.t_mdp.Location = new System.Drawing.Point(544, 169);
             this.t_mdp.Name = "t_mdp";
+            this.t_mdp.PasswordChar = '*';
             this.t_mdp.Size = new System.Drawing.Size(100, 20);
             this.t_mdp.TabIndex = 3;
             // 
@@ -123,24 +144,6 @@
             this.b_connexion.UseVisualStyleBackColor = true;
             this.b_connexion.Click += new System.EventHandler(this.b_connexion_Click);
             // 
-            // b_add_patient
-            // 
-            this.b_add_patient.Location = new System.Drawing.Point(493, 71);
-            this.b_add_patient.Name = "b_add_patient";
-            this.b_add_patient.Size = new System.Drawing.Size(193, 52);
-            this.b_add_patient.TabIndex = 0;
-            this.b_add_patient.Text = "Ajouter un patient";
-            this.b_add_patient.UseVisualStyleBackColor = true;
-            // 
-            // b_edit_patient
-            // 
-            this.b_edit_patient.Location = new System.Drawing.Point(493, 129);
-            this.b_edit_patient.Name = "b_edit_patient";
-            this.b_edit_patient.Size = new System.Drawing.Size(193, 58);
-            this.b_edit_patient.TabIndex = 1;
-            this.b_edit_patient.Text = "Modifier/supprimer un patient";
-            this.b_edit_patient.UseVisualStyleBackColor = true;
-            // 
             // l_date_heure
             // 
             this.l_date_heure.AutoSize = true;
@@ -149,13 +152,22 @@
             this.l_date_heure.Size = new System.Drawing.Size(0, 13);
             this.l_date_heure.TabIndex = 7;
             // 
+            // b_check_planning
+            // 
+            this.b_check_planning.Location = new System.Drawing.Point(533, 146);
+            this.b_check_planning.Name = "b_check_planning";
+            this.b_check_planning.Size = new System.Drawing.Size(205, 52);
+            this.b_check_planning.TabIndex = 2;
+            this.b_check_planning.Text = "Consulter le planning";
+            this.b_check_planning.UseVisualStyleBackColor = true;
+            // 
             // F_Acceuil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1240, 538);
-            this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.p_showbutton);
+            this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.b_connexion);
             this.Controls.Add(this.l_mdp);
             this.Controls.Add(this.l_ndc);
@@ -188,6 +200,7 @@
         private System.Windows.Forms.Button b_add_patient;
         private System.Windows.Forms.Button b_edit_patient;
         private System.Windows.Forms.Label l_date_heure;
+        private System.Windows.Forms.Button b_check_planning;
     }
 }
 
