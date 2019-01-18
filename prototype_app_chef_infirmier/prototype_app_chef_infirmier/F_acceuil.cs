@@ -69,5 +69,11 @@ namespace prototype_app_chef_infirmier
             DateTime heure = System.DateTime.Now;
             l_date_heure.Text = heure.Hour + ":" + heure.Minute + " " + heure.Day + "/" + heure.Month + "/" + heure.Year;
         }
+
+        private void b_add_patient_Click(object sender, EventArgs e)
+        {
+            F_ajout_patient f_add_patient = new F_ajout_patient();
+            f_add_patient.Show();
+        }
     }
 }

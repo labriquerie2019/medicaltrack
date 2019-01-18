@@ -52,10 +52,19 @@
     <Compile Include="F_acceuil.Designer.cs">
       <DependentUpon>F_acceuil.cs</DependentUpon>
     </Compile>
+    <Compile Include="F_ajout_patient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_ajout_patient.Designer.cs">
+      <DependentUpon>F_ajout_patient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="F_acceuil.resx">
       <DependentUpon>F_acceuil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_ajout_patient.resx">
+      <DependentUpon>F_ajout_patient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

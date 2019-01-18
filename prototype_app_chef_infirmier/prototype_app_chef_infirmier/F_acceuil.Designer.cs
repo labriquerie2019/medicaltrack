@@ -33,6 +33,7 @@
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
             this.m_configuration = new System.Windows.Forms.ToolStripMenuItem();
             this.p_showbutton = new System.Windows.Forms.Panel();
+            this.b_gerer_planning = new System.Windows.Forms.Button();
             this.b_check_planning = new System.Windows.Forms.Button();
             this.b_edit_patient = new System.Windows.Forms.Button();
             this.b_add_patient = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@
             this.l_mdp = new System.Windows.Forms.Label();
             this.b_connexion = new System.Windows.Forms.Button();
             this.l_date_heure = new System.Windows.Forms.Label();
-            this.b_gerer_planning = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.m_menu.SuspendLayout();
             this.p_showbutton.SuspendLayout();
@@ -87,6 +87,15 @@
             this.p_showbutton.TabIndex = 1;
             this.p_showbutton.Visible = false;
             // 
+            // b_gerer_planning
+            // 
+            this.b_gerer_planning.Location = new System.Drawing.Point(509, 95);
+            this.b_gerer_planning.Name = "b_gerer_planning";
+            this.b_gerer_planning.Size = new System.Drawing.Size(205, 48);
+            this.b_gerer_planning.TabIndex = 3;
+            this.b_gerer_planning.Text = "Gérer le planning";
+            this.b_gerer_planning.UseVisualStyleBackColor = true;
+            // 
             // b_check_planning
             // 
             this.b_check_planning.Location = new System.Drawing.Point(509, 149);
@@ -113,6 +122,7 @@
             this.b_add_patient.TabIndex = 0;
             this.b_add_patient.Text = "Ajouter un patient";
             this.b_add_patient.UseVisualStyleBackColor = true;
+            this.b_add_patient.Click += new System.EventHandler(this.b_add_patient_Click);
             // 
             // t_ndc
             // 
@@ -164,15 +174,6 @@
             this.l_date_heure.Name = "l_date_heure";
             this.l_date_heure.Size = new System.Drawing.Size(0, 13);
             this.l_date_heure.TabIndex = 7;
-            // 
-            // b_gerer_planning
-            // 
-            this.b_gerer_planning.Location = new System.Drawing.Point(509, 95);
-            this.b_gerer_planning.Name = "b_gerer_planning";
-            this.b_gerer_planning.Size = new System.Drawing.Size(205, 48);
-            this.b_gerer_planning.TabIndex = 3;
-            this.b_gerer_planning.Text = "Gérer le planning";
-            this.b_gerer_planning.UseVisualStyleBackColor = true;
             // 
             // timer1
             // 
