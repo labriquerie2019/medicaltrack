@@ -19,8 +19,8 @@ namespace prototype_app_chef_infirmier
 
         private void F_Acceuil_Load(object sender, EventArgs e)
         {
-            DateTime heure = System.DateTime.Now;
-            l_date_heure.Text = heure.Hour + ":" + heure.Minute + " " + heure.Day + "/" + heure.Month + "/" + heure.Year;
+            timer1.Interval = 1000;
+            timer1.Start();
         }
 
         private void m_configuration_Click(object sender, EventArgs e)
@@ -43,6 +43,8 @@ namespace prototype_app_chef_infirmier
             string ndc = t_ndc.Text;
             string mdp = t_mdp.Text;
 
+            bool connected = true; //methode pour se connecter
+
             m_configuration.Visible = true;
             l_ndc.Visible = false;
             t_ndc.Visible = false;
@@ -51,6 +53,21 @@ namespace prototype_app_chef_infirmier
             b_connexion.Visible = false;
 
             p_showbutton.Visible = true;
+
+            if (ndc == "administration") //Tester qui est connecter
+            {
+                b_gerer_planning.Visible = false; //Administration
+            }
+            else if(ndc == "chef")
+            {
+                b_gerer_planning.Visible = true; //Chef hospitalier
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            DateTime heure = System.DateTime.Now;
+            l_date_heure.Text = heure.Hour + ":" + heure.Minute + " " + heure.Day + "/" + heure.Month + "/" + heure.Year;
         }
     }
 }
