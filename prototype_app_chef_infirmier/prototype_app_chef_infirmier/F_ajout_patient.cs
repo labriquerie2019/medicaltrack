@@ -55,5 +55,28 @@ namespace prototype_app_chef_infirmier
                 l_co_bdd.Visible = false;
             }
         }
+
+        private void t_note_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void b_add_patient_Click(object sender, EventArgs e)
+        {
+            ///////////////////////////////////////////////////////////////Partie info patient
+            string nom = t_nom.Text;
+            string prenom = t_prenom.Text;
+            int age = Convert.ToInt32(t_age.Text);
+            DateTime date_naissance = dp_date_naissance.Value;
+            string sexe = t_sexe.Text;
+            string situation_familial = t_situation_familial.Text;
+            string note = t_note.Text;
+            ///////////////////////////////////////////////////////////////Partie médical
+            string poid = t_poid.Text;
+            string taille = t_taille.Text;
+            string alergie = t_alergie.Text;
+            string antecedant = t_antecedent_medicaux.Text;
+            ///////////////////////////////////////////////////////////////
+        }
     }
 }
