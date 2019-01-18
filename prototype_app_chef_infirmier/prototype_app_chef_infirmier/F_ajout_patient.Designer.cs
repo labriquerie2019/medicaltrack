@@ -60,7 +60,7 @@
             this.t_antecedent_medicaux = new System.Windows.Forms.TextBox();
             this.l_antecedant = new System.Windows.Forms.Label();
             this.t_alergie = new System.Windows.Forms.TextBox();
-            this.l_alergies = new System.Windows.Forms.Label();
+            this.l_allergies = new System.Windows.Forms.Label();
             this.l_date_admission = new System.Windows.Forms.Label();
             this.dp_admission = new System.Windows.Forms.DateTimePicker();
             this.m_menu.SuspendLayout();
@@ -110,7 +110,7 @@
             this.p_progressbar.Controls.Add(this.dp_admission);
             this.p_progressbar.Controls.Add(this.l_date_admission);
             this.p_progressbar.Controls.Add(this.t_alergie);
-            this.p_progressbar.Controls.Add(this.l_alergies);
+            this.p_progressbar.Controls.Add(this.l_allergies);
             this.p_progressbar.Controls.Add(this.t_antecedent_medicaux);
             this.p_progressbar.Controls.Add(this.l_antecedant);
             this.p_progressbar.Controls.Add(this.t_taille);
@@ -132,7 +132,7 @@
             this.p_progressbar.Controls.Add(this.l_prenom);
             this.p_progressbar.Controls.Add(this.t_nom);
             this.p_progressbar.Controls.Add(this.l_nom);
-            this.p_progressbar.Location = new System.Drawing.Point(0, 27);
+            this.p_progressbar.Location = new System.Drawing.Point(1, 27);
             this.p_progressbar.Name = "p_progressbar";
             this.p_progressbar.Size = new System.Drawing.Size(1147, 550);
             this.p_progressbar.TabIndex = 3;
@@ -276,9 +276,9 @@
             // 
             // b_add_patient
             // 
-            this.b_add_patient.Location = new System.Drawing.Point(456, 3);
+            this.b_add_patient.Location = new System.Drawing.Point(284, 3);
             this.b_add_patient.Name = "b_add_patient";
-            this.b_add_patient.Size = new System.Drawing.Size(199, 41);
+            this.b_add_patient.Size = new System.Drawing.Size(195, 41);
             this.b_add_patient.TabIndex = 15;
             this.b_add_patient.Text = "Ajouter un nouveau patient";
             this.b_add_patient.UseVisualStyleBackColor = true;
@@ -286,7 +286,7 @@
             // 
             // t_poid
             // 
-            this.t_poid.Location = new System.Drawing.Point(419, 163);
+            this.t_poid.Location = new System.Drawing.Point(282, 163);
             this.t_poid.Name = "t_poid";
             this.t_poid.Size = new System.Drawing.Size(197, 20);
             this.t_poid.TabIndex = 17;
@@ -294,7 +294,7 @@
             // l_poid
             // 
             this.l_poid.AutoSize = true;
-            this.l_poid.Location = new System.Drawing.Point(416, 147);
+            this.l_poid.Location = new System.Drawing.Point(279, 147);
             this.l_poid.Name = "l_poid";
             this.l_poid.Size = new System.Drawing.Size(28, 13);
             this.l_poid.TabIndex = 16;
@@ -302,7 +302,7 @@
             // 
             // t_taille
             // 
-            this.t_taille.Location = new System.Drawing.Point(419, 207);
+            this.t_taille.Location = new System.Drawing.Point(282, 207);
             this.t_taille.Name = "t_taille";
             this.t_taille.Size = new System.Drawing.Size(197, 20);
             this.t_taille.TabIndex = 19;
@@ -310,7 +310,7 @@
             // l_taille
             // 
             this.l_taille.AutoSize = true;
-            this.l_taille.Location = new System.Drawing.Point(418, 191);
+            this.l_taille.Location = new System.Drawing.Point(281, 191);
             this.l_taille.Name = "l_taille";
             this.l_taille.Size = new System.Drawing.Size(32, 13);
             this.l_taille.TabIndex = 18;
@@ -318,7 +318,7 @@
             // 
             // t_antecedent_medicaux
             // 
-            this.t_antecedent_medicaux.Location = new System.Drawing.Point(419, 397);
+            this.t_antecedent_medicaux.Location = new System.Drawing.Point(282, 397);
             this.t_antecedent_medicaux.Multiline = true;
             this.t_antecedent_medicaux.Name = "t_antecedent_medicaux";
             this.t_antecedent_medicaux.Size = new System.Drawing.Size(197, 131);
@@ -327,7 +327,7 @@
             // l_antecedant
             // 
             this.l_antecedant.AutoSize = true;
-            this.l_antecedant.Location = new System.Drawing.Point(424, 381);
+            this.l_antecedant.Location = new System.Drawing.Point(287, 381);
             this.l_antecedant.Name = "l_antecedant";
             this.l_antecedant.Size = new System.Drawing.Size(110, 13);
             this.l_antecedant.TabIndex = 20;
@@ -335,20 +335,20 @@
             // 
             // t_alergie
             // 
-            this.t_alergie.Location = new System.Drawing.Point(419, 246);
+            this.t_alergie.Location = new System.Drawing.Point(282, 246);
             this.t_alergie.Multiline = true;
             this.t_alergie.Name = "t_alergie";
             this.t_alergie.Size = new System.Drawing.Size(197, 132);
             this.t_alergie.TabIndex = 23;
             // 
-            // l_alergies
+            // l_allergies
             // 
-            this.l_alergies.AutoSize = true;
-            this.l_alergies.Location = new System.Drawing.Point(424, 230);
-            this.l_alergies.Name = "l_alergies";
-            this.l_alergies.Size = new System.Drawing.Size(44, 13);
-            this.l_alergies.TabIndex = 22;
-            this.l_alergies.Text = "Alérgies";
+            this.l_allergies.AutoSize = true;
+            this.l_allergies.Location = new System.Drawing.Point(287, 230);
+            this.l_allergies.Name = "l_allergies";
+            this.l_allergies.Size = new System.Drawing.Size(46, 13);
+            this.l_allergies.TabIndex = 22;
+            this.l_allergies.Text = "Allergies";
             // 
             // l_date_admission
             // 
@@ -414,7 +414,7 @@
         private System.Windows.Forms.Button b_add_patient;
         private System.Windows.Forms.DateTimePicker dp_date_naissance;
         private System.Windows.Forms.TextBox t_alergie;
-        private System.Windows.Forms.Label l_alergies;
+        private System.Windows.Forms.Label l_allergies;
         private System.Windows.Forms.TextBox t_antecedent_medicaux;
         private System.Windows.Forms.Label l_antecedant;
         private System.Windows.Forms.TextBox t_taille;

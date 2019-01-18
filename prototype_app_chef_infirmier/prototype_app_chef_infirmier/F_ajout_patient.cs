@@ -74,7 +74,7 @@ namespace prototype_app_chef_infirmier
             ///////////////////////////////////////////////////////////////Partie médical
             string poid = t_poid.Text;
             string taille = t_taille.Text;
-            string alergie = t_alergie.Text;
+            string allergie = t_allergie.Text;
             string antecedant = t_antecedent_medicaux.Text;
             ///////////////////////////////////////////////////////////////
         }
