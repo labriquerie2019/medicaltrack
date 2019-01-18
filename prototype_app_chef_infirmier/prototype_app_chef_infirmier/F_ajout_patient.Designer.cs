@@ -59,7 +59,7 @@
             this.l_taille = new System.Windows.Forms.Label();
             this.t_antecedent_medicaux = new System.Windows.Forms.TextBox();
             this.l_antecedant = new System.Windows.Forms.Label();
-            this.t_alergie = new System.Windows.Forms.TextBox();
+            this.t_allergie = new System.Windows.Forms.TextBox();
             this.l_allergies = new System.Windows.Forms.Label();
             this.l_date_admission = new System.Windows.Forms.Label();
             this.dp_admission = new System.Windows.Forms.DateTimePicker();
@@ -109,7 +109,7 @@
             this.p_progressbar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.p_progressbar.Controls.Add(this.dp_admission);
             this.p_progressbar.Controls.Add(this.l_date_admission);
-            this.p_progressbar.Controls.Add(this.t_alergie);
+            this.p_progressbar.Controls.Add(this.t_allergie);
             this.p_progressbar.Controls.Add(this.l_allergies);
             this.p_progressbar.Controls.Add(this.t_antecedent_medicaux);
             this.p_progressbar.Controls.Add(this.l_antecedant);
@@ -333,13 +333,13 @@
             this.l_antecedant.TabIndex = 20;
             this.l_antecedant.Text = "Antécédent médicaux";
             // 
-            // t_alergie
+            // t_allergie
             // 
-            this.t_alergie.Location = new System.Drawing.Point(282, 246);
-            this.t_alergie.Multiline = true;
-            this.t_alergie.Name = "t_alergie";
-            this.t_alergie.Size = new System.Drawing.Size(197, 132);
-            this.t_alergie.TabIndex = 23;
+            this.t_allergie.Location = new System.Drawing.Point(282, 246);
+            this.t_allergie.Multiline = true;
+            this.t_allergie.Name = "t_allergie";
+            this.t_allergie.Size = new System.Drawing.Size(197, 132);
+            this.t_allergie.TabIndex = 23;
             // 
             // l_allergies
             // 
@@ -413,7 +413,7 @@
         private System.Windows.Forms.Label l_situation_familial;
         private System.Windows.Forms.Button b_add_patient;
         private System.Windows.Forms.DateTimePicker dp_date_naissance;
-        private System.Windows.Forms.TextBox t_alergie;
+        private System.Windows.Forms.TextBox t_allergie;
         private System.Windows.Forms.Label l_allergies;
         private System.Windows.Forms.TextBox t_antecedent_medicaux;
         private System.Windows.Forms.Label l_antecedant;
