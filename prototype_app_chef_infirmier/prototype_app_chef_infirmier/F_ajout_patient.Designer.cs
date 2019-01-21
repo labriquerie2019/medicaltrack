@@ -35,34 +35,34 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.l_date_heure = new System.Windows.Forms.Label();
             this.p_progressbar = new System.Windows.Forms.Panel();
+            this.dp_admission = new System.Windows.Forms.DateTimePicker();
+            this.l_date_admission = new System.Windows.Forms.Label();
+            this.t_allergie = new System.Windows.Forms.TextBox();
+            this.l_allergies = new System.Windows.Forms.Label();
+            this.t_antecedent_medicaux = new System.Windows.Forms.TextBox();
+            this.l_antecedant = new System.Windows.Forms.Label();
+            this.t_taille = new System.Windows.Forms.TextBox();
+            this.l_taille = new System.Windows.Forms.Label();
+            this.t_poid = new System.Windows.Forms.TextBox();
+            this.l_poid = new System.Windows.Forms.Label();
+            this.b_add_patient = new System.Windows.Forms.Button();
+            this.dp_date_naissance = new System.Windows.Forms.DateTimePicker();
+            this.t_note = new System.Windows.Forms.TextBox();
+            this.l_note = new System.Windows.Forms.Label();
+            this.t_situation_familial = new System.Windows.Forms.TextBox();
+            this.l_situation_familial = new System.Windows.Forms.Label();
+            this.t_sexe = new System.Windows.Forms.TextBox();
+            this.l_sexe = new System.Windows.Forms.Label();
+            this.l_date_de_naissance = new System.Windows.Forms.Label();
+            this.t_age = new System.Windows.Forms.TextBox();
+            this.l_age = new System.Windows.Forms.Label();
+            this.t_prenom = new System.Windows.Forms.TextBox();
+            this.l_prenom = new System.Windows.Forms.Label();
+            this.t_nom = new System.Windows.Forms.TextBox();
+            this.l_nom = new System.Windows.Forms.Label();
             this.p_bar_progression = new System.Windows.Forms.ProgressBar();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.l_co_bdd = new System.Windows.Forms.Label();
-            this.l_nom = new System.Windows.Forms.Label();
-            this.t_nom = new System.Windows.Forms.TextBox();
-            this.t_prenom = new System.Windows.Forms.TextBox();
-            this.l_prenom = new System.Windows.Forms.Label();
-            this.t_age = new System.Windows.Forms.TextBox();
-            this.l_age = new System.Windows.Forms.Label();
-            this.l_date_de_naissance = new System.Windows.Forms.Label();
-            this.t_sexe = new System.Windows.Forms.TextBox();
-            this.l_sexe = new System.Windows.Forms.Label();
-            this.t_situation_familial = new System.Windows.Forms.TextBox();
-            this.l_situation_familial = new System.Windows.Forms.Label();
-            this.t_note = new System.Windows.Forms.TextBox();
-            this.l_note = new System.Windows.Forms.Label();
-            this.dp_date_naissance = new System.Windows.Forms.DateTimePicker();
-            this.b_add_patient = new System.Windows.Forms.Button();
-            this.t_poid = new System.Windows.Forms.TextBox();
-            this.l_poid = new System.Windows.Forms.Label();
-            this.t_taille = new System.Windows.Forms.TextBox();
-            this.l_taille = new System.Windows.Forms.Label();
-            this.t_antecedent_medicaux = new System.Windows.Forms.TextBox();
-            this.l_antecedant = new System.Windows.Forms.Label();
-            this.t_allergie = new System.Windows.Forms.TextBox();
-            this.l_allergies = new System.Windows.Forms.Label();
-            this.l_date_admission = new System.Windows.Forms.Label();
-            this.dp_admission = new System.Windows.Forms.DateTimePicker();
             this.m_menu.SuspendLayout();
             this.p_progressbar.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +76,7 @@
             this.m_menu.Name = "m_menu";
             this.m_menu.Size = new System.Drawing.Size(1147, 24);
             this.m_menu.TabIndex = 1;
-            this.m_menu.Text = "menuStrip1";
+            this.m_menu.Text = "date et heure";
             // 
             // m_quitter
             // 
@@ -101,8 +101,9 @@
             this.l_date_heure.AutoSize = true;
             this.l_date_heure.Location = new System.Drawing.Point(1026, 0);
             this.l_date_heure.Name = "l_date_heure";
-            this.l_date_heure.Size = new System.Drawing.Size(0, 13);
+            this.l_date_heure.Size = new System.Drawing.Size(70, 13);
             this.l_date_heure.TabIndex = 2;
+            this.l_date_heure.Text = "date et heure";
             // 
             // p_progressbar
             // 
@@ -138,6 +139,212 @@
             this.p_progressbar.TabIndex = 3;
             this.p_progressbar.Visible = false;
             // 
+            // dp_admission
+            // 
+            this.dp_admission.Location = new System.Drawing.Point(6, 19);
+            this.dp_admission.Name = "dp_admission";
+            this.dp_admission.Size = new System.Drawing.Size(197, 20);
+            this.dp_admission.TabIndex = 25;
+            // 
+            // l_date_admission
+            // 
+            this.l_date_admission.AutoSize = true;
+            this.l_date_admission.Location = new System.Drawing.Point(3, 3);
+            this.l_date_admission.Name = "l_date_admission";
+            this.l_date_admission.Size = new System.Drawing.Size(87, 13);
+            this.l_date_admission.TabIndex = 24;
+            this.l_date_admission.Text = "Date d\'admission";
+            // 
+            // t_allergie
+            // 
+            this.t_allergie.Location = new System.Drawing.Point(282, 246);
+            this.t_allergie.Multiline = true;
+            this.t_allergie.Name = "t_allergie";
+            this.t_allergie.Size = new System.Drawing.Size(197, 132);
+            this.t_allergie.TabIndex = 23;
+            // 
+            // l_allergies
+            // 
+            this.l_allergies.AutoSize = true;
+            this.l_allergies.Location = new System.Drawing.Point(287, 230);
+            this.l_allergies.Name = "l_allergies";
+            this.l_allergies.Size = new System.Drawing.Size(46, 13);
+            this.l_allergies.TabIndex = 22;
+            this.l_allergies.Text = "Allergies";
+            // 
+            // t_antecedent_medicaux
+            // 
+            this.t_antecedent_medicaux.Location = new System.Drawing.Point(282, 397);
+            this.t_antecedent_medicaux.Multiline = true;
+            this.t_antecedent_medicaux.Name = "t_antecedent_medicaux";
+            this.t_antecedent_medicaux.Size = new System.Drawing.Size(197, 131);
+            this.t_antecedent_medicaux.TabIndex = 21;
+            // 
+            // l_antecedant
+            // 
+            this.l_antecedant.AutoSize = true;
+            this.l_antecedant.Location = new System.Drawing.Point(287, 381);
+            this.l_antecedant.Name = "l_antecedant";
+            this.l_antecedant.Size = new System.Drawing.Size(110, 13);
+            this.l_antecedant.TabIndex = 20;
+            this.l_antecedant.Text = "Antécédent médicaux";
+            // 
+            // t_taille
+            // 
+            this.t_taille.Location = new System.Drawing.Point(282, 207);
+            this.t_taille.Name = "t_taille";
+            this.t_taille.Size = new System.Drawing.Size(197, 20);
+            this.t_taille.TabIndex = 19;
+            // 
+            // l_taille
+            // 
+            this.l_taille.AutoSize = true;
+            this.l_taille.Location = new System.Drawing.Point(281, 191);
+            this.l_taille.Name = "l_taille";
+            this.l_taille.Size = new System.Drawing.Size(32, 13);
+            this.l_taille.TabIndex = 18;
+            this.l_taille.Text = "Taille";
+            // 
+            // t_poid
+            // 
+            this.t_poid.Location = new System.Drawing.Point(282, 163);
+            this.t_poid.Name = "t_poid";
+            this.t_poid.Size = new System.Drawing.Size(197, 20);
+            this.t_poid.TabIndex = 17;
+            // 
+            // l_poid
+            // 
+            this.l_poid.AutoSize = true;
+            this.l_poid.Location = new System.Drawing.Point(279, 147);
+            this.l_poid.Name = "l_poid";
+            this.l_poid.Size = new System.Drawing.Size(28, 13);
+            this.l_poid.TabIndex = 16;
+            this.l_poid.Text = "Poid";
+            // 
+            // b_add_patient
+            // 
+            this.b_add_patient.Location = new System.Drawing.Point(284, 3);
+            this.b_add_patient.Name = "b_add_patient";
+            this.b_add_patient.Size = new System.Drawing.Size(195, 41);
+            this.b_add_patient.TabIndex = 15;
+            this.b_add_patient.Text = "Ajouter un nouveau patient";
+            this.b_add_patient.UseVisualStyleBackColor = true;
+            this.b_add_patient.Click += new System.EventHandler(this.b_add_patient_Click);
+            // 
+            // dp_date_naissance
+            // 
+            this.dp_date_naissance.Location = new System.Drawing.Point(11, 280);
+            this.dp_date_naissance.Name = "dp_date_naissance";
+            this.dp_date_naissance.Size = new System.Drawing.Size(197, 20);
+            this.dp_date_naissance.TabIndex = 14;
+            // 
+            // t_note
+            // 
+            this.t_note.Location = new System.Drawing.Point(11, 397);
+            this.t_note.Multiline = true;
+            this.t_note.Name = "t_note";
+            this.t_note.Size = new System.Drawing.Size(197, 131);
+            this.t_note.TabIndex = 13;
+            this.t_note.TextChanged += new System.EventHandler(this.t_note_TextChanged);
+            // 
+            // l_note
+            // 
+            this.l_note.AutoSize = true;
+            this.l_note.Location = new System.Drawing.Point(7, 381);
+            this.l_note.Name = "l_note";
+            this.l_note.Size = new System.Drawing.Size(30, 13);
+            this.l_note.TabIndex = 12;
+            this.l_note.Text = "Note";
+            // 
+            // t_situation_familial
+            // 
+            this.t_situation_familial.Location = new System.Drawing.Point(11, 358);
+            this.t_situation_familial.Name = "t_situation_familial";
+            this.t_situation_familial.Size = new System.Drawing.Size(197, 20);
+            this.t_situation_familial.TabIndex = 11;
+            // 
+            // l_situation_familial
+            // 
+            this.l_situation_familial.AutoSize = true;
+            this.l_situation_familial.Location = new System.Drawing.Point(6, 342);
+            this.l_situation_familial.Name = "l_situation_familial";
+            this.l_situation_familial.Size = new System.Drawing.Size(82, 13);
+            this.l_situation_familial.TabIndex = 10;
+            this.l_situation_familial.Text = "Situation familial";
+            // 
+            // t_sexe
+            // 
+            this.t_sexe.Location = new System.Drawing.Point(11, 319);
+            this.t_sexe.Name = "t_sexe";
+            this.t_sexe.Size = new System.Drawing.Size(197, 20);
+            this.t_sexe.TabIndex = 9;
+            // 
+            // l_sexe
+            // 
+            this.l_sexe.AutoSize = true;
+            this.l_sexe.Location = new System.Drawing.Point(6, 303);
+            this.l_sexe.Name = "l_sexe";
+            this.l_sexe.Size = new System.Drawing.Size(31, 13);
+            this.l_sexe.TabIndex = 8;
+            this.l_sexe.Text = "Sexe";
+            // 
+            // l_date_de_naissance
+            // 
+            this.l_date_de_naissance.AutoSize = true;
+            this.l_date_de_naissance.Location = new System.Drawing.Point(8, 264);
+            this.l_date_de_naissance.Name = "l_date_de_naissance";
+            this.l_date_de_naissance.Size = new System.Drawing.Size(96, 13);
+            this.l_date_de_naissance.TabIndex = 6;
+            this.l_date_de_naissance.Text = "Date de naissance";
+            // 
+            // t_age
+            // 
+            this.t_age.Location = new System.Drawing.Point(11, 241);
+            this.t_age.Name = "t_age";
+            this.t_age.Size = new System.Drawing.Size(197, 20);
+            this.t_age.TabIndex = 5;
+            // 
+            // l_age
+            // 
+            this.l_age.AutoSize = true;
+            this.l_age.Location = new System.Drawing.Point(8, 225);
+            this.l_age.Name = "l_age";
+            this.l_age.Size = new System.Drawing.Size(26, 13);
+            this.l_age.TabIndex = 4;
+            this.l_age.Text = "Age";
+            // 
+            // t_prenom
+            // 
+            this.t_prenom.Location = new System.Drawing.Point(11, 202);
+            this.t_prenom.Name = "t_prenom";
+            this.t_prenom.Size = new System.Drawing.Size(197, 20);
+            this.t_prenom.TabIndex = 3;
+            // 
+            // l_prenom
+            // 
+            this.l_prenom.AutoSize = true;
+            this.l_prenom.Location = new System.Drawing.Point(8, 186);
+            this.l_prenom.Name = "l_prenom";
+            this.l_prenom.Size = new System.Drawing.Size(43, 13);
+            this.l_prenom.TabIndex = 2;
+            this.l_prenom.Text = "Prenom";
+            // 
+            // t_nom
+            // 
+            this.t_nom.Location = new System.Drawing.Point(11, 163);
+            this.t_nom.Name = "t_nom";
+            this.t_nom.Size = new System.Drawing.Size(197, 20);
+            this.t_nom.TabIndex = 1;
+            // 
+            // l_nom
+            // 
+            this.l_nom.AutoSize = true;
+            this.l_nom.Location = new System.Drawing.Point(6, 147);
+            this.l_nom.Name = "l_nom";
+            this.l_nom.Size = new System.Drawing.Size(29, 13);
+            this.l_nom.TabIndex = 0;
+            this.l_nom.Text = "Nom";
+            // 
             // p_bar_progression
             // 
             this.p_bar_progression.ForeColor = System.Drawing.Color.GreenYellow;
@@ -159,212 +366,6 @@
             this.l_co_bdd.Size = new System.Drawing.Size(256, 13);
             this.l_co_bdd.TabIndex = 4;
             this.l_co_bdd.Text = "Connexion à la base de données, veuillez patienter...";
-            // 
-            // l_nom
-            // 
-            this.l_nom.AutoSize = true;
-            this.l_nom.Location = new System.Drawing.Point(6, 147);
-            this.l_nom.Name = "l_nom";
-            this.l_nom.Size = new System.Drawing.Size(29, 13);
-            this.l_nom.TabIndex = 0;
-            this.l_nom.Text = "Nom";
-            // 
-            // t_nom
-            // 
-            this.t_nom.Location = new System.Drawing.Point(11, 163);
-            this.t_nom.Name = "t_nom";
-            this.t_nom.Size = new System.Drawing.Size(197, 20);
-            this.t_nom.TabIndex = 1;
-            // 
-            // t_prenom
-            // 
-            this.t_prenom.Location = new System.Drawing.Point(11, 202);
-            this.t_prenom.Name = "t_prenom";
-            this.t_prenom.Size = new System.Drawing.Size(197, 20);
-            this.t_prenom.TabIndex = 3;
-            // 
-            // l_prenom
-            // 
-            this.l_prenom.AutoSize = true;
-            this.l_prenom.Location = new System.Drawing.Point(8, 186);
-            this.l_prenom.Name = "l_prenom";
-            this.l_prenom.Size = new System.Drawing.Size(43, 13);
-            this.l_prenom.TabIndex = 2;
-            this.l_prenom.Text = "Prenom";
-            // 
-            // t_age
-            // 
-            this.t_age.Location = new System.Drawing.Point(11, 241);
-            this.t_age.Name = "t_age";
-            this.t_age.Size = new System.Drawing.Size(197, 20);
-            this.t_age.TabIndex = 5;
-            // 
-            // l_age
-            // 
-            this.l_age.AutoSize = true;
-            this.l_age.Location = new System.Drawing.Point(8, 225);
-            this.l_age.Name = "l_age";
-            this.l_age.Size = new System.Drawing.Size(26, 13);
-            this.l_age.TabIndex = 4;
-            this.l_age.Text = "Age";
-            // 
-            // l_date_de_naissance
-            // 
-            this.l_date_de_naissance.AutoSize = true;
-            this.l_date_de_naissance.Location = new System.Drawing.Point(8, 264);
-            this.l_date_de_naissance.Name = "l_date_de_naissance";
-            this.l_date_de_naissance.Size = new System.Drawing.Size(96, 13);
-            this.l_date_de_naissance.TabIndex = 6;
-            this.l_date_de_naissance.Text = "Date de naissance";
-            // 
-            // t_sexe
-            // 
-            this.t_sexe.Location = new System.Drawing.Point(11, 319);
-            this.t_sexe.Name = "t_sexe";
-            this.t_sexe.Size = new System.Drawing.Size(197, 20);
-            this.t_sexe.TabIndex = 9;
-            // 
-            // l_sexe
-            // 
-            this.l_sexe.AutoSize = true;
-            this.l_sexe.Location = new System.Drawing.Point(6, 303);
-            this.l_sexe.Name = "l_sexe";
-            this.l_sexe.Size = new System.Drawing.Size(31, 13);
-            this.l_sexe.TabIndex = 8;
-            this.l_sexe.Text = "Sexe";
-            // 
-            // t_situation_familial
-            // 
-            this.t_situation_familial.Location = new System.Drawing.Point(11, 358);
-            this.t_situation_familial.Name = "t_situation_familial";
-            this.t_situation_familial.Size = new System.Drawing.Size(197, 20);
-            this.t_situation_familial.TabIndex = 11;
-            // 
-            // l_situation_familial
-            // 
-            this.l_situation_familial.AutoSize = true;
-            this.l_situation_familial.Location = new System.Drawing.Point(6, 342);
-            this.l_situation_familial.Name = "l_situation_familial";
-            this.l_situation_familial.Size = new System.Drawing.Size(82, 13);
-            this.l_situation_familial.TabIndex = 10;
-            this.l_situation_familial.Text = "Situation familial";
-            // 
-            // t_note
-            // 
-            this.t_note.Location = new System.Drawing.Point(11, 397);
-            this.t_note.Multiline = true;
-            this.t_note.Name = "t_note";
-            this.t_note.Size = new System.Drawing.Size(197, 131);
-            this.t_note.TabIndex = 13;
-            this.t_note.TextChanged += new System.EventHandler(this.t_note_TextChanged);
-            // 
-            // l_note
-            // 
-            this.l_note.AutoSize = true;
-            this.l_note.Location = new System.Drawing.Point(7, 381);
-            this.l_note.Name = "l_note";
-            this.l_note.Size = new System.Drawing.Size(30, 13);
-            this.l_note.TabIndex = 12;
-            this.l_note.Text = "Note";
-            // 
-            // dp_date_naissance
-            // 
-            this.dp_date_naissance.Location = new System.Drawing.Point(11, 280);
-            this.dp_date_naissance.Name = "dp_date_naissance";
-            this.dp_date_naissance.Size = new System.Drawing.Size(197, 20);
-            this.dp_date_naissance.TabIndex = 14;
-            // 
-            // b_add_patient
-            // 
-            this.b_add_patient.Location = new System.Drawing.Point(284, 3);
-            this.b_add_patient.Name = "b_add_patient";
-            this.b_add_patient.Size = new System.Drawing.Size(195, 41);
-            this.b_add_patient.TabIndex = 15;
-            this.b_add_patient.Text = "Ajouter un nouveau patient";
-            this.b_add_patient.UseVisualStyleBackColor = true;
-            this.b_add_patient.Click += new System.EventHandler(this.b_add_patient_Click);
-            // 
-            // t_poid
-            // 
-            this.t_poid.Location = new System.Drawing.Point(282, 163);
-            this.t_poid.Name = "t_poid";
-            this.t_poid.Size = new System.Drawing.Size(197, 20);
-            this.t_poid.TabIndex = 17;
-            // 
-            // l_poid
-            // 
-            this.l_poid.AutoSize = true;
-            this.l_poid.Location = new System.Drawing.Point(279, 147);
-            this.l_poid.Name = "l_poid";
-            this.l_poid.Size = new System.Drawing.Size(28, 13);
-            this.l_poid.TabIndex = 16;
-            this.l_poid.Text = "Poid";
-            // 
-            // t_taille
-            // 
-            this.t_taille.Location = new System.Drawing.Point(282, 207);
-            this.t_taille.Name = "t_taille";
-            this.t_taille.Size = new System.Drawing.Size(197, 20);
-            this.t_taille.TabIndex = 19;
-            // 
-            // l_taille
-            // 
-            this.l_taille.AutoSize = true;
-            this.l_taille.Location = new System.Drawing.Point(281, 191);
-            this.l_taille.Name = "l_taille";
-            this.l_taille.Size = new System.Drawing.Size(32, 13);
-            this.l_taille.TabIndex = 18;
-            this.l_taille.Text = "Taille";
-            // 
-            // t_antecedent_medicaux
-            // 
-            this.t_antecedent_medicaux.Location = new System.Drawing.Point(282, 397);
-            this.t_antecedent_medicaux.Multiline = true;
-            this.t_antecedent_medicaux.Name = "t_antecedent_medicaux";
-            this.t_antecedent_medicaux.Size = new System.Drawing.Size(197, 131);
-            this.t_antecedent_medicaux.TabIndex = 21;
-            // 
-            // l_antecedant
-            // 
-            this.l_antecedant.AutoSize = true;
-            this.l_antecedant.Location = new System.Drawing.Point(287, 381);
-            this.l_antecedant.Name = "l_antecedant";
-            this.l_antecedant.Size = new System.Drawing.Size(110, 13);
-            this.l_antecedant.TabIndex = 20;
-            this.l_antecedant.Text = "Antécédent médicaux";
-            // 
-            // t_allergie
-            // 
-            this.t_allergie.Location = new System.Drawing.Point(282, 246);
-            this.t_allergie.Multiline = true;
-            this.t_allergie.Name = "t_allergie";
-            this.t_allergie.Size = new System.Drawing.Size(197, 132);
-            this.t_allergie.TabIndex = 23;
-            // 
-            // l_allergies
-            // 
-            this.l_allergies.AutoSize = true;
-            this.l_allergies.Location = new System.Drawing.Point(287, 230);
-            this.l_allergies.Name = "l_allergies";
-            this.l_allergies.Size = new System.Drawing.Size(46, 13);
-            this.l_allergies.TabIndex = 22;
-            this.l_allergies.Text = "Allergies";
-            // 
-            // l_date_admission
-            // 
-            this.l_date_admission.AutoSize = true;
-            this.l_date_admission.Location = new System.Drawing.Point(3, 3);
-            this.l_date_admission.Name = "l_date_admission";
-            this.l_date_admission.Size = new System.Drawing.Size(87, 13);
-            this.l_date_admission.TabIndex = 24;
-            this.l_date_admission.Text = "Date d\'admission";
-            // 
-            // dp_admission
-            // 
-            this.dp_admission.Location = new System.Drawing.Point(6, 19);
-            this.dp_admission.Name = "dp_admission";
-            this.dp_admission.Size = new System.Drawing.Size(197, 20);
-            this.dp_admission.TabIndex = 25;
             // 
             // F_ajout_patient
             // 

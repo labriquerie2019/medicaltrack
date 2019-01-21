@@ -57,7 +57,7 @@
             this.m_menu.Name = "m_menu";
             this.m_menu.Size = new System.Drawing.Size(1240, 24);
             this.m_menu.TabIndex = 0;
-            this.m_menu.Text = "menuStrip1";
+            this.m_menu.Text = "date et heure";
             this.m_menu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.m_menu_ItemClicked);
             // 
             // m_quitter
@@ -172,8 +172,9 @@
             this.l_date_heure.AutoSize = true;
             this.l_date_heure.Location = new System.Drawing.Point(1149, 9);
             this.l_date_heure.Name = "l_date_heure";
-            this.l_date_heure.Size = new System.Drawing.Size(0, 13);
+            this.l_date_heure.Size = new System.Drawing.Size(70, 13);
             this.l_date_heure.TabIndex = 7;
+            this.l_date_heure.Text = "date et heure";
             // 
             // timer1
             // 
