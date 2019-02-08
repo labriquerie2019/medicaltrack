@@ -55,7 +55,7 @@
             this.m_configuration});
             this.m_menu.Location = new System.Drawing.Point(0, 0);
             this.m_menu.Name = "m_menu";
-            this.m_menu.Size = new System.Drawing.Size(1240, 24);
+            this.m_menu.Size = new System.Drawing.Size(884, 24);
             this.m_menu.TabIndex = 0;
             this.m_menu.Text = "date et heure";
             this.m_menu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.m_menu_ItemClicked);
@@ -83,13 +83,13 @@
             this.p_showbutton.Controls.Add(this.b_add_patient);
             this.p_showbutton.Location = new System.Drawing.Point(0, 27);
             this.p_showbutton.Name = "p_showbutton";
-            this.p_showbutton.Size = new System.Drawing.Size(1240, 510);
+            this.p_showbutton.Size = new System.Drawing.Size(883, 506);
             this.p_showbutton.TabIndex = 1;
             this.p_showbutton.Visible = false;
             // 
             // b_gerer_planning
             // 
-            this.b_gerer_planning.Location = new System.Drawing.Point(509, 95);
+            this.b_gerer_planning.Location = new System.Drawing.Point(368, 111);
             this.b_gerer_planning.Name = "b_gerer_planning";
             this.b_gerer_planning.Size = new System.Drawing.Size(205, 48);
             this.b_gerer_planning.TabIndex = 3;
@@ -98,7 +98,7 @@
             // 
             // b_check_planning
             // 
-            this.b_check_planning.Location = new System.Drawing.Point(509, 149);
+            this.b_check_planning.Location = new System.Drawing.Point(368, 165);
             this.b_check_planning.Name = "b_check_planning";
             this.b_check_planning.Size = new System.Drawing.Size(205, 52);
             this.b_check_planning.TabIndex = 2;
@@ -107,7 +107,7 @@
             // 
             // b_edit_patient
             // 
-            this.b_edit_patient.Location = new System.Drawing.Point(509, 265);
+            this.b_edit_patient.Location = new System.Drawing.Point(368, 281);
             this.b_edit_patient.Name = "b_edit_patient";
             this.b_edit_patient.Size = new System.Drawing.Size(205, 58);
             this.b_edit_patient.TabIndex = 1;
@@ -116,7 +116,7 @@
             // 
             // b_add_patient
             // 
-            this.b_add_patient.Location = new System.Drawing.Point(509, 207);
+            this.b_add_patient.Location = new System.Drawing.Point(368, 223);
             this.b_add_patient.Name = "b_add_patient";
             this.b_add_patient.Size = new System.Drawing.Size(205, 52);
             this.b_add_patient.TabIndex = 0;
@@ -126,14 +126,14 @@
             // 
             // t_ndc
             // 
-            this.t_ndc.Location = new System.Drawing.Point(544, 122);
+            this.t_ndc.Location = new System.Drawing.Point(368, 125);
             this.t_ndc.Name = "t_ndc";
             this.t_ndc.Size = new System.Drawing.Size(100, 20);
             this.t_ndc.TabIndex = 2;
             // 
             // t_mdp
             // 
-            this.t_mdp.Location = new System.Drawing.Point(544, 169);
+            this.t_mdp.Location = new System.Drawing.Point(368, 172);
             this.t_mdp.Name = "t_mdp";
             this.t_mdp.PasswordChar = '*';
             this.t_mdp.Size = new System.Drawing.Size(100, 20);
@@ -142,7 +142,7 @@
             // l_ndc
             // 
             this.l_ndc.AutoSize = true;
-            this.l_ndc.Location = new System.Drawing.Point(541, 106);
+            this.l_ndc.Location = new System.Drawing.Point(365, 109);
             this.l_ndc.Name = "l_ndc";
             this.l_ndc.Size = new System.Drawing.Size(84, 13);
             this.l_ndc.TabIndex = 4;
@@ -151,7 +151,7 @@
             // l_mdp
             // 
             this.l_mdp.AutoSize = true;
-            this.l_mdp.Location = new System.Drawing.Point(541, 153);
+            this.l_mdp.Location = new System.Drawing.Point(365, 156);
             this.l_mdp.Name = "l_mdp";
             this.l_mdp.Size = new System.Drawing.Size(71, 13);
             this.l_mdp.TabIndex = 5;
@@ -159,7 +159,7 @@
             // 
             // b_connexion
             // 
-            this.b_connexion.Location = new System.Drawing.Point(544, 205);
+            this.b_connexion.Location = new System.Drawing.Point(368, 208);
             this.b_connexion.Name = "b_connexion";
             this.b_connexion.Size = new System.Drawing.Size(100, 23);
             this.b_connexion.TabIndex = 6;
@@ -170,7 +170,7 @@
             // l_date_heure
             // 
             this.l_date_heure.AutoSize = true;
-            this.l_date_heure.Location = new System.Drawing.Point(1149, 9);
+            this.l_date_heure.Location = new System.Drawing.Point(731, 0);
             this.l_date_heure.Name = "l_date_heure";
             this.l_date_heure.Size = new System.Drawing.Size(70, 13);
             this.l_date_heure.TabIndex = 7;
@@ -184,15 +184,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 538);
+            this.ClientSize = new System.Drawing.Size(884, 531);
             this.Controls.Add(this.p_showbutton);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.b_connexion);
+            this.Controls.Add(this.m_menu);
             this.Controls.Add(this.l_mdp);
             this.Controls.Add(this.l_ndc);
-            this.Controls.Add(this.t_mdp);
             this.Controls.Add(this.t_ndc);
-            this.Controls.Add(this.m_menu);
+            this.Controls.Add(this.t_mdp);
             this.MainMenuStrip = this.m_menu;
             this.Name = "F_Acceuil";
             this.Text = "Gestion des patients";
