@@ -35,9 +35,16 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.l_date_heure = new System.Windows.Forms.Label();
             this.p_progressbar = new System.Windows.Forms.Panel();
-            this.p_bar_chargement = new System.Windows.Forms.Panel();
-            this.l_chargement = new System.Windows.Forms.Label();
-            this.pb_progress = new System.Windows.Forms.ProgressBar();
+            this.dgv_calendrier = new System.Windows.Forms.DataGridView();
+            this.Heure = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lundi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mardi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mercredi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Jeudi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vendredi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Samedi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dimanche = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dt_calendrier = new System.Windows.Forms.DateTimePicker();
             this.dp_admission = new System.Windows.Forms.DateTimePicker();
             this.l_date_admission = new System.Windows.Forms.Label();
             this.t_allergie = new System.Windows.Forms.TextBox();
@@ -63,11 +70,16 @@
             this.l_prenom = new System.Windows.Forms.Label();
             this.t_nom = new System.Windows.Forms.TextBox();
             this.l_nom = new System.Windows.Forms.Label();
-            this.p_bar_progression = new System.Windows.Forms.ProgressBar();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.l_co_bdd = new System.Windows.Forms.Label();
+            this.p_bar_chargement = new System.Windows.Forms.Panel();
+            this.l_chargement = new System.Windows.Forms.Label();
+            this.pb_progress = new System.Windows.Forms.ProgressBar();
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.cb_salle = new System.Windows.Forms.ComboBox();
+            this.l_select_date = new System.Windows.Forms.Label();
+            this.l_select_room = new System.Windows.Forms.Label();
             this.m_menu.SuspendLayout();
             this.p_progressbar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
             this.p_bar_chargement.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +90,7 @@
             this.m_acceuil});
             this.m_menu.Location = new System.Drawing.Point(0, 0);
             this.m_menu.Name = "m_menu";
-            this.m_menu.Size = new System.Drawing.Size(1147, 24);
+            this.m_menu.Size = new System.Drawing.Size(1249, 24);
             this.m_menu.TabIndex = 1;
             this.m_menu.Text = "date et heure";
             // 
@@ -112,6 +124,11 @@
             // p_progressbar
             // 
             this.p_progressbar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.p_progressbar.Controls.Add(this.l_select_room);
+            this.p_progressbar.Controls.Add(this.l_select_date);
+            this.p_progressbar.Controls.Add(this.cb_salle);
+            this.p_progressbar.Controls.Add(this.dgv_calendrier);
+            this.p_progressbar.Controls.Add(this.dt_calendrier);
             this.p_progressbar.Controls.Add(this.dp_admission);
             this.p_progressbar.Controls.Add(this.l_date_admission);
             this.p_progressbar.Controls.Add(this.t_allergie);
@@ -139,35 +156,84 @@
             this.p_progressbar.Controls.Add(this.l_nom);
             this.p_progressbar.Location = new System.Drawing.Point(1, 27);
             this.p_progressbar.Name = "p_progressbar";
-            this.p_progressbar.Size = new System.Drawing.Size(1147, 550);
+            this.p_progressbar.Size = new System.Drawing.Size(1248, 550);
             this.p_progressbar.TabIndex = 3;
-            this.p_progressbar.Visible = false;
             // 
-            // p_bar_chargement
+            // dgv_calendrier
             // 
-            this.p_bar_chargement.Controls.Add(this.l_chargement);
-            this.p_bar_chargement.Controls.Add(this.pb_progress);
-            this.p_bar_chargement.Location = new System.Drawing.Point(1, 27);
-            this.p_bar_chargement.Name = "p_bar_chargement";
-            this.p_bar_chargement.Size = new System.Drawing.Size(1143, 542);
-            this.p_bar_chargement.TabIndex = 26;
-            this.p_bar_chargement.Visible = false;
+            this.dgv_calendrier.AllowUserToAddRows = false;
+            this.dgv_calendrier.AllowUserToDeleteRows = false;
+            this.dgv_calendrier.AllowUserToOrderColumns = true;
+            this.dgv_calendrier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_calendrier.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Heure,
+            this.Lundi,
+            this.Mardi,
+            this.Mercredi,
+            this.Jeudi,
+            this.Vendredi,
+            this.Samedi,
+            this.Dimanche});
+            this.dgv_calendrier.Location = new System.Drawing.Point(428, 67);
+            this.dgv_calendrier.Name = "dgv_calendrier";
+            this.dgv_calendrier.ReadOnly = true;
+            this.dgv_calendrier.Size = new System.Drawing.Size(819, 461);
+            this.dgv_calendrier.TabIndex = 28;
             // 
-            // l_chargement
+            // Heure
             // 
-            this.l_chargement.AutoSize = true;
-            this.l_chargement.Location = new System.Drawing.Point(350, 226);
-            this.l_chargement.Name = "l_chargement";
-            this.l_chargement.Size = new System.Drawing.Size(35, 13);
-            this.l_chargement.TabIndex = 1;
-            this.l_chargement.Text = "label1";
+            this.Heure.HeaderText = "Heure";
+            this.Heure.Name = "Heure";
+            this.Heure.ReadOnly = true;
             // 
-            // pb_progress
+            // Lundi
             // 
-            this.pb_progress.Location = new System.Drawing.Point(252, 281);
-            this.pb_progress.Name = "pb_progress";
-            this.pb_progress.Size = new System.Drawing.Size(652, 63);
-            this.pb_progress.TabIndex = 0;
+            this.Lundi.HeaderText = "Lundi";
+            this.Lundi.Name = "Lundi";
+            this.Lundi.ReadOnly = true;
+            // 
+            // Mardi
+            // 
+            this.Mardi.HeaderText = "Mardi";
+            this.Mardi.Name = "Mardi";
+            this.Mardi.ReadOnly = true;
+            // 
+            // Mercredi
+            // 
+            this.Mercredi.HeaderText = "Mercredi";
+            this.Mercredi.Name = "Mercredi";
+            this.Mercredi.ReadOnly = true;
+            // 
+            // Jeudi
+            // 
+            this.Jeudi.HeaderText = "Jeudi";
+            this.Jeudi.Name = "Jeudi";
+            this.Jeudi.ReadOnly = true;
+            // 
+            // Vendredi
+            // 
+            this.Vendredi.HeaderText = "Vendredi";
+            this.Vendredi.Name = "Vendredi";
+            this.Vendredi.ReadOnly = true;
+            // 
+            // Samedi
+            // 
+            this.Samedi.HeaderText = "Samedi";
+            this.Samedi.Name = "Samedi";
+            this.Samedi.ReadOnly = true;
+            // 
+            // Dimanche
+            // 
+            this.Dimanche.HeaderText = "Dimanche";
+            this.Dimanche.Name = "Dimanche";
+            this.Dimanche.ReadOnly = true;
+            // 
+            // dt_calendrier
+            // 
+            this.dt_calendrier.Location = new System.Drawing.Point(894, 11);
+            this.dt_calendrier.Name = "dt_calendrier";
+            this.dt_calendrier.Size = new System.Drawing.Size(200, 20);
+            this.dt_calendrier.TabIndex = 27;
             // 
             // dp_admission
             // 
@@ -187,7 +253,7 @@
             // 
             // t_allergie
             // 
-            this.t_allergie.Location = new System.Drawing.Point(282, 246);
+            this.t_allergie.Location = new System.Drawing.Point(225, 246);
             this.t_allergie.Multiline = true;
             this.t_allergie.Name = "t_allergie";
             this.t_allergie.Size = new System.Drawing.Size(197, 132);
@@ -196,7 +262,7 @@
             // l_allergies
             // 
             this.l_allergies.AutoSize = true;
-            this.l_allergies.Location = new System.Drawing.Point(287, 230);
+            this.l_allergies.Location = new System.Drawing.Point(230, 230);
             this.l_allergies.Name = "l_allergies";
             this.l_allergies.Size = new System.Drawing.Size(46, 13);
             this.l_allergies.TabIndex = 22;
@@ -204,7 +270,7 @@
             // 
             // t_antecedent_medicaux
             // 
-            this.t_antecedent_medicaux.Location = new System.Drawing.Point(282, 397);
+            this.t_antecedent_medicaux.Location = new System.Drawing.Point(225, 397);
             this.t_antecedent_medicaux.Multiline = true;
             this.t_antecedent_medicaux.Name = "t_antecedent_medicaux";
             this.t_antecedent_medicaux.Size = new System.Drawing.Size(197, 131);
@@ -213,7 +279,7 @@
             // l_antecedant
             // 
             this.l_antecedant.AutoSize = true;
-            this.l_antecedant.Location = new System.Drawing.Point(287, 381);
+            this.l_antecedant.Location = new System.Drawing.Point(230, 381);
             this.l_antecedant.Name = "l_antecedant";
             this.l_antecedant.Size = new System.Drawing.Size(110, 13);
             this.l_antecedant.TabIndex = 20;
@@ -221,7 +287,7 @@
             // 
             // t_taille
             // 
-            this.t_taille.Location = new System.Drawing.Point(282, 207);
+            this.t_taille.Location = new System.Drawing.Point(225, 207);
             this.t_taille.Name = "t_taille";
             this.t_taille.Size = new System.Drawing.Size(197, 20);
             this.t_taille.TabIndex = 19;
@@ -229,7 +295,7 @@
             // l_taille
             // 
             this.l_taille.AutoSize = true;
-            this.l_taille.Location = new System.Drawing.Point(281, 191);
+            this.l_taille.Location = new System.Drawing.Point(224, 191);
             this.l_taille.Name = "l_taille";
             this.l_taille.Size = new System.Drawing.Size(32, 13);
             this.l_taille.TabIndex = 18;
@@ -237,7 +303,7 @@
             // 
             // t_poid
             // 
-            this.t_poid.Location = new System.Drawing.Point(282, 163);
+            this.t_poid.Location = new System.Drawing.Point(225, 163);
             this.t_poid.Name = "t_poid";
             this.t_poid.Size = new System.Drawing.Size(197, 20);
             this.t_poid.TabIndex = 17;
@@ -245,7 +311,7 @@
             // l_poid
             // 
             this.l_poid.AutoSize = true;
-            this.l_poid.Location = new System.Drawing.Point(279, 147);
+            this.l_poid.Location = new System.Drawing.Point(222, 147);
             this.l_poid.Name = "l_poid";
             this.l_poid.Size = new System.Drawing.Size(28, 13);
             this.l_poid.TabIndex = 16;
@@ -253,7 +319,7 @@
             // 
             // b_add_patient
             // 
-            this.b_add_patient.Location = new System.Drawing.Point(284, 3);
+            this.b_add_patient.Location = new System.Drawing.Point(227, 3);
             this.b_add_patient.Name = "b_add_patient";
             this.b_add_patient.Size = new System.Drawing.Size(195, 41);
             this.b_add_patient.TabIndex = 15;
@@ -375,45 +441,82 @@
             this.l_nom.TabIndex = 0;
             this.l_nom.Text = "Nom";
             // 
-            // p_bar_progression
+            // p_bar_chargement
             // 
-            this.p_bar_progression.ForeColor = System.Drawing.Color.GreenYellow;
-            this.p_bar_progression.Location = new System.Drawing.Point(170, 255);
-            this.p_bar_progression.Name = "p_bar_progression";
-            this.p_bar_progression.Size = new System.Drawing.Size(735, 23);
-            this.p_bar_progression.TabIndex = 0;
-            this.p_bar_progression.Click += new System.EventHandler(this.p_bar_progression_Click);
+            this.p_bar_chargement.Controls.Add(this.l_chargement);
+            this.p_bar_chargement.Controls.Add(this.pb_progress);
+            this.p_bar_chargement.Location = new System.Drawing.Point(0, 27);
+            this.p_bar_chargement.Name = "p_bar_chargement";
+            this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
+            this.p_bar_chargement.TabIndex = 26;
+            this.p_bar_chargement.Visible = false;
             // 
-            // timer2
+            // l_chargement
             // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.l_chargement.AutoSize = true;
+            this.l_chargement.Location = new System.Drawing.Point(350, 226);
+            this.l_chargement.Name = "l_chargement";
+            this.l_chargement.Size = new System.Drawing.Size(35, 13);
+            this.l_chargement.TabIndex = 1;
+            this.l_chargement.Text = "label1";
             // 
-            // l_co_bdd
+            // pb_progress
             // 
-            this.l_co_bdd.AutoSize = true;
-            this.l_co_bdd.Location = new System.Drawing.Point(405, 219);
-            this.l_co_bdd.Name = "l_co_bdd";
-            this.l_co_bdd.Size = new System.Drawing.Size(256, 13);
-            this.l_co_bdd.TabIndex = 4;
-            this.l_co_bdd.Text = "Connexion à la base de données, veuillez patienter...";
+            this.pb_progress.Location = new System.Drawing.Point(252, 281);
+            this.pb_progress.Name = "pb_progress";
+            this.pb_progress.Size = new System.Drawing.Size(652, 63);
+            this.pb_progress.TabIndex = 0;
+            // 
+            // timer3
+            // 
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            // 
+            // cb_salle
+            // 
+            this.cb_salle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_salle.FormattingEnabled = true;
+            this.cb_salle.Items.AddRange(new object[] {
+            "Salle d\'opération 1",
+            "Salle d\'opération 2"});
+            this.cb_salle.Location = new System.Drawing.Point(894, 40);
+            this.cb_salle.Name = "cb_salle";
+            this.cb_salle.Size = new System.Drawing.Size(200, 21);
+            this.cb_salle.TabIndex = 29;
+            // 
+            // l_select_date
+            // 
+            this.l_select_date.AutoSize = true;
+            this.l_select_date.Location = new System.Drawing.Point(760, 11);
+            this.l_select_date.Name = "l_select_date";
+            this.l_select_date.Size = new System.Drawing.Size(119, 13);
+            this.l_select_date.TabIndex = 30;
+            this.l_select_date.Text = "Sélectionner la semaine";
+            // 
+            // l_select_room
+            // 
+            this.l_select_room.AutoSize = true;
+            this.l_select_room.Location = new System.Drawing.Point(778, 43);
+            this.l_select_room.Name = "l_select_room";
+            this.l_select_room.Size = new System.Drawing.Size(101, 13);
+            this.l_select_room.TabIndex = 31;
+            this.l_select_room.Text = "Sélectionner la salle";
             // 
             // F_ajout_patient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1147, 589);
+            this.ClientSize = new System.Drawing.Size(1249, 589);
             this.Controls.Add(this.p_bar_chargement);
-            this.Controls.Add(this.p_progressbar);
-            this.Controls.Add(this.l_co_bdd);
-            this.Controls.Add(this.p_bar_progression);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
+            this.Controls.Add(this.p_progressbar);
             this.Name = "F_ajout_patient";
             this.Text = "F_ajout_patient";
             this.m_menu.ResumeLayout(false);
             this.m_menu.PerformLayout();
             this.p_progressbar.ResumeLayout(false);
             this.p_progressbar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).EndInit();
             this.p_bar_chargement.ResumeLayout(false);
             this.p_bar_chargement.PerformLayout();
             this.ResumeLayout(false);
@@ -429,9 +532,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label l_date_heure;
         private System.Windows.Forms.Panel p_progressbar;
-        private System.Windows.Forms.ProgressBar p_bar_progression;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Label l_co_bdd;
         private System.Windows.Forms.Label l_nom;
         private System.Windows.Forms.TextBox t_nom;
         private System.Windows.Forms.TextBox t_prenom;
@@ -460,5 +560,19 @@
         private System.Windows.Forms.Panel p_bar_chargement;
         private System.Windows.Forms.Label l_chargement;
         private System.Windows.Forms.ProgressBar pb_progress;
+        private System.Windows.Forms.DateTimePicker dt_calendrier;
+        private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.DataGridView dgv_calendrier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Heure;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Lundi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mardi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mercredi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Jeudi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Vendredi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Samedi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Dimanche;
+        private System.Windows.Forms.Label l_select_room;
+        private System.Windows.Forms.Label l_select_date;
+        private System.Windows.Forms.ComboBox cb_salle;
     }
 }

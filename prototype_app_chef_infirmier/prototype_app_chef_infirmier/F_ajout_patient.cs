@@ -15,10 +15,21 @@ namespace prototype_app_chef_infirmier
         public F_ajout_patient()
         {
             InitializeComponent();
+            for (int i = 0; i < 25; i++)
+            {
+                if (i < 10)
+                {
+                    dgv_calendrier.Rows.Add("0" + i + "h");
+                }
+                else
+                {
+                    dgv_calendrier.Rows.Add(i + "h");
+                }
+            }
             timer1.Interval = 1000;
             timer1.Start();
-            timer2.Interval = 200;
-            timer2.Start();
+            timer3.Interval = 5000;
+            timer3.Start();
         }
 
         private void m_quitter_Click(object sender, EventArgs e)
@@ -35,25 +46,6 @@ namespace prototype_app_chef_infirmier
         {
             DateTime heure = System.DateTime.Now;
             l_date_heure.Text = heure.Hour + ":" + heure.Minute + " " + heure.Day + "/" + heure.Month + "/" + heure.Year;
-        }
-
-        private void p_bar_progression_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            p_bar_progression.Step = 10;
-            if (p_bar_progression.Value <100)
-                p_bar_progression.PerformStep();
-            if (p_bar_progression.Value ==100)
-            {
-                timer2.Stop();
-                p_bar_progression.Visible = false;
-                p_progressbar.Visible = true;
-                l_co_bdd.Visible = false;
-            }
         }
 
         private void t_note_TextChanged(object sender, EventArgs e)
@@ -152,6 +144,11 @@ namespace prototype_app_chef_infirmier
                 p_bar_chargement.Visible = false;
                 p_progressbar.Visible = true;
             }
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+         
         }
     }
 }
