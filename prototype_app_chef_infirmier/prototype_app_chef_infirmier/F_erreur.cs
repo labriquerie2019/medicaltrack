@@ -19,14 +19,7 @@ namespace prototype_app_chef_infirmier
             string num_erreur = erreur;
             timer1.Interval = 1000;
             timer1.Start();
-            switch (erreur)
-            {
-                case "champs_vide":
-                    l_message.Text = "ERREUR, vous n'avez pas remplie tous les champs";
-                    break;
-                default:
-                    break;
-            }
+            l_message.Text = erreur;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

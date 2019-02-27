@@ -35,6 +35,12 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.l_date_heure = new System.Windows.Forms.Label();
             this.p_progressbar = new System.Windows.Forms.Panel();
+            this.p_bar_chargement = new System.Windows.Forms.Panel();
+            this.l_chargement = new System.Windows.Forms.Label();
+            this.pb_progress = new System.Windows.Forms.ProgressBar();
+            this.l_select_room = new System.Windows.Forms.Label();
+            this.l_select_date = new System.Windows.Forms.Label();
+            this.cb_salle = new System.Windows.Forms.ComboBox();
             this.dgv_calendrier = new System.Windows.Forms.DataGridView();
             this.Heure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lundi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,17 +76,11 @@
             this.l_prenom = new System.Windows.Forms.Label();
             this.t_nom = new System.Windows.Forms.TextBox();
             this.l_nom = new System.Windows.Forms.Label();
-            this.p_bar_chargement = new System.Windows.Forms.Panel();
-            this.l_chargement = new System.Windows.Forms.Label();
-            this.pb_progress = new System.Windows.Forms.ProgressBar();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.cb_salle = new System.Windows.Forms.ComboBox();
-            this.l_select_date = new System.Windows.Forms.Label();
-            this.l_select_room = new System.Windows.Forms.Label();
             this.m_menu.SuspendLayout();
             this.p_progressbar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
             this.p_bar_chargement.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
             this.SuspendLayout();
             // 
             // m_menu
@@ -124,6 +124,7 @@
             // p_progressbar
             // 
             this.p_progressbar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.p_progressbar.Controls.Add(this.p_bar_chargement);
             this.p_progressbar.Controls.Add(this.l_select_room);
             this.p_progressbar.Controls.Add(this.l_select_date);
             this.p_progressbar.Controls.Add(this.cb_salle);
@@ -158,6 +159,63 @@
             this.p_progressbar.Name = "p_progressbar";
             this.p_progressbar.Size = new System.Drawing.Size(1248, 550);
             this.p_progressbar.TabIndex = 3;
+            // 
+            // p_bar_chargement
+            // 
+            this.p_bar_chargement.Controls.Add(this.l_chargement);
+            this.p_bar_chargement.Controls.Add(this.pb_progress);
+            this.p_bar_chargement.Location = new System.Drawing.Point(-1, -1);
+            this.p_bar_chargement.Name = "p_bar_chargement";
+            this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
+            this.p_bar_chargement.TabIndex = 26;
+            this.p_bar_chargement.Visible = false;
+            // 
+            // l_chargement
+            // 
+            this.l_chargement.AutoSize = true;
+            this.l_chargement.Location = new System.Drawing.Point(350, 226);
+            this.l_chargement.Name = "l_chargement";
+            this.l_chargement.Size = new System.Drawing.Size(35, 13);
+            this.l_chargement.TabIndex = 1;
+            this.l_chargement.Text = "label1";
+            // 
+            // pb_progress
+            // 
+            this.pb_progress.Location = new System.Drawing.Point(252, 281);
+            this.pb_progress.Name = "pb_progress";
+            this.pb_progress.Size = new System.Drawing.Size(652, 63);
+            this.pb_progress.TabIndex = 0;
+            // 
+            // l_select_room
+            // 
+            this.l_select_room.AutoSize = true;
+            this.l_select_room.Location = new System.Drawing.Point(778, 43);
+            this.l_select_room.Name = "l_select_room";
+            this.l_select_room.Size = new System.Drawing.Size(101, 13);
+            this.l_select_room.TabIndex = 31;
+            this.l_select_room.Text = "Sélectionner la salle";
+            // 
+            // l_select_date
+            // 
+            this.l_select_date.AutoSize = true;
+            this.l_select_date.Location = new System.Drawing.Point(760, 11);
+            this.l_select_date.Name = "l_select_date";
+            this.l_select_date.Size = new System.Drawing.Size(119, 13);
+            this.l_select_date.TabIndex = 30;
+            this.l_select_date.Text = "Sélectionner la semaine";
+            // 
+            // cb_salle
+            // 
+            this.cb_salle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_salle.FormattingEnabled = true;
+            this.cb_salle.Items.AddRange(new object[] {
+            "Salle d\'opération 1",
+            "Salle d\'opération 2"});
+            this.cb_salle.Location = new System.Drawing.Point(894, 40);
+            this.cb_salle.Name = "cb_salle";
+            this.cb_salle.Size = new System.Drawing.Size(200, 21);
+            this.cb_salle.TabIndex = 29;
+            this.cb_salle.SelectedIndexChanged += new System.EventHandler(this.cb_salle_SelectedIndexChanged);
             // 
             // dgv_calendrier
             // 
@@ -441,72 +499,15 @@
             this.l_nom.TabIndex = 0;
             this.l_nom.Text = "Nom";
             // 
-            // p_bar_chargement
-            // 
-            this.p_bar_chargement.Controls.Add(this.l_chargement);
-            this.p_bar_chargement.Controls.Add(this.pb_progress);
-            this.p_bar_chargement.Location = new System.Drawing.Point(0, 27);
-            this.p_bar_chargement.Name = "p_bar_chargement";
-            this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
-            this.p_bar_chargement.TabIndex = 26;
-            this.p_bar_chargement.Visible = false;
-            // 
-            // l_chargement
-            // 
-            this.l_chargement.AutoSize = true;
-            this.l_chargement.Location = new System.Drawing.Point(350, 226);
-            this.l_chargement.Name = "l_chargement";
-            this.l_chargement.Size = new System.Drawing.Size(35, 13);
-            this.l_chargement.TabIndex = 1;
-            this.l_chargement.Text = "label1";
-            // 
-            // pb_progress
-            // 
-            this.pb_progress.Location = new System.Drawing.Point(252, 281);
-            this.pb_progress.Name = "pb_progress";
-            this.pb_progress.Size = new System.Drawing.Size(652, 63);
-            this.pb_progress.TabIndex = 0;
-            // 
             // timer3
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
-            // 
-            // cb_salle
-            // 
-            this.cb_salle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_salle.FormattingEnabled = true;
-            this.cb_salle.Items.AddRange(new object[] {
-            "Salle d\'opération 1",
-            "Salle d\'opération 2"});
-            this.cb_salle.Location = new System.Drawing.Point(894, 40);
-            this.cb_salle.Name = "cb_salle";
-            this.cb_salle.Size = new System.Drawing.Size(200, 21);
-            this.cb_salle.TabIndex = 29;
-            // 
-            // l_select_date
-            // 
-            this.l_select_date.AutoSize = true;
-            this.l_select_date.Location = new System.Drawing.Point(760, 11);
-            this.l_select_date.Name = "l_select_date";
-            this.l_select_date.Size = new System.Drawing.Size(119, 13);
-            this.l_select_date.TabIndex = 30;
-            this.l_select_date.Text = "Sélectionner la semaine";
-            // 
-            // l_select_room
-            // 
-            this.l_select_room.AutoSize = true;
-            this.l_select_room.Location = new System.Drawing.Point(778, 43);
-            this.l_select_room.Name = "l_select_room";
-            this.l_select_room.Size = new System.Drawing.Size(101, 13);
-            this.l_select_room.TabIndex = 31;
-            this.l_select_room.Text = "Sélectionner la salle";
             // 
             // F_ajout_patient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 589);
-            this.Controls.Add(this.p_bar_chargement);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
             this.Controls.Add(this.p_progressbar);
@@ -516,9 +517,9 @@
             this.m_menu.PerformLayout();
             this.p_progressbar.ResumeLayout(false);
             this.p_progressbar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).EndInit();
             this.p_bar_chargement.ResumeLayout(false);
             this.p_bar_chargement.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

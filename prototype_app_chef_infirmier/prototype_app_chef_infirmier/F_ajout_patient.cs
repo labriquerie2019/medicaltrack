@@ -12,9 +12,22 @@ namespace prototype_app_chef_infirmier
 {
     public partial class F_ajout_patient : Form
     {
+        static _MySQL bdd;
+        static string salle;
         public F_ajout_patient()
         {
             InitializeComponent();
+            ///////////////////////////////////////////////////////////////config et connexion bdd
+            string Serveur = "localhost";
+            string Base = "aaa";
+            string User = "root";
+            string Pass = "";
+            bdd = new _MySQL(Serveur, Base, User, Pass);
+            bdd.Serveur = Serveur;
+            bdd.Base = Base;
+            bdd.User = User;
+            bdd.Pass = Pass;
+            //////////////////////////////////////////////////////////////
             for (int i = 0; i < 25; i++)
             {
                 if (i < 10)
@@ -28,8 +41,6 @@ namespace prototype_app_chef_infirmier
             }
             timer1.Interval = 1000;
             timer1.Start();
-            timer3.Interval = 5000;
-            timer3.Start();
         }
 
         private void m_quitter_Click(object sender, EventArgs e)
@@ -79,16 +90,6 @@ namespace prototype_app_chef_infirmier
                 string taille = t_taille.Text;
                 string allergie = t_allergie.Text;
                 string antecedant = t_antecedent_medicaux.Text;
-                ///////////////////////////////////////////////////////////////config et connexion bdd
-                string Serveur = "localhost";
-                string Base = "aaa";
-                string User = "root";
-                string Pass = "";
-                _MySQL bdd = new _MySQL(Serveur, Base, User, Pass);
-                bdd.Serveur = Serveur;
-                bdd.Base = Base;
-                bdd.User = User;
-                bdd.Pass = Pass;
                 //////////////////////////////////////////////////////////////
                 bool traitement = false;
                 do
@@ -136,9 +137,9 @@ namespace prototype_app_chef_infirmier
                     }
                 } while (traitement == false);
             }
-            else //pas tout les champs remplie7
+            else //pas tout les champs remplie
             {
-                F_erreur champ_vide = new F_erreur("champs_vide");
+                F_erreur champ_vide = new F_erreur("ERREUR : Tous les champs ne sont pas remplie!");
                 champ_vide.ShowDialog();
                 pb_progress.Step = 0;
                 p_bar_chargement.Visible = false;
@@ -146,9 +147,73 @@ namespace prototype_app_chef_infirmier
             }
         }
 
-        private void timer3_Tick(object sender, EventArgs e)
+        private void timer3_Tick(object sender, EventArgs e) 
         {
-         
+            DataSet db_content = new DataSet();
+            DateTime datetime_traitement = dt_calendrier.Value;
+            DateTime lundi = new DateTime();
+            DateTime dimanche = new DateTime();
+
+            switch (datetime_traitement.ToString("dddd")) // Switch sur le jour de la date choisis pour afficher la semaine, Tostring("dddd") permet d'afficher juste le jour
+            {
+                case "Monday"://Lundi
+                    lundi = datetime_traitement;
+                    dimanche = datetime_traitement.AddDays(6);
+                    break;
+                case "Tuesday"://Mardi
+                    lundi = datetime_traitement.AddDays(-1);
+                    dimanche = datetime_traitement.AddDays(5);
+                    break;
+                case "Wednesday"://Mercredi
+                    lundi = datetime_traitement.AddDays(-2);
+                    dimanche = datetime_traitement.AddDays(4);
+                    break;
+                case "Thursday"://Jeudi
+                    lundi = datetime_traitement.AddDays(-3);
+                    dimanche = datetime_traitement.AddDays(3);
+                    break;
+                case "Friday"://Vendredi
+                    lundi = datetime_traitement.AddDays(-4);
+                    dimanche = datetime_traitement.AddDays(2);
+                    break;
+                case "Saturday"://Samedi
+                    lundi = datetime_traitement.AddDays(-5);
+                    dimanche = datetime_traitement.AddDays(1);
+                    break;
+                case "Sunday"://Dimanche
+                    lundi = datetime_traitement.AddDays(-6);
+                    dimanche = datetime_traitement;
+                    break;
+                default://Si erreur
+                    F_erreur erreur_date = new F_erreur("ERREUR : Lors de la séléction de la date pour le calendrier!");
+                    break;
+            }
+            string lundi_traiter = lundi.ToString("yyyy-MM-dd HH:mm:ss");
+            string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd HH:mm:ss");
+            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN " + lundi + " AND " + dimanche;
+            db_content = bdd.table_lire(requette);//dt_calendrier
+            bool traiter = false;
+            do
+            {
+
+            } while (traiter != true);
+            
+        }
+
+        private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = cb_salle.SelectedText;
+            switch(selected)
+            {
+                case "Salle d'opération 1":
+                    salle = "salle_ope_1";
+                    break;
+                case "Salle d'opération 2":
+                    salle = "salle_ope_2";
+                    break;
+            }
+            timer3.Interval = 5000;
+            timer3.Start();
         }
     }
 }
