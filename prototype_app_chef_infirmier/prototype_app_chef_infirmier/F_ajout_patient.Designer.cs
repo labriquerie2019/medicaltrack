@@ -164,7 +164,7 @@
             // 
             this.p_bar_chargement.Controls.Add(this.l_chargement);
             this.p_bar_chargement.Controls.Add(this.pb_progress);
-            this.p_bar_chargement.Location = new System.Drawing.Point(-1, -1);
+            this.p_bar_chargement.Location = new System.Drawing.Point(225, 163);
             this.p_bar_chargement.Name = "p_bar_chargement";
             this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
             this.p_bar_chargement.TabIndex = 26;
