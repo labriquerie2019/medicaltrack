@@ -32,11 +32,11 @@ namespace prototype_app_chef_infirmier
             {
                 if (i < 10)
                 {
-                    dgv_calendrier.Rows.Add("0" + i + "h");
+                    dgv_calendrier.Rows.Add("0" + i);
                 }
                 else
                 {
-                    dgv_calendrier.Rows.Add(i + "h");
+                    dgv_calendrier.Rows.Add(i);
                 }
             }
             timer1.Interval = 3000;
@@ -149,7 +149,7 @@ namespace prototype_app_chef_infirmier
 
         private void timer3_Tick(object sender, EventArgs e) 
         {
-            //DataSet db_content = new DataSet();
+            DataSet db_content = new DataSet();
             DateTime datetime_traitement = dt_calendrier.Value;
             DateTime lundi = new DateTime();
             DateTime dimanche = new DateTime();
@@ -186,17 +186,64 @@ namespace prototype_app_chef_infirmier
                     break;
                 default://Si erreur
                     F_erreur erreur_date = new F_erreur("ERREUR : Lors de la séléction de la date pour le calendrier!");
+                    this.timer3.Stop();
                     break;
             }
             string lundi_traiter = lundi.ToString("yyyy-MM-dd HH:mm:ss");
             string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd HH:mm:ss");
-            //string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN " + lundi + " AND " + dimanche;
-            //db_content = bdd.table_lire(requette);//dt_calendrier
-            //bool traiter = false;
-            //do
-            //{
+            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN " + lundi + " AND " + dimanche;
+            db_content = bdd.table_lire(requette);//dt_calendrier
+            string[] date_heure_traiter = db_content.Tables["date_heure"].ToString().Split(' ');
 
-            //} while (traiter != true);
+            bool traiter = false;
+            do
+            {
+                for(int i=0;i<date_heure_traiter.Length+1;i=i+2)
+                {
+                    date_heure_traiter[i+1] = date_heure_traiter[i+1].Substring(0, 8);
+                    string[] annee_jour_moi = date_heure_traiter[i].Split('-');
+                    string[] heure_minute_seconde = date_heure_traiter[i + 1].Split(':');
+                    int heure = Convert.ToInt32(heure_minute_seconde[0]), minute = Convert.ToInt32(heure_minute_seconde[1]), seconde = Convert.ToInt32(heure_minute_seconde[2]);
+                    int annee = Convert.ToInt32(annee_jour_moi[0]),mois = Convert.ToInt32(annee_jour_moi[2]),jours = Convert.ToInt32(annee_jour_moi[1]);
+                    DateTime date_from_bdd = new DateTime(annee,mois,jours,heure,minute,seconde);
+                    switch (heure) // Switch sur le jour de la date recuperer dans la BDD, Tostring("dddd") permet d'afficher juste le jour
+                    {
+                        case 0:
+                            switch (date_from_bdd.ToString("dddd")) // Switch sur le jour de la date recuperer dans la BDD, Tostring("dddd") permet d'afficher juste le jour
+                            {
+                                case "Monday"://Lundi
+                                    object[] modif = new object[] { heure, heure, "", "", "", "", "", "" };
+                                    dgv_calendrier.Rows[heure].SetValues(modif);
+                                    break;
+                                case "Tuesday"://Mardi
+
+                                    break;
+                                case "Wednesday"://Mercredi
+
+                                    break;
+                                case "Thursday"://Jeudi
+
+                                    break;
+                                case "Friday"://Vendredi
+
+                                    break;
+                                case "Saturday"://Samedi
+
+                                    break;
+                                case "Sunday"://Dimanche
+
+                                    break;
+                                default://Si erreur
+                                    F_erreur erreur_date = new F_erreur("ERREUR : Lors du traitement de la date dans la BDD!");
+                                    this.timer3.Stop();
+                                    break;
+                            }
+                            break;
+                    }
+
+                }
+                //db_content.
+            } while (traiter != true);
             
         }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
@@ -212,7 +259,7 @@ namespace prototype_app_chef_infirmier
                     salle = "salle_ope_2";
                     break;
             }
-            timer3.Interval = 1000;//toutes les 1 minutes refresh des info 
+            timer3.Interval = 60000;//toutes les 10 minutes refresh des info 
             timer3.Start();
         }
     }
