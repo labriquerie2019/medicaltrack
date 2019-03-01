@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace prototype_app_chef_infirmier
 {
@@ -28,19 +30,85 @@ namespace prototype_app_chef_infirmier
             bdd.User = User;
             bdd.Pass = Pass;
             //////////////////////////////////////////////////////////////
-            for (int i = 0; i < 25; i++)
-            {
-                if (i < 10)
-                {
-                    dgv_calendrier.Rows.Add("0" + i);
-                }
-                else
-                {
-                    dgv_calendrier.Rows.Add(i);
-                }
-            }
+            //for (int i = 0; i < 25; i++)
+            //{
+            //    dgv_calendrier.Rows.Add(""+i);
+            //}
+            //////////////////////////////////////////////////////////////
+            DataTable dt = new DataTable();
+            dt = GetCalendrier();
+            dgv_calendrier.DataSource = dt;
             timer1.Interval = 3000;
             timer1.Start();
+        }
+        private DataTable GetCalendrier()
+        {
+            DataTable dt = new DataTable();
+
+            MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;");
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand("SELECT date_heure FROM salle_ope_1 ",con);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            dt.Load(reader);
+            dt.Columns[0].AllowDBNull = true;
+            dt.Columns.Add("Heure");
+            dt.Columns.Add("Lundi");
+            dt.Columns.Add("Mardi");
+            dt.Columns.Add("Mercredi");
+            dt.Columns.Add("Jeudi");
+            dt.Columns.Add("Vendredi");
+            dt.Columns.Add("Samedi");
+            dt.Columns.Add("Dimanche");
+            for (int i = 0; i < 25; i++)
+            {
+                dt.Rows.Add(null,"" + i);
+            }
+            foreach (DataRow row in dt.Rows)
+            {
+                foreach (var item in row.ItemArray)
+                {
+                    DateTime result;
+                    if (DateTime.TryParse(item.ToString(),out result))
+                    {
+                        string[] donner_a_traiter = item.ToString().Split(' ');
+                        string[] annee_mois_jour = donner_a_traiter[0].Split('/');
+                        string[] heure_minute_seconde = donner_a_traiter[1].Split(':');
+                        int annee = Convert.ToInt32(annee_mois_jour[2]), mois = Convert.ToInt32(annee_mois_jour[1]), jour = Convert.ToInt32(annee_mois_jour[0]);
+                        int heure = Convert.ToInt32(heure_minute_seconde[0]), minute = Convert.ToInt32(heure_minute_seconde[1]), seconde = Convert.ToInt32(heure_minute_seconde[2]);
+                        DateTime jour_a_determiner = new DateTime(annee, mois, jour);
+                        switch (jour_a_determiner.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine
+                        {
+                            case "Monday"://Lundi
+                                dt.Rows[heure].SetField(2, "ya un gars ici");
+                                break;
+                            case "Tuesday"://Mardi
+                                dt.Rows[heure].SetField(3, "ya un gars ici");
+                                break;
+                            case "Wednesday"://Mercredi
+                                dt.Rows[heure].SetField(4, "ya un gars ici");
+                                break;
+                            case "Thursday"://Jeudi
+                                dt.Rows[heure].SetField(5, "ya un gars ici");
+                                break;
+                            case "Friday"://Vendredi
+                                dt.Rows[heure].SetField(6, "ya un gars ici");
+                                break;
+                            case "Saturday"://Samedi
+                                dt.Rows[heure].SetField(7, "ya un gars ici");
+                                break;
+                            case "Sunday"://Dimanche
+                                dt.Rows[heure].SetField(8, "ya un gars ici");
+                                break;
+                            default://Si erreur
+                                F_erreur erreur_date = new F_erreur("ERREUR : Lors du traitement des heures/date.");
+                                erreur_date.ShowDialog();
+                                this.timer3.Stop();
+                                break;
+                        }
+                    }
+                }
+            }
+            return dt;
         }
 
         private void m_quitter_Click(object sender, EventArgs e)
@@ -154,7 +222,7 @@ namespace prototype_app_chef_infirmier
             DateTime lundi = new DateTime();
             DateTime dimanche = new DateTime();
 
-            switch (datetime_traitement.ToString("dddd")) // Switch sur le jour de la date choisis pour afficher la semaine, Tostring("dddd") permet d'afficher juste le jour
+            switch (datetime_traitement.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine, Tostring("dddd") permet d'afficher juste le jour
             {
                 case "Monday"://Lundi
                     lundi = datetime_traitement;
@@ -186,64 +254,15 @@ namespace prototype_app_chef_infirmier
                     break;
                 default://Si erreur
                     F_erreur erreur_date = new F_erreur("ERREUR : Lors de la séléction de la date pour le calendrier!");
+                    erreur_date.ShowDialog();
                     this.timer3.Stop();
                     break;
             }
             string lundi_traiter = lundi.ToString("yyyy-MM-dd HH:mm:ss");
             string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd HH:mm:ss");
-            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN " + lundi + " AND " + dimanche;
+            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi + "' AND '" + dimanche +"'";
             db_content = bdd.table_lire(requette);//dt_calendrier
-            string[] date_heure_traiter = db_content.Tables["date_heure"].ToString().Split(' ');
-
-            bool traiter = false;
-            do
-            {
-                for(int i=0;i<date_heure_traiter.Length+1;i=i+2)
-                {
-                    date_heure_traiter[i+1] = date_heure_traiter[i+1].Substring(0, 8);
-                    string[] annee_jour_moi = date_heure_traiter[i].Split('-');
-                    string[] heure_minute_seconde = date_heure_traiter[i + 1].Split(':');
-                    int heure = Convert.ToInt32(heure_minute_seconde[0]), minute = Convert.ToInt32(heure_minute_seconde[1]), seconde = Convert.ToInt32(heure_minute_seconde[2]);
-                    int annee = Convert.ToInt32(annee_jour_moi[0]),mois = Convert.ToInt32(annee_jour_moi[2]),jours = Convert.ToInt32(annee_jour_moi[1]);
-                    DateTime date_from_bdd = new DateTime(annee,mois,jours,heure,minute,seconde);
-                    switch (heure) // Switch sur le jour de la date recuperer dans la BDD, Tostring("dddd") permet d'afficher juste le jour
-                    {
-                        case 0:
-                            switch (date_from_bdd.ToString("dddd")) // Switch sur le jour de la date recuperer dans la BDD, Tostring("dddd") permet d'afficher juste le jour
-                            {
-                                case "Monday"://Lundi
-                                    object[] modif = new object[] { heure, heure, "", "", "", "", "", "" };
-                                    dgv_calendrier.Rows[heure].SetValues(modif);
-                                    break;
-                                case "Tuesday"://Mardi
-
-                                    break;
-                                case "Wednesday"://Mercredi
-
-                                    break;
-                                case "Thursday"://Jeudi
-
-                                    break;
-                                case "Friday"://Vendredi
-
-                                    break;
-                                case "Saturday"://Samedi
-
-                                    break;
-                                case "Sunday"://Dimanche
-
-                                    break;
-                                default://Si erreur
-                                    F_erreur erreur_date = new F_erreur("ERREUR : Lors du traitement de la date dans la BDD!");
-                                    this.timer3.Stop();
-                                    break;
-                            }
-                            break;
-                    }
-
-                }
-                //db_content.
-            } while (traiter != true);
+            dgv_calendrier.DataSource = db_content;
             
         }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
@@ -259,7 +278,7 @@ namespace prototype_app_chef_infirmier
                     salle = "salle_ope_2";
                     break;
             }
-            timer3.Interval = 60000;//toutes les 10 minutes refresh des info 
+            timer3.Interval = 1000;//toutes les 10 minutes refresh des info 
             timer3.Start();
         }
     }

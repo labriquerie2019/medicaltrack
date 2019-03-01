@@ -42,14 +42,6 @@
             this.l_select_date = new System.Windows.Forms.Label();
             this.cb_salle = new System.Windows.Forms.ComboBox();
             this.dgv_calendrier = new System.Windows.Forms.DataGridView();
-            this.Heure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lundi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mardi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mercredi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Jeudi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vendredi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Samedi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dimanche = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dt_calendrier = new System.Windows.Forms.DateTimePicker();
             this.dp_admission = new System.Windows.Forms.DateTimePicker();
             this.l_date_admission = new System.Windows.Forms.Label();
@@ -223,68 +215,11 @@
             this.dgv_calendrier.AllowUserToDeleteRows = false;
             this.dgv_calendrier.AllowUserToOrderColumns = true;
             this.dgv_calendrier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_calendrier.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Heure,
-            this.Lundi,
-            this.Mardi,
-            this.Mercredi,
-            this.Jeudi,
-            this.Vendredi,
-            this.Samedi,
-            this.Dimanche});
             this.dgv_calendrier.Location = new System.Drawing.Point(428, 67);
             this.dgv_calendrier.Name = "dgv_calendrier";
             this.dgv_calendrier.ReadOnly = true;
             this.dgv_calendrier.Size = new System.Drawing.Size(819, 461);
             this.dgv_calendrier.TabIndex = 28;
-            // 
-            // Heure
-            // 
-            this.Heure.HeaderText = "Heure";
-            this.Heure.Name = "Heure";
-            this.Heure.ReadOnly = true;
-            // 
-            // Lundi
-            // 
-            this.Lundi.HeaderText = "Lundi";
-            this.Lundi.Name = "Lundi";
-            this.Lundi.ReadOnly = true;
-            // 
-            // Mardi
-            // 
-            this.Mardi.HeaderText = "Mardi";
-            this.Mardi.Name = "Mardi";
-            this.Mardi.ReadOnly = true;
-            // 
-            // Mercredi
-            // 
-            this.Mercredi.HeaderText = "Mercredi";
-            this.Mercredi.Name = "Mercredi";
-            this.Mercredi.ReadOnly = true;
-            // 
-            // Jeudi
-            // 
-            this.Jeudi.HeaderText = "Jeudi";
-            this.Jeudi.Name = "Jeudi";
-            this.Jeudi.ReadOnly = true;
-            // 
-            // Vendredi
-            // 
-            this.Vendredi.HeaderText = "Vendredi";
-            this.Vendredi.Name = "Vendredi";
-            this.Vendredi.ReadOnly = true;
-            // 
-            // Samedi
-            // 
-            this.Samedi.HeaderText = "Samedi";
-            this.Samedi.Name = "Samedi";
-            this.Samedi.ReadOnly = true;
-            // 
-            // Dimanche
-            // 
-            this.Dimanche.HeaderText = "Dimanche";
-            this.Dimanche.Name = "Dimanche";
-            this.Dimanche.ReadOnly = true;
             // 
             // dt_calendrier
             // 
@@ -564,14 +499,6 @@
         private System.Windows.Forms.DateTimePicker dt_calendrier;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.DataGridView dgv_calendrier;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Heure;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lundi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mardi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mercredi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Jeudi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Vendredi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Samedi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Dimanche;
         private System.Windows.Forms.Label l_select_room;
         private System.Windows.Forms.Label l_select_date;
         private System.Windows.Forms.ComboBox cb_salle;
