@@ -29,22 +29,25 @@ namespace prototype_app_chef_infirmier
             bdd.Base = Base;
             bdd.User = User;
             bdd.Pass = Pass;
-            DataTable dt = new DataTable();
-            dt = GetCalendrier();
-            dgv_calendrier.DataSource = dt;
+            ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
+            DataTable dt = new DataTable(); // On déclare une DataTable
+            dt = GetCalendrier(); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
+            dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
+            ///////////////////////////////////////////////////////////////
             timer1.Interval = 3000;
             timer1.Start();
         }
         private DataTable GetCalendrier()
         {
-            DataTable dt = new DataTable();
+            DataTable dt = new DataTable(); 
 
-            MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;");
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand("SELECT date_heure FROM salle_ope_1 ",con);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            dt.Load(reader);
-            con.Close();
+            MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+            con.Open(); //On ouvre le flux BDD
+            MySqlCommand cmd = new MySqlCommand("SELECT date_heure FROM salle_ope_1 ",con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+            MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
+            dt.Load(reader); // Lecture de la BDD et on la met dans le datatable
+            con.Close(); //Fermuture du flux BDD
+            ///////////////////////////////////////////////////////////////
             dt.Columns[0].AllowDBNull = true;
             dt.Columns.Add("Heure");
             dt.Columns.Add("Lundi");
@@ -113,7 +116,7 @@ namespace prototype_app_chef_infirmier
             {
                 dt.Rows.RemoveAt(0);
             }
-            return dt;
+            return dt; //On return le DataTable traité qui contiens les info de la BDD
         }
 
         private void m_quitter_Click(object sender, EventArgs e)
