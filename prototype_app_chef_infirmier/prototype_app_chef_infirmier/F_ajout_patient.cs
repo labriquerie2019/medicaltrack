@@ -50,6 +50,7 @@ namespace prototype_app_chef_infirmier
             MySqlCommand cmd = new MySqlCommand("SELECT date_heure FROM salle_ope_1 ",con);
             MySqlDataReader reader = cmd.ExecuteReader();
             dt.Load(reader);
+            con.Close();
             dt.Columns[0].AllowDBNull = true;
             dt.Columns.Add("Heure");
             dt.Columns.Add("Lundi");
@@ -59,9 +60,14 @@ namespace prototype_app_chef_infirmier
             dt.Columns.Add("Vendredi");
             dt.Columns.Add("Samedi");
             dt.Columns.Add("Dimanche");
-            for (int i = 0; i < 25; i++)
+            int compteur = 0;
+            foreach (DataRow row in dt.Rows)
             {
-                dt.Rows.Add(null,"" + i);
+                compteur++;
+            }
+            for (int i = 0; i < 24; i++)
+            {
+                dt.Rows.Add(null, "" + i);
             }
             foreach (DataRow row in dt.Rows)
             {
@@ -79,25 +85,25 @@ namespace prototype_app_chef_infirmier
                         switch (jour_a_determiner.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine
                         {
                             case "Monday"://Lundi
-                                dt.Rows[heure].SetField(2, "ya un gars ici");
+                                dt.Rows[heure+compteur].SetField(2, "ya un gars ici");
                                 break;
                             case "Tuesday"://Mardi
-                                dt.Rows[heure].SetField(3, "ya un gars ici");
+                                dt.Rows[heure+compteur].SetField(3, "ya un gars ici");
                                 break;
                             case "Wednesday"://Mercredi
-                                dt.Rows[heure].SetField(4, "ya un gars ici");
+                                dt.Rows[heure+compteur].SetField(4, "ya un gars ici");
                                 break;
                             case "Thursday"://Jeudi
-                                dt.Rows[heure].SetField(5, "ya un gars ici");
+                                dt.Rows[heure+compteur].SetField(5, "ya un gars ici");
                                 break;
                             case "Friday"://Vendredi
-                                dt.Rows[heure].SetField(6, "ya un gars ici");
+                                dt.Rows[heure+compteur].SetField(6, "ya un gars ici");
                                 break;
                             case "Saturday"://Samedi
-                                dt.Rows[heure].SetField(7, "ya un gars ici");
+                                dt.Rows[heure+compteur].SetField(7, "ya un gars ici");
                                 break;
                             case "Sunday"://Dimanche
-                                dt.Rows[heure].SetField(8, "ya un gars ici");
+                                dt.Rows[heure+compteur].SetField(8, "ya un gars ici");
                                 break;
                             default://Si erreur
                                 F_erreur erreur_date = new F_erreur("ERREUR : Lors du traitement des heures/date.");
@@ -107,6 +113,11 @@ namespace prototype_app_chef_infirmier
                         }
                     }
                 }
+            }
+            dt.Columns.RemoveAt(0);
+            for(int i=0;i<compteur+1;i++)
+            {
+                dt.Rows.RemoveAt(i);
             }
             return dt;
         }
