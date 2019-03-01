@@ -29,12 +29,6 @@ namespace prototype_app_chef_infirmier
             bdd.Base = Base;
             bdd.User = User;
             bdd.Pass = Pass;
-            //////////////////////////////////////////////////////////////
-            //for (int i = 0; i < 25; i++)
-            //{
-            //    dgv_calendrier.Rows.Add(""+i);
-            //}
-            //////////////////////////////////////////////////////////////
             DataTable dt = new DataTable();
             dt = GetCalendrier();
             dgv_calendrier.DataSource = dt;
@@ -115,9 +109,9 @@ namespace prototype_app_chef_infirmier
                 }
             }
             dt.Columns.RemoveAt(0);
-            for(int i=0;i<compteur+1;i++)
+            for (int i = 0; i < compteur; i++)
             {
-                dt.Rows.RemoveAt(i);
+                dt.Rows.RemoveAt(0);
             }
             return dt;
         }
