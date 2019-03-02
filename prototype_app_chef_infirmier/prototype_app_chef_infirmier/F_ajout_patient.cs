@@ -40,7 +40,7 @@ namespace prototype_app_chef_infirmier
             con.Open(); //On ouvre le flux BDD
             MySqlCommand cmd = new MySqlCommand(requette,con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
             MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
-            dt.Load(reader); // Lecture de la BDD et on la met dans le datatable
+            dt.Load(reader); // Lecture de la BDD et on la met dans le datatable 
             con.Close(); //Fermuture du flux BDD
             ///////////////////////////////////////////////////////////////
             dt.Columns[0].AllowDBNull = true;
@@ -66,7 +66,7 @@ namespace prototype_app_chef_infirmier
                 foreach (var item in row.ItemArray)
                 {
                     DateTime result;
-                    if (DateTime.TryParse(item.ToString(),out result))
+                    if (DateTime.TryParse(item.ToString(),out result)) //On essaie de faire un date time, si sa passe on le stock dans result sinon on rentre pas dans le IF permet de savoir si c'est un date time
                     {
                         string[] donner_a_traiter = item.ToString().Split(' ');
                         string[] annee_mois_jour = donner_a_traiter[0].Split('/');
@@ -290,7 +290,7 @@ namespace prototype_app_chef_infirmier
                     salle = "salle_ope_2";
                     break;
             }
-            timer3.Interval = 5000;//toutes les 10 minutes refresh des info 
+            timer3.Interval = 5000;//toutes les 5 minutes refresh des info 
             timer3.Start();
         }
     }
