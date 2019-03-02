@@ -28,22 +28,17 @@ namespace prototype_app_chef_infirmier
             bdd.Serveur = Serveur;
             bdd.Base = Base;
             bdd.User = User;
-            bdd.Pass = Pass;
-            ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
-            DataTable dt = new DataTable(); // On déclare une DataTable
-            dt = GetCalendrier(); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
-            dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
-            ///////////////////////////////////////////////////////////////
+            bdd.Pass = Pass; 
             timer1.Interval = 3000;
             timer1.Start();
         }
-        private DataTable GetCalendrier()
+        private DataTable GetCalendrier(string requette)
         {
             DataTable dt = new DataTable(); 
 
             MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
             con.Open(); //On ouvre le flux BDD
-            MySqlCommand cmd = new MySqlCommand("SELECT date_heure FROM salle_ope_1 ",con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+            MySqlCommand cmd = new MySqlCommand(requette,con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
             MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
             dt.Load(reader); // Lecture de la BDD et on la met dans le datatable
             con.Close(); //Fermuture du flux BDD
@@ -266,12 +261,21 @@ namespace prototype_app_chef_infirmier
                     this.timer3.Stop();
                     break;
             }
-            string lundi_traiter = lundi.ToString("yyyy-MM-dd HH:mm:ss");
-            string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd HH:mm:ss");
-            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi + "' AND '" + dimanche +"'";
-            db_content = bdd.table_lire(requette);//dt_calendrier
-            dgv_calendrier.DataSource = db_content;
-            
+            string lundi_traiter = lundi.ToString("yyyy-MM-dd");
+            string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd");
+            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter +"'";
+            ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
+            if (bdd.base_exist())
+            {
+                if (bdd.table_existe("salle_ope_1") || bdd.table_existe("salle_ope_2"))
+                {
+                    DataTable dt = new DataTable(); // On déclare une DataTable
+                    dt = GetCalendrier(requette); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
+                    dgv_calendrier.RowHeadersVisible = false;
+                    dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
+                }
+            }
+            ///////////////////////////////////////////////////////////////
         }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -286,7 +290,7 @@ namespace prototype_app_chef_infirmier
                     salle = "salle_ope_2";
                     break;
             }
-            timer3.Interval = 1000;//toutes les 10 minutes refresh des info 
+            timer3.Interval = 5000;//toutes les 10 minutes refresh des info 
             timer3.Start();
         }
     }

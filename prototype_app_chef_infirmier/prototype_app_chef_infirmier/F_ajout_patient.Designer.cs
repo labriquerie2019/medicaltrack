@@ -116,7 +116,6 @@
             // p_progressbar
             // 
             this.p_progressbar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.p_progressbar.Controls.Add(this.p_bar_chargement);
             this.p_progressbar.Controls.Add(this.l_select_room);
             this.p_progressbar.Controls.Add(this.l_select_date);
             this.p_progressbar.Controls.Add(this.cb_salle);
@@ -156,7 +155,7 @@
             // 
             this.p_bar_chargement.Controls.Add(this.l_chargement);
             this.p_bar_chargement.Controls.Add(this.pb_progress);
-            this.p_bar_chargement.Location = new System.Drawing.Point(225, 163);
+            this.p_bar_chargement.Location = new System.Drawing.Point(0, 27);
             this.p_bar_chargement.Name = "p_bar_chargement";
             this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
             this.p_bar_chargement.TabIndex = 26;
@@ -443,6 +442,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 589);
+            this.Controls.Add(this.p_bar_chargement);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
             this.Controls.Add(this.p_progressbar);
