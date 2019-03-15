@@ -196,6 +196,7 @@ namespace prototype_app_chef_infirmier
                             p_bar_chargement.Visible = false;
                             p_progressbar.Visible = true;
                             traitement = true;
+                            MessageBox.Show("INSERTION REUSSI", "PATIENT AJOUTER", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else //Si table existe pas
                         {

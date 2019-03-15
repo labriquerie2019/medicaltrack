@@ -14,14 +14,27 @@ namespace prototype_app_chef_infirmier
 {
     public partial class F_modif_patient : Form
     {
+        string id;
         public F_modif_patient()
         {
             InitializeComponent();
             timer1.Interval = 3000;
             timer1.Start();
             DataTable dt = recup_bdd("SELECT * FROM test");
-            dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
-            dgv_table_patient.DataSource = dt; 
+            if (dt != null) //BDD remplie on affiche
+            {
+                dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
+                dgv_table_patient.DataSource = dt;
+            }
+            else //Erreur BDD
+            {
+                string message = "Erreur lors du chargement des données de la base de données";//Message a afficher
+                string action = "ERREUR BDD"; //Nom de la fenettre
+                MessageBoxManager.OK = "Réessayer";//On utilise la classe MessageBoxManager pour changer les boutons
+                MessageBoxManager.Register(); //On applique nos changements
+                var rep = MessageBox.Show(message, action, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
+            }
 
         }
         private DataTable recup_bdd(string requette)
@@ -56,7 +69,7 @@ namespace prototype_app_chef_infirmier
         private void dgv_table_patient_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             #region recup valeur datagriedview selection
-            string id = dgv_table_patient.CurrentRow.Cells[0].Value.ToString();
+            id = dgv_table_patient.CurrentRow.Cells[0].Value.ToString();
             string nom = dgv_table_patient.CurrentRow.Cells[1].Value.ToString();
             string prenom = dgv_table_patient.CurrentRow.Cells[2].Value.ToString();
             string age = dgv_table_patient.CurrentRow.Cells[3].Value.ToString();
@@ -83,11 +96,87 @@ namespace prototype_app_chef_infirmier
             if (rep == DialogResult.Yes) //Si on appuie sur Modifier
             {
                 p_modif.Visible = true;
+                t_nom.Text = nom;
+                t_prenom.Text = prenom;
+                t_age.Text = age;
+                //string[] date_naissance_atraiter = date_naissance_nontraiter.Split(''); //Format jj/mm/yyyy 00:00:00"
+                //Date de naissance
+                string[] date_naissance_atraiter = date_naissance_nontraiter.Split(' '); //date_naissance_atraiter[0] = jj/mm/yyyy et date_naissance_atraiter[1] = 00:00:00
+                string[] date_naissance_traiter = date_naissance_atraiter[0].Split('/'); //date_naissance_traiter[0] = jj ; date_naissance_traiter[1] = mm; date_naissance_traiter[2] = yyyy
+                int jj = Convert.ToInt32(date_naissance_traiter[0]), mm = Convert.ToInt32(date_naissance_traiter[1]), yyyy = Convert.ToInt32(date_naissance_traiter[2]);
+                DateTime date_naissance = new DateTime(yyyy, mm, jj);
+                dp_date_naissance.Value = date_naissance;
+                //Date d'admission
+                string[] date_admission_atraiter = date_admission_nontraiter.Split(' '); //date_admission_atraiter[0] = jj/mm/yyyy et date_admission_atraiter[1] = 00:00:00
+                string[] date_admission_traiter = date_admission_atraiter[0].Split('/'); //date_admission_traiter[0] = jj ; date_admission_traiter[1] = mm; date_admission_traiter[2] = yyyy
+                jj = Convert.ToInt32(date_admission_traiter[0]); mm = Convert.ToInt32(date_admission_traiter[1]); yyyy = Convert.ToInt32(date_admission_traiter[2]);
+                DateTime date_admission = new DateTime(yyyy, mm, jj);
+                l_date_admission.Text = date_admission.ToString().Substring(0,10); // Au final je le repasse en String mais il est déjà traiter si besoin
+
+                t_sexe.Text = sexe;
+                t_situation_familial.Text = situation_familial;
+                t_note.Text = note;
+                t_poid.Text = poid;
+                t_taille.Text = taille;
+                t_allergie.Text = allergie;
+                t_antecedent_medicaux.Text = antecedant;
             }
             else if (rep == DialogResult.No) //Si on appuie sur supprimer
             {
+                if (id != null)
+                {
+                    string requette = "DELETE FROM test WHERE id = " + id;
+                    MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                    con.Open(); //On ouvre le flux BDD
+                    MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                    MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
+                    con.Close(); //Fermuture du flux BDD
 
+                    DataTable dt = recup_bdd("SELECT * FROM test");
+                    if (dt != null) //BDD remplie on affiche
+                    {
+                        dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
+                        dgv_table_patient.DataSource = dt;
+                    }
+                    else //Erreur BDD
+                    {
+                        string messagee = "Erreur lors du chargement des données de la base de données";//Message a afficher
+                        string actionn = "ERREUR BDD"; //Nom de la fenettre
+                        MessageBoxManager.OK = "Réessayer";//On utilise la classe MessageBoxManager pour changer les boutons
+                        MessageBoxManager.Register(); //On applique nos changements
+                        var repp = MessageBox.Show(messagee, actionn, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("ERREUR LORS DE LA SUPPRESION : L'ID EST NUL", "ERREUR SUPPRESSION BDD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+        }
+
+        private void b_done_modif_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void b_annuler_Click(object sender, EventArgs e)
+        {
+            #region clear textbox
+            t_nom.Clear();
+            t_prenom.Clear();
+            t_age.Clear();
+            t_age.Clear();
+            dp_date_naissance.Value = System.DateTime.Now;
+            t_sexe.Clear();
+            t_situation_familial.Clear();
+            t_note.Clear();
+            t_poid.Clear();
+            t_taille.Clear();
+            t_allergie.Clear();
+            t_antecedent_medicaux.Clear();
+            #endregion
+            p_modif.Visible = false;
         }
     }
 }
