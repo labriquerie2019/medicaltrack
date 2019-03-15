@@ -113,6 +113,7 @@
             this.b_edit_patient.TabIndex = 1;
             this.b_edit_patient.Text = "Modifier/supprimer un patient";
             this.b_edit_patient.UseVisualStyleBackColor = true;
+            this.b_edit_patient.Click += new System.EventHandler(this.b_edit_patient_Click);
             // 
             // b_add_patient
             // 

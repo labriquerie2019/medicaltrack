@@ -76,5 +76,11 @@ namespace prototype_app_chef_infirmier
             F_ajout_patient f_add_patient = new F_ajout_patient();
             f_add_patient.Show();
         }
+
+        private void b_edit_patient_Click(object sender, EventArgs e)
+        {
+            F_modif_patient f_edit_patient = new F_modif_patient();
+            f_edit_patient.Show();
+        }
     }
 }

@@ -35,9 +35,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.l_date_heure = new System.Windows.Forms.Label();
             this.p_progressbar = new System.Windows.Forms.Panel();
-            this.p_bar_chargement = new System.Windows.Forms.Panel();
-            this.l_chargement = new System.Windows.Forms.Label();
-            this.pb_progress = new System.Windows.Forms.ProgressBar();
             this.l_select_room = new System.Windows.Forms.Label();
             this.l_select_date = new System.Windows.Forms.Label();
             this.cb_salle = new System.Windows.Forms.ComboBox();
@@ -68,11 +65,14 @@
             this.l_prenom = new System.Windows.Forms.Label();
             this.t_nom = new System.Windows.Forms.TextBox();
             this.l_nom = new System.Windows.Forms.Label();
+            this.p_bar_chargement = new System.Windows.Forms.Panel();
+            this.l_chargement = new System.Windows.Forms.Label();
+            this.pb_progress = new System.Windows.Forms.ProgressBar();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.m_menu.SuspendLayout();
             this.p_progressbar.SuspendLayout();
-            this.p_bar_chargement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
+            this.p_bar_chargement.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_menu
@@ -150,32 +150,6 @@
             this.p_progressbar.Name = "p_progressbar";
             this.p_progressbar.Size = new System.Drawing.Size(1248, 550);
             this.p_progressbar.TabIndex = 3;
-            // 
-            // p_bar_chargement
-            // 
-            this.p_bar_chargement.Controls.Add(this.l_chargement);
-            this.p_bar_chargement.Controls.Add(this.pb_progress);
-            this.p_bar_chargement.Location = new System.Drawing.Point(0, 27);
-            this.p_bar_chargement.Name = "p_bar_chargement";
-            this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
-            this.p_bar_chargement.TabIndex = 26;
-            this.p_bar_chargement.Visible = false;
-            // 
-            // l_chargement
-            // 
-            this.l_chargement.AutoSize = true;
-            this.l_chargement.Location = new System.Drawing.Point(350, 226);
-            this.l_chargement.Name = "l_chargement";
-            this.l_chargement.Size = new System.Drawing.Size(35, 13);
-            this.l_chargement.TabIndex = 1;
-            this.l_chargement.Text = "label1";
-            // 
-            // pb_progress
-            // 
-            this.pb_progress.Location = new System.Drawing.Point(252, 281);
-            this.pb_progress.Name = "pb_progress";
-            this.pb_progress.Size = new System.Drawing.Size(652, 63);
-            this.pb_progress.TabIndex = 0;
             // 
             // l_select_room
             // 
@@ -433,6 +407,32 @@
             this.l_nom.TabIndex = 0;
             this.l_nom.Text = "Nom";
             // 
+            // p_bar_chargement
+            // 
+            this.p_bar_chargement.Controls.Add(this.l_chargement);
+            this.p_bar_chargement.Controls.Add(this.pb_progress);
+            this.p_bar_chargement.Location = new System.Drawing.Point(0, 27);
+            this.p_bar_chargement.Name = "p_bar_chargement";
+            this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
+            this.p_bar_chargement.TabIndex = 26;
+            this.p_bar_chargement.Visible = false;
+            // 
+            // l_chargement
+            // 
+            this.l_chargement.AutoSize = true;
+            this.l_chargement.Location = new System.Drawing.Point(350, 226);
+            this.l_chargement.Name = "l_chargement";
+            this.l_chargement.Size = new System.Drawing.Size(35, 13);
+            this.l_chargement.TabIndex = 1;
+            this.l_chargement.Text = "label1";
+            // 
+            // pb_progress
+            // 
+            this.pb_progress.Location = new System.Drawing.Point(252, 281);
+            this.pb_progress.Name = "pb_progress";
+            this.pb_progress.Size = new System.Drawing.Size(652, 63);
+            this.pb_progress.TabIndex = 0;
+            // 
             // timer3
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
@@ -452,9 +452,9 @@
             this.m_menu.PerformLayout();
             this.p_progressbar.ResumeLayout(false);
             this.p_progressbar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).EndInit();
             this.p_bar_chargement.ResumeLayout(false);
             this.p_bar_chargement.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
