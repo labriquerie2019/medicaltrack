@@ -219,7 +219,7 @@ namespace prototype_app_chef_infirmier
             }
         }
 
-        private void timer3_Tick(object sender, EventArgs e) 
+        private void afficher_calendrier()
         {
             DataSet db_content = new DataSet();
             DateTime datetime_traitement = dt_calendrier.Value;
@@ -264,7 +264,7 @@ namespace prototype_app_chef_infirmier
             }
             string lundi_traiter = lundi.ToString("yyyy-MM-dd");
             string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd");
-            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter +"'";
+            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter + "'";
             ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
             if (bdd.base_exist())
             {
@@ -277,6 +277,11 @@ namespace prototype_app_chef_infirmier
                 }
             }
             ///////////////////////////////////////////////////////////////
+        }
+
+        private void timer3_Tick(object sender, EventArgs e) 
+        {
+            afficher_calendrier();
         }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -291,7 +296,8 @@ namespace prototype_app_chef_infirmier
                     salle = "salle_ope_2";
                     break;
             }
-            timer3.Interval = 5000;//toutes les 5 minutes refresh des info 
+            afficher_calendrier();
+            timer3.Interval = 60000;//toutes les 10 minutes refresh des info 
             timer3.Start();
         }
     }

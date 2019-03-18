@@ -36,10 +36,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dgv_table_patient = new System.Windows.Forms.DataGridView();
             this.p_modif = new System.Windows.Forms.Panel();
-            this.l_nom = new System.Windows.Forms.Label();
-            this.t_nom = new System.Windows.Forms.TextBox();
-            this.l_prenom = new System.Windows.Forms.Label();
-            this.t_prenom = new System.Windows.Forms.TextBox();
+            this.b_annuler = new System.Windows.Forms.Button();
+            this.b_done_modif = new System.Windows.Forms.Button();
+            this.l_date_admission = new System.Windows.Forms.Label();
+            this.l_label_date_admission = new System.Windows.Forms.Label();
             this.t_allergie = new System.Windows.Forms.TextBox();
             this.l_allergies = new System.Windows.Forms.Label();
             this.t_antecedent_medicaux = new System.Windows.Forms.TextBox();
@@ -58,10 +58,10 @@
             this.l_date_de_naissance = new System.Windows.Forms.Label();
             this.t_age = new System.Windows.Forms.TextBox();
             this.l_age = new System.Windows.Forms.Label();
-            this.l_label_date_admission = new System.Windows.Forms.Label();
-            this.l_date_admission = new System.Windows.Forms.Label();
-            this.b_done_modif = new System.Windows.Forms.Button();
-            this.b_annuler = new System.Windows.Forms.Button();
+            this.t_prenom = new System.Windows.Forms.TextBox();
+            this.l_prenom = new System.Windows.Forms.Label();
+            this.t_nom = new System.Windows.Forms.TextBox();
+            this.l_nom = new System.Windows.Forms.Label();
             this.m_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_table_patient)).BeginInit();
             this.p_modif.SuspendLayout();
@@ -151,37 +151,43 @@
             this.p_modif.TabIndex = 5;
             this.p_modif.Visible = false;
             // 
-            // l_nom
+            // b_annuler
             // 
-            this.l_nom.AutoSize = true;
-            this.l_nom.Location = new System.Drawing.Point(390, 53);
-            this.l_nom.Name = "l_nom";
-            this.l_nom.Size = new System.Drawing.Size(29, 13);
-            this.l_nom.TabIndex = 1;
-            this.l_nom.Text = "Nom";
+            this.b_annuler.Location = new System.Drawing.Point(607, 450);
+            this.b_annuler.Name = "b_annuler";
+            this.b_annuler.Size = new System.Drawing.Size(197, 49);
+            this.b_annuler.TabIndex = 45;
+            this.b_annuler.Text = "Annuler";
+            this.b_annuler.UseVisualStyleBackColor = true;
+            this.b_annuler.Click += new System.EventHandler(this.b_annuler_Click);
             // 
-            // t_nom
+            // b_done_modif
             // 
-            this.t_nom.Location = new System.Drawing.Point(390, 69);
-            this.t_nom.Name = "t_nom";
-            this.t_nom.Size = new System.Drawing.Size(197, 20);
-            this.t_nom.TabIndex = 2;
+            this.b_done_modif.Location = new System.Drawing.Point(394, 449);
+            this.b_done_modif.Name = "b_done_modif";
+            this.b_done_modif.Size = new System.Drawing.Size(193, 50);
+            this.b_done_modif.TabIndex = 44;
+            this.b_done_modif.Text = "Affecter une modification";
+            this.b_done_modif.UseVisualStyleBackColor = true;
+            this.b_done_modif.Click += new System.EventHandler(this.b_done_modif_Click);
             // 
-            // l_prenom
+            // l_date_admission
             // 
-            this.l_prenom.AutoSize = true;
-            this.l_prenom.Location = new System.Drawing.Point(390, 101);
-            this.l_prenom.Name = "l_prenom";
-            this.l_prenom.Size = new System.Drawing.Size(43, 13);
-            this.l_prenom.TabIndex = 3;
-            this.l_prenom.Text = "Prenom";
+            this.l_date_admission.AutoSize = true;
+            this.l_date_admission.Location = new System.Drawing.Point(566, 29);
+            this.l_date_admission.Name = "l_date_admission";
+            this.l_date_admission.Size = new System.Drawing.Size(53, 13);
+            this.l_date_admission.TabIndex = 43;
+            this.l_date_admission.Text = "date admi";
             // 
-            // t_prenom
+            // l_label_date_admission
             // 
-            this.t_prenom.Location = new System.Drawing.Point(390, 117);
-            this.t_prenom.Name = "t_prenom";
-            this.t_prenom.Size = new System.Drawing.Size(197, 20);
-            this.t_prenom.TabIndex = 4;
+            this.l_label_date_admission.AutoSize = true;
+            this.l_label_date_admission.Location = new System.Drawing.Point(565, 12);
+            this.l_label_date_admission.Name = "l_label_date_admission";
+            this.l_label_date_admission.Size = new System.Drawing.Size(93, 13);
+            this.l_label_date_admission.TabIndex = 42;
+            this.l_label_date_admission.Text = "Date d\'admission :";
             // 
             // t_allergie
             // 
@@ -330,43 +336,37 @@
             this.l_age.TabIndex = 24;
             this.l_age.Text = "Age";
             // 
-            // l_label_date_admission
+            // t_prenom
             // 
-            this.l_label_date_admission.AutoSize = true;
-            this.l_label_date_admission.Location = new System.Drawing.Point(565, 12);
-            this.l_label_date_admission.Name = "l_label_date_admission";
-            this.l_label_date_admission.Size = new System.Drawing.Size(93, 13);
-            this.l_label_date_admission.TabIndex = 42;
-            this.l_label_date_admission.Text = "Date d\'admission :";
+            this.t_prenom.Location = new System.Drawing.Point(390, 117);
+            this.t_prenom.Name = "t_prenom";
+            this.t_prenom.Size = new System.Drawing.Size(197, 20);
+            this.t_prenom.TabIndex = 4;
             // 
-            // l_date_admission
+            // l_prenom
             // 
-            this.l_date_admission.AutoSize = true;
-            this.l_date_admission.Location = new System.Drawing.Point(566, 29);
-            this.l_date_admission.Name = "l_date_admission";
-            this.l_date_admission.Size = new System.Drawing.Size(53, 13);
-            this.l_date_admission.TabIndex = 43;
-            this.l_date_admission.Text = "date admi";
+            this.l_prenom.AutoSize = true;
+            this.l_prenom.Location = new System.Drawing.Point(390, 101);
+            this.l_prenom.Name = "l_prenom";
+            this.l_prenom.Size = new System.Drawing.Size(43, 13);
+            this.l_prenom.TabIndex = 3;
+            this.l_prenom.Text = "Prenom";
             // 
-            // b_done_modif
+            // t_nom
             // 
-            this.b_done_modif.Location = new System.Drawing.Point(394, 449);
-            this.b_done_modif.Name = "b_done_modif";
-            this.b_done_modif.Size = new System.Drawing.Size(193, 50);
-            this.b_done_modif.TabIndex = 44;
-            this.b_done_modif.Text = "Affecter une modification";
-            this.b_done_modif.UseVisualStyleBackColor = true;
-            this.b_done_modif.Click += new System.EventHandler(this.b_done_modif_Click);
+            this.t_nom.Location = new System.Drawing.Point(390, 69);
+            this.t_nom.Name = "t_nom";
+            this.t_nom.Size = new System.Drawing.Size(197, 20);
+            this.t_nom.TabIndex = 2;
             // 
-            // b_annuler
+            // l_nom
             // 
-            this.b_annuler.Location = new System.Drawing.Point(607, 450);
-            this.b_annuler.Name = "b_annuler";
-            this.b_annuler.Size = new System.Drawing.Size(197, 49);
-            this.b_annuler.TabIndex = 45;
-            this.b_annuler.Text = "Annuler";
-            this.b_annuler.UseVisualStyleBackColor = true;
-            this.b_annuler.Click += new System.EventHandler(this.b_annuler_Click);
+            this.l_nom.AutoSize = true;
+            this.l_nom.Location = new System.Drawing.Point(390, 53);
+            this.l_nom.Name = "l_nom";
+            this.l_nom.Size = new System.Drawing.Size(29, 13);
+            this.l_nom.TabIndex = 1;
+            this.l_nom.Text = "Nom";
             // 
             // F_modif_patient
             // 
@@ -378,7 +378,7 @@
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
             this.Name = "F_modif_patient";
-            this.Text = "F_modif_patient";
+            this.Text = " ";
             this.m_menu.ResumeLayout(false);
             this.m_menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_table_patient)).EndInit();
