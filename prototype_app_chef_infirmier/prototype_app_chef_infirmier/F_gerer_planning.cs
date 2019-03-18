@@ -15,6 +15,7 @@ namespace prototype_app_chef_infirmier
     {
         static _MySQL bdd;
         string salle;
+        int nb_patient=0;
         public F_gerer_planning()
         {
             InitializeComponent();
@@ -31,7 +32,7 @@ namespace prototype_app_chef_infirmier
             bdd.User = User;
             bdd.Pass = Pass;
             #endregion
-            #region initialisation combo box
+            #region initialisation combo box et recuperation nom prenom id
             string requette = "SELECT * FROM test";
             MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
             con.Open(); //On ouvre le flux BDD
@@ -40,10 +41,21 @@ namespace prototype_app_chef_infirmier
             DataTable read_bdd = new DataTable();
             read_bdd.Load(reader);
             con.Close(); //Fermuture du flux BDD
-            for(int i =0; i< read_bdd.Rows.Count; i++) //On lis le DataTable qui contient la réponse de la BDD
+            var patient = new Dictionary<int, string[]>();
+            for (int i = 0; i < read_bdd.Rows.Count; i++) //On lis le DataTable qui contient la réponse de la BDD
             {
+                nb_patient++; //On compte le nombre de patient
+                string[] toadd = { read_bdd.Rows[i]["id"].ToString(), read_bdd.Rows[i]["nom"].ToString(), read_bdd.Rows[i]["prenom"].ToString() }; //On créer un array de string pour l'ajouter dans un Dictonary
+                patient[i] = toadd;  //On stock id,nom,prenom pour plus tard dans une List
                 cb_patient.Items.Add(read_bdd.Rows[i]["nom"] + " " + read_bdd.Rows[i]["prenom"]); //On remplie le combo box avec : Nom Prenom
             }
+
+            /*for(int i = 0; i < patient.LongCount();i++)
+            {
+                cb_test.Items.Add(patient[i][0]+" ; "+ patient[i][1] + " ; " + patient[i][2]); //Exemple pour lire dans le Dictonary de tableau de string
+            }*/
+
+            l_nb_patient.Text = "Nombre de patients recensé : " + nb_patient.ToString();
             #endregion
         }
 
@@ -234,6 +246,11 @@ namespace prototype_app_chef_infirmier
         private void timer2_Tick(object sender, EventArgs e)
         {
             afficher_calendrier();
+        }
+
+        private void cb_patient_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -42,6 +42,7 @@
             this.l_select_date = new System.Windows.Forms.Label();
             this.dt_calendrier = new System.Windows.Forms.DateTimePicker();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.l_nb_patient = new System.Windows.Forms.Label();
             this.m_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
             this.SuspendLayout();
@@ -118,7 +119,7 @@
             // l_choix_patient
             // 
             this.l_choix_patient.AutoSize = true;
-            this.l_choix_patient.Location = new System.Drawing.Point(12, 287);
+            this.l_choix_patient.Location = new System.Drawing.Point(12, 145);
             this.l_choix_patient.Name = "l_choix_patient";
             this.l_choix_patient.Size = new System.Drawing.Size(83, 13);
             this.l_choix_patient.TabIndex = 33;
@@ -128,10 +129,11 @@
             // 
             this.cb_patient.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_patient.FormattingEnabled = true;
-            this.cb_patient.Location = new System.Drawing.Point(15, 303);
+            this.cb_patient.Location = new System.Drawing.Point(15, 161);
             this.cb_patient.Name = "cb_patient";
             this.cb_patient.Size = new System.Drawing.Size(200, 21);
             this.cb_patient.TabIndex = 34;
+            this.cb_patient.SelectedIndexChanged += new System.EventHandler(this.cb_patient_SelectedIndexChanged);
             // 
             // l_select_date
             // 
@@ -153,11 +155,21 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // l_nb_patient
+            // 
+            this.l_nb_patient.AutoSize = true;
+            this.l_nb_patient.Location = new System.Drawing.Point(221, 161);
+            this.l_nb_patient.Name = "l_nb_patient";
+            this.l_nb_patient.Size = new System.Drawing.Size(54, 13);
+            this.l_nb_patient.TabIndex = 38;
+            this.l_nb_patient.Text = "nb patient";
+            // 
             // F_gerer_planning
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1283, 552);
+            this.Controls.Add(this.l_nb_patient);
             this.Controls.Add(this.l_select_date);
             this.Controls.Add(this.dt_calendrier);
             this.Controls.Add(this.cb_patient);
@@ -193,5 +205,6 @@
         private System.Windows.Forms.Label l_select_date;
         private System.Windows.Forms.DateTimePicker dt_calendrier;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label l_nb_patient;
     }
 }
