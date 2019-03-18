@@ -82,5 +82,17 @@ namespace prototype_app_chef_infirmier
             F_modif_patient f_edit_patient = new F_modif_patient();
             f_edit_patient.Show();
         }
+
+        private void b_gerer_planning_Click(object sender, EventArgs e)
+        {
+            F_gerer_planning f_modif_planning = new F_gerer_planning();
+            f_modif_planning.Show();
+        }
+
+        private void b_check_planning_Click(object sender, EventArgs e)
+        {
+            F_view_calendrier f_check_calendrier = new F_view_calendrier();
+            f_check_calendrier.Show();
+        }
     }
 }

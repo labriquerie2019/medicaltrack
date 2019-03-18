@@ -95,6 +95,7 @@
             this.b_gerer_planning.TabIndex = 3;
             this.b_gerer_planning.Text = "Gérer le planning";
             this.b_gerer_planning.UseVisualStyleBackColor = true;
+            this.b_gerer_planning.Click += new System.EventHandler(this.b_gerer_planning_Click);
             // 
             // b_check_planning
             // 
@@ -104,6 +105,7 @@
             this.b_check_planning.TabIndex = 2;
             this.b_check_planning.Text = "Consulter le planning";
             this.b_check_planning.UseVisualStyleBackColor = true;
+            this.b_check_planning.Click += new System.EventHandler(this.b_check_planning_Click);
             // 
             // b_edit_patient
             // 
