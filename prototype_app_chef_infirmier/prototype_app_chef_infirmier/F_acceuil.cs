@@ -45,6 +45,75 @@ namespace prototype_app_chef_infirmier
             string mdp = t_mdp.Text;
 
             bool connected = true; //methode pour se connecter
+            MessageBox.Show("MERCI DE PATIENTER QUELQUES SECONDES!", "CONNEXION BDD", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            #region config et connexion bdd puis test table,bdd,et tout sa qui existe
+            _MySQL bdd;
+            string Serveur = "localhost";
+            string Base = "aaa";
+            string User = "root";
+            string Pass = "";
+            bdd = new _MySQL(Serveur, Base, User, Pass);
+            bdd.Serveur = Serveur;
+            bdd.Base = Base;
+            bdd.User = User;
+            bdd.Pass = Pass;
+            bool traitement = false;
+            do
+            {
+                if (bdd.base_exist()) //Si BDD existe
+                {
+                    if (bdd.table_existe("test")) //Si table test existe
+                    {
+                        if (bdd.table_existe("salle_ope_1")) //Si table salle_ope_1 existe
+                        {
+                            if (bdd.table_existe("salle_ope_2"))//Si table salle_ope_2 existe
+                            {
+                                if(bdd.table_existe("salle_rea"))//Si salle_rea existe
+                                {
+                                    if(bdd.table_existe("salle_reveil"))//Si salle_reveil existe
+                                    {
+                                        if(bdd.table_existe("salle_ane"))//Si salle_ane existe
+                                        {
+                                            traitement = true;
+                                            MessageBox.Show("CONNEXION A LA BASE DE DONNEES REUSSI, VOUS POUVEZ UTILISER LE LOGICIEL!", "CONNEXION BDD REUSSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                        else //Si salle_ane existe pas
+                                        {
+                                            bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ane` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                                        }
+                                    }
+                                    else//Si salle_reveil existe pas
+                                    {
+                                        bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_reveil` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                                    }
+                                }
+                                else//Si salle_rea existe pas
+                                {
+                                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_rea` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                                }
+                            }
+                            else//Si table salle_ope_2 existe pas on la créer
+                            {
+                                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_2` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                            }
+                        }
+                        else//Si table salle_ope_1 existe pas on la créer
+                        {
+                            bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_1` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                        }
+                    }
+                    else //Si table existe pas
+                    {
+                        bdd.table_creer("CREATE TABLE IF NOT EXISTS `test` (`id` int(11) NOT NULL AUTO_INCREMENT,`nom` varchar(30) NOT NULL,`prenom` varchar(30) NOT NULL,`age` int(11) NOT NULL,`date_naissance` DATE NOT NULL,`date_admission` DATE NOT NULL,`sexe` varchar(30) NOT NULL,`situation_familial` TEXT NOT NULL,`note` TEXT NOT NULL,`poid` TEXT NOT NULL,`taille` TEXT NOT NULL,`allergie` TEXT NOT NULL,`antecedant` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                    }
+                }
+                else //Si bdd existe pas
+                {
+                    bdd.base_creer();
+                }
+            } while (traitement != true);
+            #endregion
 
             m_configuration.Visible = true;
             l_ndc.Visible = false;

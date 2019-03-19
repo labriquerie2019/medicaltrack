@@ -13,21 +13,10 @@ namespace prototype_app_chef_infirmier
 {
     public partial class F_view_calendrier : Form
     {
-        static _MySQL bdd;
         string salle;
         public F_view_calendrier()
         {
             InitializeComponent();
-            ///////////////////////////////////////////////////////////////config et connexion bdd
-            string Serveur = "localhost";
-            string Base = "aaa";
-            string User = "root";
-            string Pass = "";
-            bdd = new _MySQL(Serveur, Base, User, Pass);
-            bdd.Serveur = Serveur;
-            bdd.Base = Base;
-            bdd.User = User;
-            bdd.Pass = Pass;
             ///////////////////////////////////////////////////////////////
             timer1.Interval = 1000;
             timer1.Start();
@@ -161,16 +150,10 @@ namespace prototype_app_chef_infirmier
             string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd");
             string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter + "'";
             ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
-            if (bdd.base_exist())
-            {
-                if (bdd.table_existe("salle_ope_1") || bdd.table_existe("salle_ope_2"))
-                {
-                    DataTable dt = new DataTable(); // On déclare une DataTable
-                    dt = GetCalendrier(requette); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
-                    dgv_calendrier.RowHeadersVisible = false;
-                    dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
-                }
-            }
+            DataTable dt = new DataTable(); // On déclare une DataTable
+            dt = GetCalendrier(requette); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
+            dgv_calendrier.RowHeadersVisible = false;
+            dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
             ///////////////////////////////////////////////////////////////
         }
 

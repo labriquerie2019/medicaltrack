@@ -65,14 +65,10 @@
             this.l_prenom = new System.Windows.Forms.Label();
             this.t_nom = new System.Windows.Forms.TextBox();
             this.l_nom = new System.Windows.Forms.Label();
-            this.p_bar_chargement = new System.Windows.Forms.Panel();
-            this.l_chargement = new System.Windows.Forms.Label();
-            this.pb_progress = new System.Windows.Forms.ProgressBar();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.m_menu.SuspendLayout();
             this.p_progressbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
-            this.p_bar_chargement.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_menu
@@ -407,32 +403,6 @@
             this.l_nom.TabIndex = 0;
             this.l_nom.Text = "Nom";
             // 
-            // p_bar_chargement
-            // 
-            this.p_bar_chargement.Controls.Add(this.l_chargement);
-            this.p_bar_chargement.Controls.Add(this.pb_progress);
-            this.p_bar_chargement.Location = new System.Drawing.Point(0, 27);
-            this.p_bar_chargement.Name = "p_bar_chargement";
-            this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
-            this.p_bar_chargement.TabIndex = 26;
-            this.p_bar_chargement.Visible = false;
-            // 
-            // l_chargement
-            // 
-            this.l_chargement.AutoSize = true;
-            this.l_chargement.Location = new System.Drawing.Point(350, 226);
-            this.l_chargement.Name = "l_chargement";
-            this.l_chargement.Size = new System.Drawing.Size(35, 13);
-            this.l_chargement.TabIndex = 1;
-            this.l_chargement.Text = "label1";
-            // 
-            // pb_progress
-            // 
-            this.pb_progress.Location = new System.Drawing.Point(252, 281);
-            this.pb_progress.Name = "pb_progress";
-            this.pb_progress.Size = new System.Drawing.Size(652, 63);
-            this.pb_progress.TabIndex = 0;
-            // 
             // timer3
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
@@ -442,7 +412,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 589);
-            this.Controls.Add(this.p_bar_chargement);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
             this.Controls.Add(this.p_progressbar);
@@ -453,8 +422,6 @@
             this.p_progressbar.ResumeLayout(false);
             this.p_progressbar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).EndInit();
-            this.p_bar_chargement.ResumeLayout(false);
-            this.p_bar_chargement.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -493,9 +460,6 @@
         private System.Windows.Forms.Label l_poid;
         private System.Windows.Forms.Label l_date_admission;
         private System.Windows.Forms.DateTimePicker dp_admission;
-        private System.Windows.Forms.Panel p_bar_chargement;
-        private System.Windows.Forms.Label l_chargement;
-        private System.Windows.Forms.ProgressBar pb_progress;
         private System.Windows.Forms.DateTimePicker dt_calendrier;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.DataGridView dgv_calendrier;
