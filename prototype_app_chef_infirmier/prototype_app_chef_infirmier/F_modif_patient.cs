@@ -20,7 +20,7 @@ namespace prototype_app_chef_infirmier
             InitializeComponent();
             timer1.Interval = 3000;
             timer1.Start();
-            DataTable dt = recup_bdd("SELECT * FROM test");
+            DataTable dt = recup_bdd("SELECT * FROM patient");
             if (dt != null) //BDD remplie on affiche
             {
                 dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
@@ -41,7 +41,7 @@ namespace prototype_app_chef_infirmier
         {
             DataTable dt = new DataTable();
 
-            MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+            MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
             con.Open(); //On ouvre le flux BDD
             MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
             MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
@@ -125,14 +125,14 @@ namespace prototype_app_chef_infirmier
             {
                 if (id != null)
                 {
-                    string requette = "DELETE FROM test WHERE id = " + id;
-                    MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                    string requette = "DELETE FROM patient WHERE id = " + id;
+                    MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                     con.Open(); //On ouvre le flux BDD
                     MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                     MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
                     con.Close(); //Fermuture du flux BDD
 
-                    DataTable dt = recup_bdd("SELECT * FROM test");
+                    DataTable dt = recup_bdd("SELECT * FROM patient");
                     if (dt != null) //BDD remplie on affiche
                     {
                         dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
@@ -174,13 +174,13 @@ namespace prototype_app_chef_infirmier
                 string allergie = t_allergie.Text;
                 string antecedant = t_antecedent_medicaux.Text;
                 //////////////////////////////////////////////////////////////
-                string requette = "UPDATE test SET nom = '" + nom + "', prenom = '" + prenom + "', age = '" + age + "', date_naissance = '" + dt_nai + "', sexe = '" + sexe + "', situation_familial = '" + situation_familial + "', note = '" + note + "', poid = '" + poid + "', taille = '" + taille + "', allergie = '" + allergie + "', antecedant= '" + antecedant + "' WHERE id = " + id;
-                MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                string requette = "UPDATE patient SET nom = '" + nom + "', prenom = '" + prenom + "', age = '" + age + "', date_naissance = '" + dt_nai + "', sexe = '" + sexe + "', situation_familial = '" + situation_familial + "', note = '" + note + "', poid = '" + poid + "', taille = '" + taille + "', allergie = '" + allergie + "', antecedant= '" + antecedant + "' WHERE id = " + id;
+                MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                 con.Open(); //On ouvre le flux BDD
                 MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                 MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
                 con.Close(); //Fermuture du flux BDD
-                DataTable dt = recup_bdd("SELECT * FROM test");
+                DataTable dt = recup_bdd("SELECT * FROM patient");
                 if (dt != null) //BDD remplie on affiche
                 {
                     dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile

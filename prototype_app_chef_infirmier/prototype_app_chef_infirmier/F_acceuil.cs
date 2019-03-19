@@ -50,7 +50,7 @@ namespace prototype_app_chef_infirmier
             #region config et connexion bdd puis test table,bdd,et tout sa qui existe
             _MySQL bdd;
             string Serveur = "localhost";
-            string Base = "aaa";
+            string Base = "medicaltrack";
             string User = "root";
             string Pass = "";
             bdd = new _MySQL(Serveur, Base, User, Pass);
@@ -63,7 +63,7 @@ namespace prototype_app_chef_infirmier
             {
                 if (bdd.base_exist()) //Si BDD existe
                 {
-                    if (bdd.table_existe("test")) //Si table test existe
+                    if (bdd.table_existe("patient")) //Si table test existe
                     {
                         if (bdd.table_existe("salle_ope_1")) //Si table salle_ope_1 existe
                         {
@@ -105,7 +105,7 @@ namespace prototype_app_chef_infirmier
                     }
                     else //Si table existe pas
                     {
-                        bdd.table_creer("CREATE TABLE IF NOT EXISTS `test` (`id` int(11) NOT NULL AUTO_INCREMENT,`nom` varchar(30) NOT NULL,`prenom` varchar(30) NOT NULL,`age` int(11) NOT NULL,`date_naissance` DATE NOT NULL,`date_admission` DATE NOT NULL,`sexe` varchar(30) NOT NULL,`situation_familial` TEXT NOT NULL,`note` TEXT NOT NULL,`poid` TEXT NOT NULL,`taille` TEXT NOT NULL,`allergie` TEXT NOT NULL,`antecedant` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                        bdd.table_creer("CREATE TABLE IF NOT EXISTS `patient` (`id` int(11) NOT NULL AUTO_INCREMENT,`nom` varchar(30) NOT NULL,`prenom` varchar(30) NOT NULL,`age` int(11) NOT NULL,`date_naissance` DATE NOT NULL,`date_admission` DATE NOT NULL,`sexe` varchar(30) NOT NULL,`situation_familial` TEXT NOT NULL,`note` TEXT NOT NULL,`poid` TEXT NOT NULL,`taille` TEXT NOT NULL,`allergie` TEXT NOT NULL,`antecedant` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
                     }
                 }
                 else //Si bdd existe pas
