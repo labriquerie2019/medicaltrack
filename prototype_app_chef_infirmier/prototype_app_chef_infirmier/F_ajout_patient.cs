@@ -14,21 +14,10 @@ namespace prototype_app_chef_infirmier
 {
     public partial class F_ajout_patient : Form
     {
-        static _MySQL bdd;
         static string salle;
         public F_ajout_patient()
         {
             InitializeComponent();
-            ///////////////////////////////////////////////////////////////config et connexion bdd
-            string Serveur = "localhost";
-            string Base = "aaa";
-            string User = "root";
-            string Pass = "";
-            bdd = new _MySQL(Serveur, Base, User, Pass);
-            bdd.Serveur = Serveur;
-            bdd.Base = Base;
-            bdd.User = User;
-            bdd.Pass = Pass; 
             timer1.Interval = 3000;
             timer1.Start();
         }
@@ -40,7 +29,7 @@ namespace prototype_app_chef_infirmier
             con.Open(); //On ouvre le flux BDD
             MySqlCommand cmd = new MySqlCommand(requette,con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
             MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
-            dt.Load(reader); // Lecture de la BDD et on la met dans le datatable
+            dt.Load(reader); // Lecture de la BDD et on la met dans le datatable 
             con.Close(); //Fermuture du flux BDD
             ///////////////////////////////////////////////////////////////
             dt.Columns[0].AllowDBNull = true;
@@ -66,7 +55,7 @@ namespace prototype_app_chef_infirmier
                 foreach (var item in row.ItemArray)
                 {
                     DateTime result;
-                    if (DateTime.TryParse(item.ToString(),out result))
+                    if (DateTime.TryParse(item.ToString(),out result)) //On essaie de faire un date time, si sa passe on le stock dans result sinon on rentre pas dans le IF permet de savoir si c'est un date time
                     {
                         string[] donner_a_traiter = item.ToString().Split(' ');
                         string[] annee_mois_jour = donner_a_traiter[0].Split('/');
@@ -137,14 +126,8 @@ namespace prototype_app_chef_infirmier
 
         private void b_add_patient_Click(object sender, EventArgs e)
         {
-            p_progressbar.Visible = false;
-            p_bar_chargement.Visible = true;
-            pb_progress.Step = 20;
-            l_chargement.Text = "Chargement...";
             if (t_nom.Text.Length > 0 && t_prenom.Text.Length > 0 && t_age.Text.Length > 0  && t_sexe.Text.Length > 0 && t_situation_familial.Text.Length > 0 && t_note.Text.Length > 0 && t_poid.Text.Length > 0 && t_taille.Text.Length > 0 && t_allergie.Text.Length > 0 && t_antecedent_medicaux.Text.Length > 0)//tous les champs remplie
             {
-                pb_progress.PerformStep();
-                l_chargement.Text = "Chargement... TOUT LES CHAMPS SONT REMPLIS";
                 ///////////////////////////////////////////////////////////////Partie info patient
                 string nom = t_nom.Text;
                 string prenom = t_prenom.Text;
@@ -162,21 +145,14 @@ namespace prototype_app_chef_infirmier
                 string allergie = t_allergie.Text;
                 string antecedant = t_antecedent_medicaux.Text;
                 //////////////////////////////////////////////////////////////
-                bool traitement = false;
-                do
-                {
-                    pb_progress.PerformStep();
-                    l_chargement.Text = "Chargement... CONNEXION A LA BDD REUSSI ET TRAITEMENT DU TEXTE";
-                    if (bdd.base_exist()) //Si BDD existe
-                    {
-                        pb_progress.PerformStep();
-                        l_chargement.Text = "Chargement... LA BASE DE DONNEE EXISTE, VERIFICATION DE LA TABLE";
-                        if (bdd.table_existe("test")) //Si table existe
-                        {
-                            pb_progress.PerformStep();
-                            l_chargement.Text = "Chargement... LA TABLE EXISTE, INSERTION DES CHAMPS.";
-                            bdd.Table_RequetteNonQuery("INSERT INTO test (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "')");
-                            #region clear textbox
+                string requette = "INSERT INTO test (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "')";
+                MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                con.Open(); //On ouvre le flux BDD
+                MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                cmd.ExecuteNonQuery();
+                con.Close(); //Fermuture du flux BDD
+                ///////////////////////////////////////////////////////////////
+                #region clear textbox
                             t_nom.Clear();
                             t_prenom.Clear();
                             t_age.Clear();
@@ -190,35 +166,16 @@ namespace prototype_app_chef_infirmier
                             t_allergie.Clear();
                             t_antecedent_medicaux.Clear();
                             #endregion
-                            l_chargement.Text = "Chargement... INSERTION REUSSI RETOUR AU MENU";
-                            pb_progress.Step = 0;
-                            pb_progress.PerformStep();
-                            p_bar_chargement.Visible = false;
-                            p_progressbar.Visible = true;
-                            traitement = true;
-                        }
-                        else //Si table existe pas
-                        {
-                            bdd.table_creer("CREATE TABLE IF NOT EXISTS `test` (`id` int(11) NOT NULL AUTO_INCREMENT,`nom` varchar(30) NOT NULL,`prenom` varchar(30) NOT NULL,`age` int(11) NOT NULL,`date_naissance` DATE NOT NULL,`date_admission` DATE NOT NULL,`sexe` varchar(30) NOT NULL,`situation_familial` TEXT NOT NULL,`note` TEXT NOT NULL,`poid` TEXT NOT NULL,`taille` TEXT NOT NULL,`allergie` TEXT NOT NULL,`antecedant` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-                        }
-                    }
-                    else //Si bdd existe pas
-                    {
-                        bdd.base_creer();
-                    }
-                } while (traitement == false);
+                MessageBox.Show("INSERTION REUSSI", "PATIENT AJOUTER", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else //pas tout les champs remplie
             {
                 F_erreur champ_vide = new F_erreur("ERREUR : Tous les champs ne sont pas remplie!");
                 champ_vide.ShowDialog();
-                pb_progress.Step = 0;
-                p_bar_chargement.Visible = false;
-                p_progressbar.Visible = true;
             }
         }
 
-        private void timer3_Tick(object sender, EventArgs e) 
+        private void afficher_calendrier()
         {
             DataSet db_content = new DataSet();
             DateTime datetime_traitement = dt_calendrier.Value;
@@ -263,23 +220,22 @@ namespace prototype_app_chef_infirmier
             }
             string lundi_traiter = lundi.ToString("yyyy-MM-dd");
             string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd");
-            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter +"'";
+            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter + "'";
             ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
-            if (bdd.base_exist())
-            {
-                if (bdd.table_existe("salle_ope_1") || bdd.table_existe("salle_ope_2"))
-                {
-                    DataTable dt = new DataTable(); // On déclare une DataTable
-                    dt = GetCalendrier(requette); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
-                    dgv_calendrier.RowHeadersVisible = false;
-                    dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
-                }
-            }
+            DataTable dt = new DataTable(); // On déclare une DataTable
+            dt = GetCalendrier(requette); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
+            dgv_calendrier.RowHeadersVisible = false;
+            dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
             ///////////////////////////////////////////////////////////////
+        }
+
+        private void timer3_Tick(object sender, EventArgs e) 
+        {
+            afficher_calendrier();
         }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
         {
-            timer3.Stop(); //Sécurise si on change la salle a afficher
+            timer3.Stop(); //Sécurise si on change la salle a afficher 
             string selected = cb_salle.Text;
             switch (selected)
             {
@@ -289,8 +245,18 @@ namespace prototype_app_chef_infirmier
                 case "Salle d'opération 2":
                     salle = "salle_ope_2";
                     break;
+                case "Salle d'anesthesie":
+                    salle = "salle_ane";
+                    break;
+                case "Salle de reveil":
+                    salle = "salle_reveil";
+                    break;
+                case "Salle de réanimation":
+                    salle = "salle_rea";
+                    break;
             }
-            timer3.Interval = 5000;//toutes les 10 minutes refresh des info 
+            afficher_calendrier();
+            timer3.Interval = 60000;//toutes les 10 minutes refresh des info 
             timer3.Start();
         }
     }

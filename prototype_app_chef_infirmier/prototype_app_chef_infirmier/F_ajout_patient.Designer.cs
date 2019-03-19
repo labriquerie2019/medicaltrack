@@ -35,9 +35,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.l_date_heure = new System.Windows.Forms.Label();
             this.p_progressbar = new System.Windows.Forms.Panel();
-            this.p_bar_chargement = new System.Windows.Forms.Panel();
-            this.l_chargement = new System.Windows.Forms.Label();
-            this.pb_progress = new System.Windows.Forms.ProgressBar();
             this.l_select_room = new System.Windows.Forms.Label();
             this.l_select_date = new System.Windows.Forms.Label();
             this.cb_salle = new System.Windows.Forms.ComboBox();
@@ -71,7 +68,6 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.m_menu.SuspendLayout();
             this.p_progressbar.SuspendLayout();
-            this.p_bar_chargement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,32 +147,6 @@
             this.p_progressbar.Size = new System.Drawing.Size(1248, 550);
             this.p_progressbar.TabIndex = 3;
             // 
-            // p_bar_chargement
-            // 
-            this.p_bar_chargement.Controls.Add(this.l_chargement);
-            this.p_bar_chargement.Controls.Add(this.pb_progress);
-            this.p_bar_chargement.Location = new System.Drawing.Point(0, 27);
-            this.p_bar_chargement.Name = "p_bar_chargement";
-            this.p_bar_chargement.Size = new System.Drawing.Size(1253, 550);
-            this.p_bar_chargement.TabIndex = 26;
-            this.p_bar_chargement.Visible = false;
-            // 
-            // l_chargement
-            // 
-            this.l_chargement.AutoSize = true;
-            this.l_chargement.Location = new System.Drawing.Point(350, 226);
-            this.l_chargement.Name = "l_chargement";
-            this.l_chargement.Size = new System.Drawing.Size(35, 13);
-            this.l_chargement.TabIndex = 1;
-            this.l_chargement.Text = "label1";
-            // 
-            // pb_progress
-            // 
-            this.pb_progress.Location = new System.Drawing.Point(252, 281);
-            this.pb_progress.Name = "pb_progress";
-            this.pb_progress.Size = new System.Drawing.Size(652, 63);
-            this.pb_progress.TabIndex = 0;
-            // 
             // l_select_room
             // 
             this.l_select_room.AutoSize = true;
@@ -200,8 +170,11 @@
             this.cb_salle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_salle.FormattingEnabled = true;
             this.cb_salle.Items.AddRange(new object[] {
+            "Salle d\'anesthesie",
             "Salle d\'opération 1",
-            "Salle d\'opération 2"});
+            "Salle d\'opération 2",
+            "Salle de réanimation",
+            "Salle de reveil"});
             this.cb_salle.Location = new System.Drawing.Point(894, 40);
             this.cb_salle.Name = "cb_salle";
             this.cb_salle.Size = new System.Drawing.Size(200, 21);
@@ -442,7 +415,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 589);
-            this.Controls.Add(this.p_bar_chargement);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
             this.Controls.Add(this.p_progressbar);
@@ -452,8 +424,6 @@
             this.m_menu.PerformLayout();
             this.p_progressbar.ResumeLayout(false);
             this.p_progressbar.PerformLayout();
-            this.p_bar_chargement.ResumeLayout(false);
-            this.p_bar_chargement.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -493,9 +463,6 @@
         private System.Windows.Forms.Label l_poid;
         private System.Windows.Forms.Label l_date_admission;
         private System.Windows.Forms.DateTimePicker dp_admission;
-        private System.Windows.Forms.Panel p_bar_chargement;
-        private System.Windows.Forms.Label l_chargement;
-        private System.Windows.Forms.ProgressBar pb_progress;
         private System.Windows.Forms.DateTimePicker dt_calendrier;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.DataGridView dgv_calendrier;

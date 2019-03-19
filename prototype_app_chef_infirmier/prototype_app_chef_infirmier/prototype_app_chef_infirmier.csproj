@@ -74,6 +74,19 @@
     <Compile Include="F_gerer_planning.Designer.cs">
       <DependentUpon>F_gerer_planning.cs</DependentUpon>
     </Compile>
+    <Compile Include="F_modif_patient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_modif_patient.Designer.cs">
+      <DependentUpon>F_modif_patient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_view_calendrier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_view_calendrier.Designer.cs">
+      <DependentUpon>F_view_calendrier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MessageBoxManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_MySQL.cs" />
@@ -88,6 +101,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F_gerer_planning.resx">
       <DependentUpon>F_gerer_planning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_modif_patient.resx">
+      <DependentUpon>F_modif_patient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_view_calendrier.resx">
+      <DependentUpon>F_view_calendrier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
