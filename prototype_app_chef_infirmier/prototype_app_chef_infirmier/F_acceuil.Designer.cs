@@ -33,6 +33,8 @@
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
             this.m_configuration = new System.Windows.Forms.ToolStripMenuItem();
             this.p_showbutton = new System.Windows.Forms.Panel();
+            this.l_chargement = new System.Windows.Forms.Label();
+            this.pb_chargement = new System.Windows.Forms.ProgressBar();
             this.b_gerer_planning = new System.Windows.Forms.Button();
             this.b_check_planning = new System.Windows.Forms.Button();
             this.b_edit_patient = new System.Windows.Forms.Button();
@@ -81,11 +83,30 @@
             this.p_showbutton.Controls.Add(this.b_check_planning);
             this.p_showbutton.Controls.Add(this.b_edit_patient);
             this.p_showbutton.Controls.Add(this.b_add_patient);
-            this.p_showbutton.Location = new System.Drawing.Point(0, 27);
+            this.p_showbutton.Location = new System.Drawing.Point(1, 27);
             this.p_showbutton.Name = "p_showbutton";
             this.p_showbutton.Size = new System.Drawing.Size(883, 506);
             this.p_showbutton.TabIndex = 1;
             this.p_showbutton.Visible = false;
+            // 
+            // l_chargement
+            // 
+            this.l_chargement.AutoSize = true;
+            this.l_chargement.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_chargement.Location = new System.Drawing.Point(18, 366);
+            this.l_chargement.Name = "l_chargement";
+            this.l_chargement.Size = new System.Drawing.Size(86, 31);
+            this.l_chargement.TabIndex = 5;
+            this.l_chargement.Text = "label1";
+            this.l_chargement.Visible = false;
+            // 
+            // pb_chargement
+            // 
+            this.pb_chargement.Location = new System.Drawing.Point(24, 271);
+            this.pb_chargement.Name = "pb_chargement";
+            this.pb_chargement.Size = new System.Drawing.Size(860, 81);
+            this.pb_chargement.TabIndex = 4;
+            this.pb_chargement.Visible = false;
             // 
             // b_gerer_planning
             // 
@@ -189,6 +210,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 531);
             this.Controls.Add(this.p_showbutton);
+            this.Controls.Add(this.pb_chargement);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.b_connexion);
             this.Controls.Add(this.m_menu);
@@ -196,6 +218,7 @@
             this.Controls.Add(this.l_ndc);
             this.Controls.Add(this.t_ndc);
             this.Controls.Add(this.t_mdp);
+            this.Controls.Add(this.l_chargement);
             this.MainMenuStrip = this.m_menu;
             this.Name = "F_Acceuil";
             this.Text = "Gestion des patients";
@@ -225,6 +248,8 @@
         private System.Windows.Forms.Button b_check_planning;
         private System.Windows.Forms.Button b_gerer_planning;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label l_chargement;
+        private System.Windows.Forms.ProgressBar pb_chargement;
     }
 }
 
