@@ -235,7 +235,7 @@ namespace prototype_app_chef_infirmier
         }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
         {
-            timer3.Stop(); //Sécurise si on change la salle a afficher
+            timer3.Stop(); //Sécurise si on change la salle a afficher 
             string selected = cb_salle.Text;
             switch (selected)
             {
@@ -244,6 +244,15 @@ namespace prototype_app_chef_infirmier
                     break;
                 case "Salle d'opération 2":
                     salle = "salle_ope_2";
+                    break;
+                case "Salle d'anesthesie":
+                    salle = "salle_ane";
+                    break;
+                case "Salle de reveil":
+                    salle = "salle_reveil";
+                    break;
+                case "Salle de réanimation":
+                    salle = "salle_rea";
                     break;
             }
             afficher_calendrier();

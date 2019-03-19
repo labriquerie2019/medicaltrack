@@ -185,6 +185,15 @@ namespace prototype_app_chef_infirmier
                 case "Salle d'opération 2":
                     salle = "salle_ope_2";
                     break;
+                case "Salle d'anesthesie":
+                    salle = "salle_ane";
+                    break;
+                case "Salle de reveil":
+                    salle = "salle_reveil";
+                    break;
+                case "Salle de réanimation":
+                    salle = "salle_rea";
+                    break;
             }
             afficher_calendrier();
             timer2.Interval = 60000;//toutes les 10 minutes refresh des info 

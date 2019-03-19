@@ -170,8 +170,11 @@
             this.cb_salle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_salle.FormattingEnabled = true;
             this.cb_salle.Items.AddRange(new object[] {
+            "Salle d\'anesthesie",
             "Salle d\'opération 1",
-            "Salle d\'opération 2"});
+            "Salle d\'opération 2",
+            "Salle de réanimation",
+            "Salle de reveil"});
             this.cb_salle.Location = new System.Drawing.Point(894, 40);
             this.cb_salle.Name = "cb_salle";
             this.cb_salle.Size = new System.Drawing.Size(200, 21);
