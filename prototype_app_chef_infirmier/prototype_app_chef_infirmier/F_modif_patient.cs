@@ -84,7 +84,7 @@ namespace prototype_app_chef_infirmier
             string antecedant = dgv_table_patient.CurrentRow.Cells[12].Value.ToString();
             #endregion
             #region messagebox/popup
-            string message = "Test nom : " + nom + " prenom : " + prenom;//Message a afficher
+            string message = "nom : " + nom + " prenom : " + prenom + "\n Quelle action voulez-vous effectuer?";//Message a afficher
             string action = "Action à effectuer"; //Nom de la fenettre
             MessageBoxManager.Yes = "Modifier";//On utilise la classe MessageBoxManager pour changer les boutons
             MessageBoxManager.No = "Supprimer";

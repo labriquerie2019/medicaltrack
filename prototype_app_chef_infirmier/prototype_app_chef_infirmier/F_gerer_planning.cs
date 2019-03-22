@@ -67,7 +67,6 @@ namespace prototype_app_chef_infirmier
         {
 
         }
-
         private void F_gerer_planning_Load(object sender, EventArgs e)
         {
 
