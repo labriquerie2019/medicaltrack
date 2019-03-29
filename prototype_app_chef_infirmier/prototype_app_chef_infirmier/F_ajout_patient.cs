@@ -20,6 +20,7 @@ namespace prototype_app_chef_infirmier
             InitializeComponent();
             timer1.Interval = 3000;
             timer1.Start();
+            this.dgv_calendrier.DefaultCellStyle.Font = new Font("Tahoma", 15);
         }
         private DataTable GetCalendrier(string requette)
         {

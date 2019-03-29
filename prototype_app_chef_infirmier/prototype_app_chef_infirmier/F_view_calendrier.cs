@@ -17,7 +17,8 @@ namespace prototype_app_chef_infirmier
         public F_view_calendrier()
         {
             InitializeComponent();
-            ///////////////////////////////////////////////////////////////
+            dgv_calendrier.DefaultCellStyle.Font = new Font("Tahoma", 15);
+            dgv_calendrier.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 15);
             timer1.Interval = 1000;
             timer1.Start();
         }

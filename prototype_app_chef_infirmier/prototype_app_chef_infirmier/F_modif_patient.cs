@@ -18,6 +18,8 @@ namespace prototype_app_chef_infirmier
         public F_modif_patient()
         {
             InitializeComponent();
+            dgv_table_patient.DefaultCellStyle.Font = new Font("Tahoma", 15);
+            dgv_table_patient.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 15);
             timer1.Interval = 3000;
             timer1.Start();
             DataTable dt = recup_bdd("SELECT * FROM patient");
@@ -25,6 +27,8 @@ namespace prototype_app_chef_infirmier
             {
                 dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
                 dgv_table_patient.DataSource = dt;
+                dgv_table_patient.Columns["date_naissance"].Width = 160;
+                dgv_table_patient.Columns["date_admission"].Width = 160;
             }
             else //Erreur BDD
             {

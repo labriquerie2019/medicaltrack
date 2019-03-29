@@ -92,7 +92,7 @@ namespace prototype_app_chef_infirmier
             else//Si table salle_ope_1 existe pas on la créer
             {
                 pb_chargement.PerformStep();
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_1` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_1` (date_heure DATETIME NOT NULL,'id_patient' int(11) NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
             }
             l_chargement.Text = "TEST SI LA TABLE SALLE OPE 2 EXISTE SINON ON LA CREER!";
             if (bdd.table_existe("salle_ope_2"))//Si table salle_ope_2 existe
@@ -102,7 +102,7 @@ namespace prototype_app_chef_infirmier
             else//Si table salle_ope_2 existe pas on la créer
             {
                 pb_chargement.PerformStep();
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_2` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_2` (date_heure DATETIME NOT NULL,'id_patient' int(11) NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
             }
             l_chargement.Text = "TEST SI LA TABLE SALLE REA EXISTE SINON ON LA CREER!";
             if (bdd.table_existe("salle_rea"))//Si salle_rea existe
@@ -113,7 +113,7 @@ namespace prototype_app_chef_infirmier
             else//Si salle_rea existe pas
             {
                 pb_chargement.PerformStep();
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_rea` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_rea` (date_heure DATETIME NOT NULL,'id_patient' int(11) NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
             }
             l_chargement.Text = "TEST SI LA TABLE PATIENT EXISTE SINON ON LA CREER!";
             if (bdd.table_existe("salle_reveil"))//Si salle_reveil existe
@@ -122,7 +122,7 @@ namespace prototype_app_chef_infirmier
             }
             else//Si salle_reveil existe pas
             {
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_reveil` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_reveil` (date_heure DATETIME NOT NULL,'id_patient' int(11) NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
                 pb_chargement.PerformStep();
             }
             if (bdd.table_existe("salle_ane"))//Si salle_ane existe
@@ -135,7 +135,7 @@ namespace prototype_app_chef_infirmier
             }
             else //Si salle_ane existe pas
             {
-                 bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ane` (date_heure DATETIME NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                 bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ane` (date_heure DATETIME NOT NULL,'id_patient' int(11) NOT NULL) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
                 l_chargement.Text = "TOUT EST PRET!";
                 pb_chargement.Value = 100;
                 l_chargement.Visible = false;

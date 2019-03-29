@@ -41,16 +41,17 @@
             this.pictureBox1.Image = global::prototype_app_chef_infirmier.Properties.Resources.th7D95EH43;
             this.pictureBox1.Location = new System.Drawing.Point(-1, 38);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(333, 256);
+            this.pictureBox1.Size = new System.Drawing.Size(417, 304);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // l_message
             // 
             this.l_message.AutoSize = true;
+            this.l_message.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.l_message.Location = new System.Drawing.Point(12, 9);
             this.l_message.Name = "l_message";
-            this.l_message.Size = new System.Drawing.Size(57, 13);
+            this.l_message.Size = new System.Drawing.Size(145, 31);
             this.l_message.TabIndex = 1;
             this.l_message.Text = "l_message";
             // 
@@ -62,7 +63,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 290);
+            this.ClientSize = new System.Drawing.Size(418, 343);
             this.Controls.Add(this.l_message);
             this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

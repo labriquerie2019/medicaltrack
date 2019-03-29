@@ -78,21 +78,23 @@
             this.m_acceuil});
             this.m_menu.Location = new System.Drawing.Point(0, 0);
             this.m_menu.Name = "m_menu";
-            this.m_menu.Size = new System.Drawing.Size(1249, 24);
+            this.m_menu.Size = new System.Drawing.Size(1249, 29);
             this.m_menu.TabIndex = 1;
             this.m_menu.Text = "date et heure";
             // 
             // m_quitter
             // 
+            this.m_quitter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_quitter.Name = "m_quitter";
-            this.m_quitter.Size = new System.Drawing.Size(56, 20);
+            this.m_quitter.Size = new System.Drawing.Size(71, 25);
             this.m_quitter.Text = "Quitter";
             this.m_quitter.Click += new System.EventHandler(this.m_quitter_Click);
             // 
             // m_acceuil
             // 
+            this.m_acceuil.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_acceuil.Name = "m_acceuil";
-            this.m_acceuil.Size = new System.Drawing.Size(58, 20);
+            this.m_acceuil.Size = new System.Drawing.Size(71, 25);
             this.m_acceuil.Text = "Acceuil";
             this.m_acceuil.Click += new System.EventHandler(this.m_configuration_Click);
             // 
@@ -103,9 +105,10 @@
             // l_date_heure
             // 
             this.l_date_heure.AutoSize = true;
+            this.l_date_heure.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.l_date_heure.Location = new System.Drawing.Point(1026, 0);
             this.l_date_heure.Name = "l_date_heure";
-            this.l_date_heure.Size = new System.Drawing.Size(70, 13);
+            this.l_date_heure.Size = new System.Drawing.Size(104, 20);
             this.l_date_heure.TabIndex = 2;
             this.l_date_heure.Text = "date et heure";
             // 
@@ -142,26 +145,29 @@
             this.p_progressbar.Controls.Add(this.l_prenom);
             this.p_progressbar.Controls.Add(this.t_nom);
             this.p_progressbar.Controls.Add(this.l_nom);
+            this.p_progressbar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.p_progressbar.Location = new System.Drawing.Point(1, 27);
             this.p_progressbar.Name = "p_progressbar";
-            this.p_progressbar.Size = new System.Drawing.Size(1248, 550);
+            this.p_progressbar.Size = new System.Drawing.Size(1248, 574);
             this.p_progressbar.TabIndex = 3;
             // 
             // l_select_room
             // 
             this.l_select_room.AutoSize = true;
-            this.l_select_room.Location = new System.Drawing.Point(778, 43);
+            this.l_select_room.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_select_room.Location = new System.Drawing.Point(694, 43);
             this.l_select_room.Name = "l_select_room";
-            this.l_select_room.Size = new System.Drawing.Size(101, 13);
+            this.l_select_room.Size = new System.Drawing.Size(178, 24);
             this.l_select_room.TabIndex = 31;
             this.l_select_room.Text = "Sélectionner la salle";
             // 
             // l_select_date
             // 
             this.l_select_date.AutoSize = true;
-            this.l_select_date.Location = new System.Drawing.Point(760, 11);
+            this.l_select_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_select_date.Location = new System.Drawing.Point(676, 11);
             this.l_select_date.Name = "l_select_date";
-            this.l_select_date.Size = new System.Drawing.Size(119, 13);
+            this.l_select_date.Size = new System.Drawing.Size(212, 24);
             this.l_select_date.TabIndex = 30;
             this.l_select_date.Text = "Sélectionner la semaine";
             // 
@@ -175,9 +181,9 @@
             "Salle d\'opération 2",
             "Salle de réanimation",
             "Salle de reveil"});
-            this.cb_salle.Location = new System.Drawing.Point(894, 40);
+            this.cb_salle.Location = new System.Drawing.Point(894, 36);
             this.cb_salle.Name = "cb_salle";
-            this.cb_salle.Size = new System.Drawing.Size(200, 21);
+            this.cb_salle.Size = new System.Drawing.Size(200, 32);
             this.cb_salle.TabIndex = 29;
             this.cb_salle.SelectedIndexChanged += new System.EventHandler(this.cb_salle_SelectedIndexChanged);
             // 
@@ -187,38 +193,39 @@
             this.dgv_calendrier.AllowUserToDeleteRows = false;
             this.dgv_calendrier.AllowUserToOrderColumns = true;
             this.dgv_calendrier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_calendrier.Location = new System.Drawing.Point(428, 67);
+            this.dgv_calendrier.Location = new System.Drawing.Point(428, 74);
             this.dgv_calendrier.Name = "dgv_calendrier";
             this.dgv_calendrier.ReadOnly = true;
-            this.dgv_calendrier.Size = new System.Drawing.Size(819, 461);
+            this.dgv_calendrier.Size = new System.Drawing.Size(819, 495);
             this.dgv_calendrier.TabIndex = 28;
             // 
             // dt_calendrier
             // 
-            this.dt_calendrier.Location = new System.Drawing.Point(894, 11);
+            this.dt_calendrier.Location = new System.Drawing.Point(894, 7);
             this.dt_calendrier.Name = "dt_calendrier";
-            this.dt_calendrier.Size = new System.Drawing.Size(200, 20);
+            this.dt_calendrier.Size = new System.Drawing.Size(200, 29);
             this.dt_calendrier.TabIndex = 27;
             // 
             // dp_admission
             // 
-            this.dp_admission.Location = new System.Drawing.Point(6, 19);
+            this.dp_admission.Location = new System.Drawing.Point(7, 30);
             this.dp_admission.Name = "dp_admission";
-            this.dp_admission.Size = new System.Drawing.Size(197, 20);
+            this.dp_admission.Size = new System.Drawing.Size(197, 29);
             this.dp_admission.TabIndex = 25;
             // 
             // l_date_admission
             // 
             this.l_date_admission.AutoSize = true;
-            this.l_date_admission.Location = new System.Drawing.Point(3, 3);
+            this.l_date_admission.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_date_admission.Location = new System.Drawing.Point(7, 3);
             this.l_date_admission.Name = "l_date_admission";
-            this.l_date_admission.Size = new System.Drawing.Size(87, 13);
+            this.l_date_admission.Size = new System.Drawing.Size(153, 24);
             this.l_date_admission.TabIndex = 24;
             this.l_date_admission.Text = "Date d\'admission";
             // 
             // t_allergie
             // 
-            this.t_allergie.Location = new System.Drawing.Point(225, 246);
+            this.t_allergie.Location = new System.Drawing.Point(226, 217);
             this.t_allergie.Multiline = true;
             this.t_allergie.Name = "t_allergie";
             this.t_allergie.Size = new System.Drawing.Size(197, 132);
@@ -227,15 +234,16 @@
             // l_allergies
             // 
             this.l_allergies.AutoSize = true;
-            this.l_allergies.Location = new System.Drawing.Point(230, 230);
+            this.l_allergies.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_allergies.Location = new System.Drawing.Point(230, 190);
             this.l_allergies.Name = "l_allergies";
-            this.l_allergies.Size = new System.Drawing.Size(46, 13);
+            this.l_allergies.Size = new System.Drawing.Size(83, 24);
             this.l_allergies.TabIndex = 22;
             this.l_allergies.Text = "Allergies";
             // 
             // t_antecedent_medicaux
             // 
-            this.t_antecedent_medicaux.Location = new System.Drawing.Point(225, 397);
+            this.t_antecedent_medicaux.Location = new System.Drawing.Point(224, 379);
             this.t_antecedent_medicaux.Multiline = true;
             this.t_antecedent_medicaux.Name = "t_antecedent_medicaux";
             this.t_antecedent_medicaux.Size = new System.Drawing.Size(197, 131);
@@ -244,41 +252,44 @@
             // l_antecedant
             // 
             this.l_antecedant.AutoSize = true;
-            this.l_antecedant.Location = new System.Drawing.Point(230, 381);
+            this.l_antecedant.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_antecedant.Location = new System.Drawing.Point(226, 352);
             this.l_antecedant.Name = "l_antecedant";
-            this.l_antecedant.Size = new System.Drawing.Size(110, 13);
+            this.l_antecedant.Size = new System.Drawing.Size(195, 24);
             this.l_antecedant.TabIndex = 20;
             this.l_antecedant.Text = "Antécédent médicaux";
             // 
             // t_taille
             // 
-            this.t_taille.Location = new System.Drawing.Point(225, 207);
+            this.t_taille.Location = new System.Drawing.Point(225, 158);
             this.t_taille.Name = "t_taille";
-            this.t_taille.Size = new System.Drawing.Size(197, 20);
+            this.t_taille.Size = new System.Drawing.Size(197, 29);
             this.t_taille.TabIndex = 19;
             // 
             // l_taille
             // 
             this.l_taille.AutoSize = true;
-            this.l_taille.Location = new System.Drawing.Point(224, 191);
+            this.l_taille.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_taille.Location = new System.Drawing.Point(226, 131);
             this.l_taille.Name = "l_taille";
-            this.l_taille.Size = new System.Drawing.Size(32, 13);
+            this.l_taille.Size = new System.Drawing.Size(55, 24);
             this.l_taille.TabIndex = 18;
             this.l_taille.Text = "Taille";
             // 
             // t_poid
             // 
-            this.t_poid.Location = new System.Drawing.Point(225, 163);
+            this.t_poid.Location = new System.Drawing.Point(225, 94);
             this.t_poid.Name = "t_poid";
-            this.t_poid.Size = new System.Drawing.Size(197, 20);
+            this.t_poid.Size = new System.Drawing.Size(197, 29);
             this.t_poid.TabIndex = 17;
             // 
             // l_poid
             // 
             this.l_poid.AutoSize = true;
-            this.l_poid.Location = new System.Drawing.Point(222, 147);
+            this.l_poid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_poid.Location = new System.Drawing.Point(224, 67);
             this.l_poid.Name = "l_poid";
-            this.l_poid.Size = new System.Drawing.Size(28, 13);
+            this.l_poid.Size = new System.Drawing.Size(48, 24);
             this.l_poid.TabIndex = 16;
             this.l_poid.Text = "Poid";
             // 
@@ -294,14 +305,14 @@
             // 
             // dp_date_naissance
             // 
-            this.dp_date_naissance.Location = new System.Drawing.Point(11, 280);
+            this.dp_date_naissance.Location = new System.Drawing.Point(11, 271);
             this.dp_date_naissance.Name = "dp_date_naissance";
-            this.dp_date_naissance.Size = new System.Drawing.Size(197, 20);
+            this.dp_date_naissance.Size = new System.Drawing.Size(197, 29);
             this.dp_date_naissance.TabIndex = 14;
             // 
             // t_note
             // 
-            this.t_note.Location = new System.Drawing.Point(11, 397);
+            this.t_note.Location = new System.Drawing.Point(12, 442);
             this.t_note.Multiline = true;
             this.t_note.Name = "t_note";
             this.t_note.Size = new System.Drawing.Size(197, 131);
@@ -311,98 +322,105 @@
             // l_note
             // 
             this.l_note.AutoSize = true;
-            this.l_note.Location = new System.Drawing.Point(7, 381);
+            this.l_note.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_note.Location = new System.Drawing.Point(10, 415);
             this.l_note.Name = "l_note";
-            this.l_note.Size = new System.Drawing.Size(30, 13);
+            this.l_note.Size = new System.Drawing.Size(50, 24);
             this.l_note.TabIndex = 12;
             this.l_note.Text = "Note";
             // 
             // t_situation_familial
             // 
-            this.t_situation_familial.Location = new System.Drawing.Point(11, 358);
+            this.t_situation_familial.Location = new System.Drawing.Point(11, 383);
             this.t_situation_familial.Name = "t_situation_familial";
-            this.t_situation_familial.Size = new System.Drawing.Size(197, 20);
+            this.t_situation_familial.Size = new System.Drawing.Size(197, 29);
             this.t_situation_familial.TabIndex = 11;
             // 
             // l_situation_familial
             // 
             this.l_situation_familial.AutoSize = true;
-            this.l_situation_familial.Location = new System.Drawing.Point(6, 342);
+            this.l_situation_familial.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_situation_familial.Location = new System.Drawing.Point(10, 362);
             this.l_situation_familial.Name = "l_situation_familial";
-            this.l_situation_familial.Size = new System.Drawing.Size(82, 13);
+            this.l_situation_familial.Size = new System.Drawing.Size(142, 24);
             this.l_situation_familial.TabIndex = 10;
             this.l_situation_familial.Text = "Situation familial";
             // 
             // t_sexe
             // 
-            this.t_sexe.Location = new System.Drawing.Point(11, 319);
+            this.t_sexe.Location = new System.Drawing.Point(12, 330);
             this.t_sexe.Name = "t_sexe";
-            this.t_sexe.Size = new System.Drawing.Size(197, 20);
+            this.t_sexe.Size = new System.Drawing.Size(197, 29);
             this.t_sexe.TabIndex = 9;
             // 
             // l_sexe
             // 
             this.l_sexe.AutoSize = true;
+            this.l_sexe.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.l_sexe.Location = new System.Drawing.Point(6, 303);
             this.l_sexe.Name = "l_sexe";
-            this.l_sexe.Size = new System.Drawing.Size(31, 13);
+            this.l_sexe.Size = new System.Drawing.Size(54, 24);
             this.l_sexe.TabIndex = 8;
             this.l_sexe.Text = "Sexe";
             // 
             // l_date_de_naissance
             // 
             this.l_date_de_naissance.AutoSize = true;
-            this.l_date_de_naissance.Location = new System.Drawing.Point(8, 264);
+            this.l_date_de_naissance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_date_de_naissance.Location = new System.Drawing.Point(10, 244);
             this.l_date_de_naissance.Name = "l_date_de_naissance";
-            this.l_date_de_naissance.Size = new System.Drawing.Size(96, 13);
+            this.l_date_de_naissance.Size = new System.Drawing.Size(165, 24);
             this.l_date_de_naissance.TabIndex = 6;
             this.l_date_de_naissance.Text = "Date de naissance";
             // 
             // t_age
             // 
-            this.t_age.Location = new System.Drawing.Point(11, 241);
+            this.t_age.Location = new System.Drawing.Point(12, 212);
             this.t_age.Name = "t_age";
-            this.t_age.Size = new System.Drawing.Size(197, 20);
+            this.t_age.Size = new System.Drawing.Size(197, 29);
             this.t_age.TabIndex = 5;
             // 
             // l_age
             // 
             this.l_age.AutoSize = true;
-            this.l_age.Location = new System.Drawing.Point(8, 225);
+            this.l_age.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_age.Location = new System.Drawing.Point(8, 185);
             this.l_age.Name = "l_age";
-            this.l_age.Size = new System.Drawing.Size(26, 13);
+            this.l_age.Size = new System.Drawing.Size(45, 24);
             this.l_age.TabIndex = 4;
             this.l_age.Text = "Age";
             // 
             // t_prenom
             // 
-            this.t_prenom.Location = new System.Drawing.Point(11, 202);
+            this.t_prenom.Location = new System.Drawing.Point(11, 153);
             this.t_prenom.Name = "t_prenom";
-            this.t_prenom.Size = new System.Drawing.Size(197, 20);
+            this.t_prenom.Size = new System.Drawing.Size(197, 29);
             this.t_prenom.TabIndex = 3;
             // 
             // l_prenom
             // 
             this.l_prenom.AutoSize = true;
-            this.l_prenom.Location = new System.Drawing.Point(8, 186);
+            this.l_prenom.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_prenom.Location = new System.Drawing.Point(10, 126);
             this.l_prenom.Name = "l_prenom";
-            this.l_prenom.Size = new System.Drawing.Size(43, 13);
+            this.l_prenom.Size = new System.Drawing.Size(77, 24);
             this.l_prenom.TabIndex = 2;
             this.l_prenom.Text = "Prenom";
             // 
             // t_nom
             // 
-            this.t_nom.Location = new System.Drawing.Point(11, 163);
+            this.t_nom.Location = new System.Drawing.Point(11, 94);
             this.t_nom.Name = "t_nom";
-            this.t_nom.Size = new System.Drawing.Size(197, 20);
+            this.t_nom.Size = new System.Drawing.Size(197, 29);
             this.t_nom.TabIndex = 1;
             // 
             // l_nom
             // 
             this.l_nom.AutoSize = true;
-            this.l_nom.Location = new System.Drawing.Point(6, 147);
+            this.l_nom.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_nom.Location = new System.Drawing.Point(8, 67);
             this.l_nom.Name = "l_nom";
-            this.l_nom.Size = new System.Drawing.Size(29, 13);
+            this.l_nom.Size = new System.Drawing.Size(51, 24);
             this.l_nom.TabIndex = 0;
             this.l_nom.Text = "Nom";
             // 
@@ -414,7 +432,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1249, 589);
+            this.ClientSize = new System.Drawing.Size(1249, 602);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
             this.Controls.Add(this.p_progressbar);
