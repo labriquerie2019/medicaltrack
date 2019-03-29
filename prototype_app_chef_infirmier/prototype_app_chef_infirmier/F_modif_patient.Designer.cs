@@ -62,6 +62,9 @@
             this.l_prenom = new System.Windows.Forms.Label();
             this.t_nom = new System.Windows.Forms.TextBox();
             this.l_nom = new System.Windows.Forms.Label();
+            this.l_filtre = new System.Windows.Forms.Label();
+            this.cb_filtre = new System.Windows.Forms.ComboBox();
+            this.t_filtre = new System.Windows.Forms.TextBox();
             this.m_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_table_patient)).BeginInit();
             this.p_modif.SuspendLayout();
@@ -113,10 +116,10 @@
             this.dgv_table_patient.AllowUserToAddRows = false;
             this.dgv_table_patient.AllowUserToDeleteRows = false;
             this.dgv_table_patient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_table_patient.Location = new System.Drawing.Point(0, 23);
+            this.dgv_table_patient.Location = new System.Drawing.Point(0, 77);
             this.dgv_table_patient.Name = "dgv_table_patient";
             this.dgv_table_patient.ReadOnly = true;
-            this.dgv_table_patient.Size = new System.Drawing.Size(1235, 593);
+            this.dgv_table_patient.Size = new System.Drawing.Size(1235, 549);
             this.dgv_table_patient.TabIndex = 4;
             this.dgv_table_patient.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_table_patient_CellContentClick);
             // 
@@ -149,7 +152,7 @@
             this.p_modif.Controls.Add(this.t_nom);
             this.p_modif.Controls.Add(this.l_nom);
             this.p_modif.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.p_modif.Location = new System.Drawing.Point(0, 23);
+            this.p_modif.Location = new System.Drawing.Point(0, 32);
             this.p_modif.Name = "p_modif";
             this.p_modif.Size = new System.Drawing.Size(1247, 593);
             this.p_modif.TabIndex = 5;
@@ -379,12 +382,59 @@
             this.l_nom.TabIndex = 1;
             this.l_nom.Text = "Nom";
             // 
+            // l_filtre
+            // 
+            this.l_filtre.AutoSize = true;
+            this.l_filtre.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_filtre.Location = new System.Drawing.Point(-5, 41);
+            this.l_filtre.Name = "l_filtre";
+            this.l_filtre.Size = new System.Drawing.Size(305, 25);
+            this.l_filtre.TabIndex = 6;
+            this.l_filtre.Text = "Choisissez le champs à filtrer :";
+            // 
+            // cb_filtre
+            // 
+            this.cb_filtre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_filtre.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_filtre.FormattingEnabled = true;
+            this.cb_filtre.Items.AddRange(new object[] {
+            "AUCUN",
+            "ID",
+            "NOM",
+            "PRENOM",
+            "AGE",
+            "SEXE",
+            "SITUATION FAMILIAL",
+            "NOTE",
+            "POID",
+            "TAILLE",
+            "ALLERGIES",
+            "ANTECEDENT MEDICAUX"});
+            this.cb_filtre.Location = new System.Drawing.Point(306, 38);
+            this.cb_filtre.Name = "cb_filtre";
+            this.cb_filtre.Size = new System.Drawing.Size(200, 33);
+            this.cb_filtre.TabIndex = 30;
+            this.cb_filtre.SelectedIndexChanged += new System.EventHandler(this.cb_filtre_SelectedIndexChanged);
+            // 
+            // t_filtre
+            // 
+            this.t_filtre.Location = new System.Drawing.Point(512, 38);
+            this.t_filtre.Multiline = true;
+            this.t_filtre.Name = "t_filtre";
+            this.t_filtre.ReadOnly = true;
+            this.t_filtre.Size = new System.Drawing.Size(711, 33);
+            this.t_filtre.TabIndex = 42;
+            this.t_filtre.TextChanged += new System.EventHandler(this.t_filtre_TextChanged);
+            // 
             // F_modif_patient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1247, 616);
+            this.ClientSize = new System.Drawing.Size(1247, 624);
             this.Controls.Add(this.p_modif);
+            this.Controls.Add(this.t_filtre);
+            this.Controls.Add(this.cb_filtre);
+            this.Controls.Add(this.l_filtre);
             this.Controls.Add(this.dgv_table_patient);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
@@ -435,5 +485,8 @@
         private System.Windows.Forms.Label l_label_date_admission;
         private System.Windows.Forms.Button b_annuler;
         private System.Windows.Forms.Button b_done_modif;
+        private System.Windows.Forms.Label l_filtre;
+        private System.Windows.Forms.ComboBox cb_filtre;
+        private System.Windows.Forms.TextBox t_filtre;
     }
 }

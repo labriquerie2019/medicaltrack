@@ -242,5 +242,136 @@ namespace prototype_app_chef_infirmier
             #endregion
             p_modif.Visible = false;
         }
+
+        private void t_filtre_TextChanged(object sender, EventArgs e)
+        {
+            DataTable dt;
+            switch (cb_filtre.Text) //Permet de savoir quelle champs va être filter
+            {
+                case "ID":
+                    if (t_filtre.Text != null)
+                    {
+                        dt = recup_bdd("SELECT * FROM patient WHERE id =" + t_filtre.Text);
+                        if (dt != null) //BDD remplie on affiche
+                        {
+                            dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
+                            dgv_table_patient.DataSource = dt;
+                            dgv_table_patient.Columns["date_naissance"].Width = 160;
+                            dgv_table_patient.Columns["date_admission"].Width = 160;
+                        }
+                        else //Erreur BDD
+                        {
+                            string message = "Erreur lors du chargement des données de la base de données";//Message a afficher
+                            string action = "ERREUR BDD"; //Nom de la fenettre
+                            MessageBoxManager.OK = "Réessayer";//On utilise la classe MessageBoxManager pour changer les boutons
+                            MessageBoxManager.Register(); //On applique nos changements
+                            var rep = MessageBox.Show(message, action, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
+                        }
+                    }
+                    else
+                    {
+                        dt = recup_bdd("SELECT * FROM patient");
+                        if (dt != null) //BDD remplie on affiche
+                        {
+                            dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
+                            dgv_table_patient.DataSource = dt;
+                            dgv_table_patient.Columns["date_naissance"].Width = 160;
+                            dgv_table_patient.Columns["date_admission"].Width = 160;
+                        }
+                        else //Erreur BDD
+                        {
+                            string message = "Erreur lors du chargement des données de la base de données";//Message a afficher
+                            string action = "ERREUR BDD"; //Nom de la fenettre
+                            MessageBoxManager.OK = "Réessayer";//On utilise la classe MessageBoxManager pour changer les boutons
+                            MessageBoxManager.Register(); //On applique nos changements
+                            var rep = MessageBox.Show(message, action, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
+                        }
+                    }
+                    break;
+                case "NOM":
+                    dt = recup_bdd("SELECT * FROM patient WHERE nom LIKE '%"+t_filtre.Text+"%'");
+                    dgv_load(dt);
+                    break;
+                case "PRENOM":
+                    dt = recup_bdd("SELECT * FROM patient WHERE prenom LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "AGE":
+                    dt = recup_bdd("SELECT * FROM patient WHERE age LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "SEXE":
+                    dt = recup_bdd("SELECT * FROM patient WHERE sexe LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "SITUATION FAMILIAL":
+                    dt = recup_bdd("SELECT * FROM patient WHERE situation_familial LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "NOTE":
+                    dt = recup_bdd("SELECT * FROM patient WHERE note LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "POID":
+                    dt = recup_bdd("SELECT * FROM patient WHERE poid LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "TAILLE":
+                    dt = recup_bdd("SELECT * FROM patient WHERE taille LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "ALLERGIES":
+                    dt = recup_bdd("SELECT * FROM patient WHERE allergies LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "ANTECEDENT MEDICAUX":
+                    dt = recup_bdd("SELECT * FROM patient WHERE antecedant LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                default://Aucun filtre
+                    if(t_filtre.Text == "")
+                    {
+                        dt = recup_bdd("SELECT * FROM patient");
+                        dgv_load(dt);
+                    }
+                    break;
+            }
+        }
+        public void dgv_load(DataTable datatable)
+        {
+            if (datatable != null) //BDD remplie on affiche
+            {
+                dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
+                dgv_table_patient.DataSource = datatable;
+                dgv_table_patient.Columns["date_naissance"].Width = 160;
+                dgv_table_patient.Columns["date_admission"].Width = 160;
+            }
+            else //Erreur BDD
+            {
+                string message = "Erreur lors du chargement des données de la base de données";//Message a afficher
+                string action = "ERREUR BDD"; //Nom de la fenettre
+                MessageBoxManager.OK = "Réessayer";//On utilise la classe MessageBoxManager pour changer les boutons
+                MessageBoxManager.Register(); //On applique nos changements
+                var rep = MessageBox.Show(message, action, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
+            }
+        }
+
+        private void cb_filtre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cb_filtre.Text == "AUCUN")
+            {
+                t_filtre.Text = "";
+                t_filtre.ReadOnly = true;
+                DataTable dt = recup_bdd("SELECT * FROM patient");
+                dgv_load(dt);
+            }
+            else
+            {
+                t_filtre.ReadOnly = false;
+            }
+        }
     }
 }
