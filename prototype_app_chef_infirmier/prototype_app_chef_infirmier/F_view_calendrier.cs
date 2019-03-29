@@ -64,10 +64,6 @@ namespace prototype_app_chef_infirmier
             dgv_calendrier.RowHeadersVisible = false;
             dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
         }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-        }
     }
 
 }

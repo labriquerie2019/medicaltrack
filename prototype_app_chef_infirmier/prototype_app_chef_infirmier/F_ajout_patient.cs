@@ -93,9 +93,6 @@ namespace prototype_app_chef_infirmier
                 champ_vide.ShowDialog();
             }
         }
-        private void timer3_Tick(object sender, EventArgs e) 
-        {
-        }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selected = cb_salle.Text;

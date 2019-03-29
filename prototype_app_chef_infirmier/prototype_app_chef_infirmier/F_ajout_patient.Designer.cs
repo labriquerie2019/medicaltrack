@@ -65,7 +65,6 @@
             this.l_prenom = new System.Windows.Forms.Label();
             this.t_nom = new System.Windows.Forms.TextBox();
             this.l_nom = new System.Windows.Forms.Label();
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.m_menu.SuspendLayout();
             this.p_progressbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
@@ -424,10 +423,6 @@
             this.l_nom.TabIndex = 0;
             this.l_nom.Text = "Nom";
             // 
-            // timer3
-            // 
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
-            // 
             // F_ajout_patient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -482,7 +477,6 @@
         private System.Windows.Forms.Label l_date_admission;
         private System.Windows.Forms.DateTimePicker dp_admission;
         private System.Windows.Forms.DateTimePicker dt_calendrier;
-        private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.DataGridView dgv_calendrier;
         private System.Windows.Forms.Label l_select_room;
         private System.Windows.Forms.Label l_select_date;

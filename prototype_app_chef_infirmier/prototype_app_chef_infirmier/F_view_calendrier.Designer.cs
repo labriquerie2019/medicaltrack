@@ -39,7 +39,6 @@
             this.cb_salle = new System.Windows.Forms.ComboBox();
             this.dgv_calendrier = new System.Windows.Forms.DataGridView();
             this.dt_calendrier = new System.Windows.Forms.DateTimePicker();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.m_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
             this.SuspendLayout();
@@ -142,10 +141,6 @@
             this.dt_calendrier.Size = new System.Drawing.Size(329, 31);
             this.dt_calendrier.TabIndex = 32;
             // 
-            // timer2
-            // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
             // F_view_calendrier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,6 +175,5 @@
         private System.Windows.Forms.ComboBox cb_salle;
         private System.Windows.Forms.DataGridView dgv_calendrier;
         private System.Windows.Forms.DateTimePicker dt_calendrier;
-        private System.Windows.Forms.Timer timer2;
     }
 }

@@ -41,7 +41,6 @@
             this.cb_patient = new System.Windows.Forms.ComboBox();
             this.l_select_date = new System.Windows.Forms.Label();
             this.dt_calendrier = new System.Windows.Forms.DateTimePicker();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.l_nb_patient = new System.Windows.Forms.Label();
             this.m_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
@@ -154,10 +153,6 @@
             this.dt_calendrier.Size = new System.Drawing.Size(207, 20);
             this.dt_calendrier.TabIndex = 36;
             // 
-            // timer2
-            // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
             // l_nb_patient
             // 
             this.l_nb_patient.AutoSize = true;
@@ -207,7 +202,6 @@
         private System.Windows.Forms.ComboBox cb_patient;
         private System.Windows.Forms.Label l_select_date;
         private System.Windows.Forms.DateTimePicker dt_calendrier;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Label l_nb_patient;
     }
 }
