@@ -9,19 +9,73 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using System.IO.Ports;
+using System.Threading;
 
 namespace prototype_app_chef_infirmier
 {
     public partial class F_ajout_patient : Form
     {
         static string salle;
+        SerialPort my_serie;
         public F_ajout_patient()
         {
             InitializeComponent();
             timer1.Interval = 3000;
             timer1.Start();
             this.dgv_calendrier.DefaultCellStyle.Font = new Font("Tahoma", 15);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT RFID
+            try
+            {
+                my_serie = new SerialPort("COM1");
+                my_serie.BaudRate = Convert.ToInt32(9600);
+                my_serie.DataBits = 8;
+                my_serie.StopBits = StopBits.One;
+                my_serie.Parity = Parity.None;
+                my_serie.Handshake = Handshake.None;
+                my_serie.Open();
+                my_serie.DataReceived += new SerialDataReceivedEventHandler(ReceptionSerie);
+                //"Ouverture du port " + portCom;
+            }
+            catch { }
         }
+           delegate void SetTextCallback(string text);
+        private void ReceptionSerie(object sender, SerialDataReceivedEventArgs e)
+        {
+            Thread.Sleep(750);///attente pour les gros paquets de données
+            string data = my_serie.ReadExisting();
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            SetText(data);
+        }
+        private void SetText(string textCOM)
+        {
+            if (t_rfid.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                t_rfid.Invoke(d, new object[] { textCOM });
+                string input = this.t_rfid.Text;
+                char[] values = input.ToCharArray();
+                textCOM = string.Empty;
+
+            }
+            else
+            {
+                t_rfid.Text = "";
+                t_rfid.Text += ConvertToHex(textCOM);
+            }
+        }
+        public string ConvertToHex(string asciiString)
+        {
+            string hex = "";
+            foreach (char c in asciiString)
+            {
+                int tmp = c;
+                hex += String.Format("{0:X2}", (uint)System.Convert.ToUInt32(tmp.ToString()));
+                hex += " ";
+            }
+            return hex;
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// FIN RFID
         private void m_quitter_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -118,6 +172,11 @@ namespace prototype_app_chef_infirmier
             DataTable dt = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
             dgv_calendrier.RowHeadersVisible = false;
             dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
+        }
+
+        private void t_rfid_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

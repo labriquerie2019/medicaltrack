@@ -81,6 +81,12 @@
     <Compile Include="F_modif_patient.Designer.cs">
       <DependentUpon>F_modif_patient.cs</DependentUpon>
     </Compile>
+    <Compile Include="F_personnel_hospitalier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_personnel_hospitalier.Designer.cs">
+      <DependentUpon>F_personnel_hospitalier.cs</DependentUpon>
+    </Compile>
     <Compile Include="F_view_calendrier.cs">
       <SubType>Form</SubType>
     </Compile>

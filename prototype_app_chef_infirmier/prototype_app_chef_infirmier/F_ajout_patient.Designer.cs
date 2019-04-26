@@ -35,6 +35,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.l_date_heure = new System.Windows.Forms.Label();
             this.p_progressbar = new System.Windows.Forms.Panel();
+            this.t_rfid = new System.Windows.Forms.TextBox();
+            this.l_rfid = new System.Windows.Forms.Label();
             this.l_select_room = new System.Windows.Forms.Label();
             this.l_select_date = new System.Windows.Forms.Label();
             this.cb_salle = new System.Windows.Forms.ComboBox();
@@ -114,6 +116,8 @@
             // p_progressbar
             // 
             this.p_progressbar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.p_progressbar.Controls.Add(this.t_rfid);
+            this.p_progressbar.Controls.Add(this.l_rfid);
             this.p_progressbar.Controls.Add(this.l_select_room);
             this.p_progressbar.Controls.Add(this.l_select_date);
             this.p_progressbar.Controls.Add(this.cb_salle);
@@ -147,8 +151,27 @@
             this.p_progressbar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.p_progressbar.Location = new System.Drawing.Point(1, 27);
             this.p_progressbar.Name = "p_progressbar";
-            this.p_progressbar.Size = new System.Drawing.Size(1248, 574);
+            this.p_progressbar.Size = new System.Drawing.Size(1248, 602);
             this.p_progressbar.TabIndex = 3;
+            // 
+            // t_rfid
+            // 
+            this.t_rfid.Location = new System.Drawing.Point(225, 32);
+            this.t_rfid.Name = "t_rfid";
+            this.t_rfid.ReadOnly = true;
+            this.t_rfid.Size = new System.Drawing.Size(445, 29);
+            this.t_rfid.TabIndex = 33;
+            this.t_rfid.TextChanged += new System.EventHandler(this.t_rfid_TextChanged);
+            // 
+            // l_rfid
+            // 
+            this.l_rfid.AutoSize = true;
+            this.l_rfid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_rfid.Location = new System.Drawing.Point(223, 5);
+            this.l_rfid.Name = "l_rfid";
+            this.l_rfid.Size = new System.Drawing.Size(173, 24);
+            this.l_rfid.TabIndex = 32;
+            this.l_rfid.Text = "Scanner le bracelet";
             // 
             // l_select_room
             // 
@@ -224,7 +247,7 @@
             // 
             // t_allergie
             // 
-            this.t_allergie.Location = new System.Drawing.Point(226, 217);
+            this.t_allergie.Location = new System.Drawing.Point(224, 227);
             this.t_allergie.Multiline = true;
             this.t_allergie.Name = "t_allergie";
             this.t_allergie.Size = new System.Drawing.Size(197, 132);
@@ -234,7 +257,7 @@
             // 
             this.l_allergies.AutoSize = true;
             this.l_allergies.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_allergies.Location = new System.Drawing.Point(230, 190);
+            this.l_allergies.Location = new System.Drawing.Point(225, 200);
             this.l_allergies.Name = "l_allergies";
             this.l_allergies.Size = new System.Drawing.Size(83, 24);
             this.l_allergies.TabIndex = 22;
@@ -242,17 +265,17 @@
             // 
             // t_antecedent_medicaux
             // 
-            this.t_antecedent_medicaux.Location = new System.Drawing.Point(224, 379);
+            this.t_antecedent_medicaux.Location = new System.Drawing.Point(225, 399);
             this.t_antecedent_medicaux.Multiline = true;
             this.t_antecedent_medicaux.Name = "t_antecedent_medicaux";
-            this.t_antecedent_medicaux.Size = new System.Drawing.Size(197, 131);
+            this.t_antecedent_medicaux.Size = new System.Drawing.Size(197, 146);
             this.t_antecedent_medicaux.TabIndex = 21;
             // 
             // l_antecedant
             // 
             this.l_antecedant.AutoSize = true;
             this.l_antecedant.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_antecedant.Location = new System.Drawing.Point(226, 352);
+            this.l_antecedant.Location = new System.Drawing.Point(223, 362);
             this.l_antecedant.Name = "l_antecedant";
             this.l_antecedant.Size = new System.Drawing.Size(195, 24);
             this.l_antecedant.TabIndex = 20;
@@ -260,7 +283,7 @@
             // 
             // t_taille
             // 
-            this.t_taille.Location = new System.Drawing.Point(225, 158);
+            this.t_taille.Location = new System.Drawing.Point(224, 158);
             this.t_taille.Name = "t_taille";
             this.t_taille.Size = new System.Drawing.Size(197, 29);
             this.t_taille.TabIndex = 19;
@@ -269,7 +292,7 @@
             // 
             this.l_taille.AutoSize = true;
             this.l_taille.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_taille.Location = new System.Drawing.Point(226, 131);
+            this.l_taille.Location = new System.Drawing.Point(225, 131);
             this.l_taille.Name = "l_taille";
             this.l_taille.Size = new System.Drawing.Size(55, 24);
             this.l_taille.TabIndex = 18;
@@ -277,7 +300,7 @@
             // 
             // t_poid
             // 
-            this.t_poid.Location = new System.Drawing.Point(225, 94);
+            this.t_poid.Location = new System.Drawing.Point(224, 94);
             this.t_poid.Name = "t_poid";
             this.t_poid.Size = new System.Drawing.Size(197, 29);
             this.t_poid.TabIndex = 17;
@@ -286,7 +309,7 @@
             // 
             this.l_poid.AutoSize = true;
             this.l_poid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_poid.Location = new System.Drawing.Point(224, 67);
+            this.l_poid.Location = new System.Drawing.Point(223, 67);
             this.l_poid.Name = "l_poid";
             this.l_poid.Size = new System.Drawing.Size(48, 24);
             this.l_poid.TabIndex = 16;
@@ -294,9 +317,9 @@
             // 
             // b_add_patient
             // 
-            this.b_add_patient.Location = new System.Drawing.Point(227, 3);
+            this.b_add_patient.Location = new System.Drawing.Point(3, 551);
             this.b_add_patient.Name = "b_add_patient";
-            this.b_add_patient.Size = new System.Drawing.Size(195, 41);
+            this.b_add_patient.Size = new System.Drawing.Size(417, 41);
             this.b_add_patient.TabIndex = 15;
             this.b_add_patient.Text = "Ajouter un nouveau patient";
             this.b_add_patient.UseVisualStyleBackColor = true;
@@ -314,7 +337,7 @@
             this.t_note.Location = new System.Drawing.Point(12, 442);
             this.t_note.Multiline = true;
             this.t_note.Name = "t_note";
-            this.t_note.Size = new System.Drawing.Size(197, 131);
+            this.t_note.Size = new System.Drawing.Size(197, 103);
             this.t_note.TabIndex = 13;
             this.t_note.TextChanged += new System.EventHandler(this.t_note_TextChanged);
             // 
@@ -427,7 +450,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1249, 602);
+            this.ClientSize = new System.Drawing.Size(1249, 628);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
             this.Controls.Add(this.p_progressbar);
@@ -481,5 +504,7 @@
         private System.Windows.Forms.Label l_select_room;
         private System.Windows.Forms.Label l_select_date;
         private System.Windows.Forms.ComboBox cb_salle;
+        private System.Windows.Forms.Label l_rfid;
+        private System.Windows.Forms.TextBox t_rfid;
     }
 }
