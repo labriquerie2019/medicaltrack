@@ -1,34 +1,9 @@
-LE CAS D’EASYPHP :
-
-Tout comme Wamp, l’accès distant à EasyPhp n’est pas autorisé par défaut. Il faut donc configurer EasyPhp. Pour se faire exécuter en même temps que moi les instructions :
-
-1. Clic droit sur EasyPhp
-2. Allez dans Configurartion
-3. Cliquez sur Apache
-
-Configuration de Easy Php
-Configuration d’EasyPhp
-Rechercher dans le fichier, la ligne :
-Listen 127.0.0.1:80
-Puis remplacer la par la ligne suivante:
-Listen IP:80
-Mon adresse IP étant 192.168.1.5 au moment où ces lignes sont écrites, je remplacerai donc la ligne en question par :
-Listen 192.168.1.5:80
-Recherchez toujours dans le fichier les lignes suivantes :
-
-Fichier de configuration Apache de Easy Php
-Fichier de configuration Apache d’EasyPhp
-Si vous désirez que l’on puisse accéder à Phpmyadmin par un accès distant alors il faut remplacer la ligne :
-Allow from 127.0.0.1
-Qui se trouve entre les balises et par la ligne suivante :
-Allow from all
-
-Nous pouvons enfin tester la connexion distante. Pour se faire, recopier l’adresse IP du serveur suivi de home ou phpmyadmin selon la configuration précédente dans la barre d’adresse du PC distant désirant se connecter, puis validez :
-
-
-Connexion distante
-Vous devriez normalement avoir accès au serveur distant.
-Remarques :
-
-Si vous rencontrez des problèmes veuillez vérifier que vos proxys sont correctement configurés.
-Les instructions ci-dessus ont été testées avec Wamp 2.1 et EasyPhp 5.3.9.
+Clique droit sur EasyPHP, configuration et commence par choisir Apache
+Chercher la ligne Listen et ajouter 0.0.0.0:80, exemple :
+                                                         #Listen 12.34.56.78:80
+                                                         Listen 127.0.0.1:80
+                                                         Listen 0.0.0.0:80
+Clique droit sur EasyPHP, configuration et on choisis MySQL
+On met le bind-adress Ã  0.0.0.0
+Exemple :
+        bind-address	= 0.0.0.0
