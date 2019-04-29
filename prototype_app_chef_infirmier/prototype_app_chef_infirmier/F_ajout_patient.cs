@@ -147,8 +147,7 @@ namespace prototype_app_chef_infirmier
             }
             else //pas tout les champs remplie
             {
-                F_erreur champ_vide = new F_erreur("ERREUR : Tous les champs ne sont pas remplie!");
-                champ_vide.ShowDialog();
+                MessageBox.Show("ERREUR : Tous les champs ne sont pas remplie!");
             }
         }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)

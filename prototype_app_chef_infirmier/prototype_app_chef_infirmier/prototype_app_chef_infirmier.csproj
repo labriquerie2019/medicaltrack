@@ -63,12 +63,6 @@
     <Compile Include="F_ajout_patient.Designer.cs">
       <DependentUpon>F_ajout_patient.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_erreur.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_erreur.Designer.cs">
-      <DependentUpon>F_erreur.cs</DependentUpon>
-    </Compile>
     <Compile Include="F_gerer_planning.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,9 +96,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F_ajout_patient.resx">
       <DependentUpon>F_ajout_patient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F_erreur.resx">
-      <DependentUpon>F_erreur.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_gerer_planning.resx">
       <DependentUpon>F_gerer_planning.cs</DependentUpon>

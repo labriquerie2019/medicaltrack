@@ -78,8 +78,7 @@ namespace prototype_app_chef_infirmier
                                 dt.Rows[heure + compteur].SetField(8, "ya un gars ici");
                                 break;
                             default://Si erreur
-                                F_erreur erreur_date = new F_erreur("ERREUR : Lors du traitement des heures/date.");
-                                erreur_date.ShowDialog();
+                                MessageBox.Show("ERREUR : Lors du traitement des heures/date.");
                                 //timer2.Stop();
                                 break;
                         }
