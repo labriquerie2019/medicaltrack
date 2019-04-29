@@ -36,6 +36,12 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dgv_table_patient = new System.Windows.Forms.DataGridView();
             this.p_modif = new System.Windows.Forms.Panel();
+            this.t_rfid = new System.Windows.Forms.TextBox();
+            this.l_l_new_bracelet_2 = new System.Windows.Forms.Label();
+            this.l_l_new_bracelet = new System.Windows.Forms.Label();
+            this.l_l_rfid = new System.Windows.Forms.Label();
+            this.l_last_scan = new System.Windows.Forms.Label();
+            this.l_l_last_scan = new System.Windows.Forms.Label();
             this.b_annuler = new System.Windows.Forms.Button();
             this.b_done_modif = new System.Windows.Forms.Button();
             this.l_date_admission = new System.Windows.Forms.Label();
@@ -125,6 +131,12 @@
             // 
             // p_modif
             // 
+            this.p_modif.Controls.Add(this.t_rfid);
+            this.p_modif.Controls.Add(this.l_l_new_bracelet_2);
+            this.p_modif.Controls.Add(this.l_l_new_bracelet);
+            this.p_modif.Controls.Add(this.l_l_rfid);
+            this.p_modif.Controls.Add(this.l_last_scan);
+            this.p_modif.Controls.Add(this.l_l_last_scan);
             this.p_modif.Controls.Add(this.b_annuler);
             this.p_modif.Controls.Add(this.b_done_modif);
             this.p_modif.Controls.Add(this.l_date_admission);
@@ -157,6 +169,59 @@
             this.p_modif.Size = new System.Drawing.Size(1247, 593);
             this.p_modif.TabIndex = 5;
             this.p_modif.Visible = false;
+            // 
+            // t_rfid
+            // 
+            this.t_rfid.Location = new System.Drawing.Point(0, 305);
+            this.t_rfid.Name = "t_rfid";
+            this.t_rfid.ReadOnly = true;
+            this.t_rfid.Size = new System.Drawing.Size(342, 31);
+            this.t_rfid.TabIndex = 52;
+            // 
+            // l_l_new_bracelet_2
+            // 
+            this.l_l_new_bracelet_2.AutoSize = true;
+            this.l_l_new_bracelet_2.Location = new System.Drawing.Point(3, 237);
+            this.l_l_new_bracelet_2.Name = "l_l_new_bracelet_2";
+            this.l_l_new_bracelet_2.Size = new System.Drawing.Size(291, 25);
+            this.l_l_new_bracelet_2.TabIndex = 51;
+            this.l_l_new_bracelet_2.Text = "scanner un nouveau bracelet";
+            // 
+            // l_l_new_bracelet
+            // 
+            this.l_l_new_bracelet.AutoSize = true;
+            this.l_l_new_bracelet.Location = new System.Drawing.Point(-5, 212);
+            this.l_l_new_bracelet.Name = "l_l_new_bracelet";
+            this.l_l_new_bracelet.Size = new System.Drawing.Size(355, 25);
+            this.l_l_new_bracelet.TabIndex = 50;
+            this.l_l_new_bracelet.Text = "Si vous voulez changer de bracelet,";
+            // 
+            // l_l_rfid
+            // 
+            this.l_l_rfid.AutoSize = true;
+            this.l_l_rfid.Location = new System.Drawing.Point(3, 274);
+            this.l_l_rfid.Name = "l_l_rfid";
+            this.l_l_rfid.Size = new System.Drawing.Size(159, 25);
+            this.l_l_rfid.TabIndex = 48;
+            this.l_l_rfid.Text = "NUMERO RFID";
+            // 
+            // l_last_scan
+            // 
+            this.l_last_scan.AutoSize = true;
+            this.l_last_scan.Location = new System.Drawing.Point(976, 223);
+            this.l_last_scan.Name = "l_last_scan";
+            this.l_last_scan.Size = new System.Drawing.Size(104, 25);
+            this.l_last_scan.TabIndex = 47;
+            this.l_last_scan.Text = "last_scan";
+            // 
+            // l_l_last_scan
+            // 
+            this.l_l_last_scan.AutoSize = true;
+            this.l_l_last_scan.Location = new System.Drawing.Point(837, 198);
+            this.l_l_last_scan.Name = "l_l_last_scan";
+            this.l_l_last_scan.Size = new System.Drawing.Size(405, 25);
+            this.l_l_last_scan.TabIndex = 46;
+            this.l_l_last_scan.Text = "Dernier lieux ou le patient à était scanner";
             // 
             // b_annuler
             // 
@@ -409,7 +474,9 @@
             "POID",
             "TAILLE",
             "ALLERGIES",
-            "ANTECEDENT MEDICAUX"});
+            "ANTECEDENT MEDICAUX",
+            "TAG RFID",
+            "DERNIER SCAN"});
             this.cb_filtre.Location = new System.Drawing.Point(306, 38);
             this.cb_filtre.Name = "cb_filtre";
             this.cb_filtre.Size = new System.Drawing.Size(200, 33);
@@ -488,5 +555,11 @@
         private System.Windows.Forms.Label l_filtre;
         private System.Windows.Forms.ComboBox cb_filtre;
         private System.Windows.Forms.TextBox t_filtre;
+        private System.Windows.Forms.Label l_last_scan;
+        private System.Windows.Forms.Label l_l_last_scan;
+        private System.Windows.Forms.Label l_l_rfid;
+        private System.Windows.Forms.Label l_l_new_bracelet_2;
+        private System.Windows.Forms.Label l_l_new_bracelet;
+        private System.Windows.Forms.TextBox t_rfid;
     }
 }

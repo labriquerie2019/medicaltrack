@@ -21,6 +21,7 @@ namespace prototype_app_chef_infirmier
         public F_ajout_patient()
         {
             InitializeComponent();
+            this.FormClosed += new FormClosedEventHandler(Form_FormClosed); //Catch event si la form se ferme
             timer1.Interval = 3000;
             timer1.Start();
             this.dgv_calendrier.DefaultCellStyle.Font = new Font("Tahoma", 15);
@@ -39,7 +40,11 @@ namespace prototype_app_chef_infirmier
             }
             catch { }
         }
-           delegate void SetTextCallback(string text);
+        void Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            my_serie.Close();// Destructeur, on libère le port série pour les autres fenetres
+        }
+        delegate void SetTextCallback(string text);
         private void ReceptionSerie(object sender, SerialDataReceivedEventArgs e)
         {
             Thread.Sleep(750);///attente pour les gros paquets de données
@@ -51,29 +56,26 @@ namespace prototype_app_chef_infirmier
         {
             if (t_rfid.InvokeRequired)
             {
+
                 SetTextCallback d = new SetTextCallback(SetText);
                 t_rfid.Invoke(d, new object[] { textCOM });
+
                 string input = this.t_rfid.Text;
                 char[] values = input.ToCharArray();
                 textCOM = string.Empty;
-
+                foreach (char letter in values)
+                {
+                    int value = Convert.ToInt32(letter);
+                    textCOM += String.Format("{0:X}", value); ;
+                }
             }
             else
             {
+                textCOM = textCOM.Substring(1, textCOM.Length - 2);
                 t_rfid.Text = "";
-                t_rfid.Text += ConvertToHex(textCOM);
+                t_rfid.Text += textCOM;
+
             }
-        }
-        public string ConvertToHex(string asciiString)
-        {
-            string hex = "";
-            foreach (char c in asciiString)
-            {
-                int tmp = c;
-                hex += String.Format("{0:X2}", (uint)System.Convert.ToUInt32(tmp.ToString()));
-                hex += " ";
-            }
-            return hex;
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// FIN RFID
         private void m_quitter_Click(object sender, EventArgs e)
@@ -99,7 +101,7 @@ namespace prototype_app_chef_infirmier
 
         private void b_add_patient_Click(object sender, EventArgs e)
         {
-            if (t_nom.Text.Length > 0 && t_prenom.Text.Length > 0 && t_age.Text.Length > 0  && t_sexe.Text.Length > 0 && t_situation_familial.Text.Length > 0 && t_note.Text.Length > 0 && t_poid.Text.Length > 0 && t_taille.Text.Length > 0 && t_allergie.Text.Length > 0 && t_antecedent_medicaux.Text.Length > 0)//tous les champs remplie
+            if (t_rfid.Text.Length > 0 && t_nom.Text.Length > 0 && t_prenom.Text.Length > 0 && t_age.Text.Length > 0  && t_sexe.Text.Length > 0 && t_situation_familial.Text.Length > 0 && t_note.Text.Length > 0 && t_poid.Text.Length > 0 && t_taille.Text.Length > 0 && t_allergie.Text.Length > 0 && t_antecedent_medicaux.Text.Length > 0)//tous les champs remplie
             {
                 ///////////////////////////////////////////////////////////////Partie info patient
                 string nom = t_nom.Text;
@@ -117,8 +119,9 @@ namespace prototype_app_chef_infirmier
                 string taille = t_taille.Text;
                 string allergie = t_allergie.Text;
                 string antecedant = t_antecedent_medicaux.Text;
+                string rfid = t_rfid.Text;
                 //////////////////////////////////////////////////////////////
-                string requette = "INSERT INTO patient (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "')";
+                string requette = "INSERT INTO patient (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant, id_rfid) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "' , '" + rfid + "')";
                 MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                 con.Open(); //On ouvre le flux BDD
                 MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
@@ -138,6 +141,7 @@ namespace prototype_app_chef_infirmier
                             t_taille.Clear();
                             t_allergie.Clear();
                             t_antecedent_medicaux.Clear();
+                            t_rfid.Clear();
                             #endregion
                 MessageBox.Show("INSERTION REUSSI", "PATIENT AJOUTER", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

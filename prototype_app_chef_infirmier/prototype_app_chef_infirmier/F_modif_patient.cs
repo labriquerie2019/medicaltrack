@@ -8,18 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.IO.Ports;
+using System.Threading;
 
 
 namespace prototype_app_chef_infirmier
 {
     public partial class F_modif_patient : Form
     {
+        SerialPort my_serie;
         string id;
         public F_modif_patient()
         {
             InitializeComponent();
+            this.FormClosed += new FormClosedEventHandler(Form_FormClosed);//Catch event si la form se ferme
             dgv_table_patient.DefaultCellStyle.Font = new Font("Tahoma", 15);
             dgv_table_patient.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 15);
+            dgv_table_patient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             timer1.Interval = 3000;
             timer1.Start();
             DataTable dt = recup_bdd("SELECT * FROM patient");
@@ -27,8 +32,6 @@ namespace prototype_app_chef_infirmier
             {
                 dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
                 dgv_table_patient.DataSource = dt;
-                dgv_table_patient.Columns["date_naissance"].Width = 160;
-                dgv_table_patient.Columns["date_admission"].Width = 160;
             }
             else //Erreur BDD
             {
@@ -39,8 +42,59 @@ namespace prototype_app_chef_infirmier
                 var rep = MessageBox.Show(message, action, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
             }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT RFID
+            try
+            {
+                my_serie = new SerialPort("COM1");
+                my_serie.BaudRate = Convert.ToInt32(9600);
+                my_serie.DataBits = 8;
+                my_serie.StopBits = StopBits.One;
+                my_serie.Parity = Parity.None;
+                my_serie.Handshake = Handshake.None;
+                my_serie.Open();
+                my_serie.DataReceived += new SerialDataReceivedEventHandler(ReceptionSerie);
+                //"Ouverture du port " + portCom;
+            }
+            catch { }
         }
+        void Form_FormClosed(object sender, FormClosedEventArgs e) 
+        {
+            my_serie.Close();// Destructeur, on libère le port série pour les autres fenetres
+        }
+        delegate void SetTextCallback(string text);
+        private void ReceptionSerie(object sender, SerialDataReceivedEventArgs e)
+        {
+            Thread.Sleep(750);///attente pour les gros paquets de données
+            string data = my_serie.ReadExisting();
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            SetText(data);
+        }
+        private void SetText(string textCOM)
+        {
+            if (t_rfid.InvokeRequired)
+            {
+
+                SetTextCallback d = new SetTextCallback(SetText);
+                t_rfid.Invoke(d, new object[] { textCOM });
+
+                string input = this.t_rfid.Text;
+                char[] values = input.ToCharArray();
+                textCOM = string.Empty;
+                foreach (char letter in values)
+                {
+                    int value = Convert.ToInt32(letter);
+                    textCOM += String.Format("{0:X}", value); ;
+                }
+            }
+            else
+            {
+                textCOM = textCOM.Substring(1, textCOM.Length - 2);
+                t_rfid.Text = "";
+                t_rfid.Text += textCOM;
+
+            }
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// FIN RFID
         private DataTable recup_bdd(string requette)
         {
             DataTable dt = new DataTable();
@@ -86,6 +140,8 @@ namespace prototype_app_chef_infirmier
             string taille = dgv_table_patient.CurrentRow.Cells[10].Value.ToString();
             string allergie = dgv_table_patient.CurrentRow.Cells[11].Value.ToString();
             string antecedant = dgv_table_patient.CurrentRow.Cells[12].Value.ToString();
+            string tag_rfid = dgv_table_patient.CurrentRow.Cells[13].Value.ToString();
+            string last_scan = dgv_table_patient.CurrentRow.Cells[14].Value.ToString();
             #endregion
             #region messagebox/popup
             string message = "nom : " + nom + " prenom : " + prenom + "\n Quelle action voulez-vous effectuer?";//Message a afficher
@@ -124,6 +180,15 @@ namespace prototype_app_chef_infirmier
                 t_taille.Text = taille;
                 t_allergie.Text = allergie;
                 t_antecedent_medicaux.Text = antecedant;
+                if (last_scan == "")
+                {
+                    l_last_scan.Text = "Aucun scan effectué";
+                }
+                else
+                {
+                    l_last_scan.Text = last_scan;
+                }
+                t_rfid.Text = tag_rfid;
             }
             else if (rep == DialogResult.No) //Si on appuie sur supprimer
             {
@@ -177,8 +242,9 @@ namespace prototype_app_chef_infirmier
                 string taille = t_taille.Text;
                 string allergie = t_allergie.Text;
                 string antecedant = t_antecedent_medicaux.Text;
+                string rfid = t_rfid.Text;
                 //////////////////////////////////////////////////////////////
-                string requette = "UPDATE patient SET nom = '" + nom + "', prenom = '" + prenom + "', age = '" + age + "', date_naissance = '" + dt_nai + "', sexe = '" + sexe + "', situation_familial = '" + situation_familial + "', note = '" + note + "', poid = '" + poid + "', taille = '" + taille + "', allergie = '" + allergie + "', antecedant= '" + antecedant + "' WHERE id = " + id;
+                string requette = "UPDATE patient SET nom = '" + nom + "', prenom = '" + prenom + "', age = '" + age + "', date_naissance = '" + dt_nai + "', sexe = '" + sexe + "', situation_familial = '" + situation_familial + "', note = '" + note + "', poid = '" + poid + "', taille = '" + taille + "', allergie = '" + allergie + "', antecedant= '" + antecedant + "', id_rfid = '" + rfid +"' WHERE id = " + id;
                 MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                 con.Open(); //On ouvre le flux BDD
                 MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
@@ -189,6 +255,7 @@ namespace prototype_app_chef_infirmier
                 {
                     dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
                     dgv_table_patient.DataSource = dt;
+                    dgv_table_patient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     #region clear textbox
                     t_nom.Clear();
                     t_prenom.Clear();
@@ -202,6 +269,7 @@ namespace prototype_app_chef_infirmier
                     t_taille.Clear();
                     t_allergie.Clear();
                     t_antecedent_medicaux.Clear();
+                    t_rfid.Clear();
                     #endregion
                     MessageBox.Show("MODIFICATION EFFECTUER", "MODIF FAITE", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     p_modif.Visible = false;
@@ -239,6 +307,7 @@ namespace prototype_app_chef_infirmier
             t_taille.Clear();
             t_allergie.Clear();
             t_antecedent_medicaux.Clear();
+            t_rfid.Clear();
             #endregion
             p_modif.Visible = false;
         }
@@ -256,8 +325,7 @@ namespace prototype_app_chef_infirmier
                         {
                             dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
                             dgv_table_patient.DataSource = dt;
-                            dgv_table_patient.Columns["date_naissance"].Width = 160;
-                            dgv_table_patient.Columns["date_admission"].Width = 160;
+                            dgv_table_patient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                         }
                         else //Erreur BDD
                         {
@@ -278,6 +346,8 @@ namespace prototype_app_chef_infirmier
                             dgv_table_patient.DataSource = dt;
                             dgv_table_patient.Columns["date_naissance"].Width = 160;
                             dgv_table_patient.Columns["date_admission"].Width = 160;
+                            dgv_table_patient.Columns["id_rfid"].Width = 160;
+                            dgv_table_patient.Columns["last_scan"].Width = 160;
                         }
                         else //Erreur BDD
                         {
@@ -330,6 +400,14 @@ namespace prototype_app_chef_infirmier
                     dt = recup_bdd("SELECT * FROM patient WHERE antecedant LIKE '%" + t_filtre.Text + "%'");
                     dgv_load(dt);
                     break;
+                case "TAG RFID":
+                    dt = recup_bdd("SELECT * FROM patient WHERE id_rfid LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
+                case "DERNIER SCAN":
+                    dt = recup_bdd("SELECT * FROM patient WHERE last_scan LIKE '%" + t_filtre.Text + "%'");
+                    dgv_load(dt);
+                    break;
                 default://Aucun filtre
                     if(t_filtre.Text == "")
                     {
@@ -347,6 +425,8 @@ namespace prototype_app_chef_infirmier
                 dgv_table_patient.DataSource = datatable;
                 dgv_table_patient.Columns["date_naissance"].Width = 160;
                 dgv_table_patient.Columns["date_admission"].Width = 160;
+                dgv_table_patient.Columns["id_rfid"].Width = 160;
+                dgv_table_patient.Columns["last_scan"].Width = 160;
             }
             else //Erreur BDD
             {
