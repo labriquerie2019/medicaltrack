@@ -103,6 +103,9 @@
     <EmbeddedResource Include="F_modif_patient.resx">
       <DependentUpon>F_modif_patient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F_personnel_hospitalier.resx">
+      <DependentUpon>F_personnel_hospitalier.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_view_calendrier.resx">
       <DependentUpon>F_view_calendrier.cs</DependentUpon>
     </EmbeddedResource>

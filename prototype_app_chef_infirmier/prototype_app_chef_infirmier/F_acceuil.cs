@@ -45,7 +45,7 @@ namespace prototype_app_chef_infirmier
             string mdp = t_mdp.Text;
 
             bool connected = true; //methode pour se connecter
-            double step = 10;
+            double step = 12.5;
             pb_chargement.Step = (int)step;
             l_chargement.Visible = true;
             pb_chargement.Visible = true;
@@ -65,7 +65,7 @@ namespace prototype_app_chef_infirmier
             bdd.User = User;
             bdd.Pass = Pass;
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            l_chargement.Text = "TEST SI LA TABLE PATIENT EXISTE SINON ON LA CREER!";
+            l_chargement.Text = "TEST SI LA BASE DE DONNEES EXISTE SINON ON LA CREER!";
             if (bdd.base_exist()) //Si BDD existe
             {
                 pb_chargement.PerformStep();
@@ -75,8 +75,8 @@ namespace prototype_app_chef_infirmier
                 bdd.base_creer();
                 pb_chargement.PerformStep();
             }
-            l_chargement.Text = "TEST SI LA TABLE SALLE OPE 1 EXISTE SINON ON LA CREER!";
-            if (bdd.table_existe("patient")) //Si table test existe
+            l_chargement.Text = "TEST SI LA TABLE PATIENT EXISTE SINON ON LA CREER!";
+            if (bdd.table_existe("patient")) //Si table patient existe
             {
                 pb_chargement.PerformStep();
             }
@@ -85,6 +85,17 @@ namespace prototype_app_chef_infirmier
                 bdd.table_creer("CREATE TABLE IF NOT EXISTS `patient` (`id` int(11) NOT NULL AUTO_INCREMENT,`nom` varchar(30) NOT NULL,`prenom` varchar(30) NOT NULL,`age` int(11) NOT NULL,`date_naissance` DATE NOT NULL,`date_admission` DATE NOT NULL,`sexe` varchar(30) NOT NULL,`situation_familial` TEXT NOT NULL,`note` TEXT NOT NULL,`poid` TEXT NOT NULL,`taille` TEXT NOT NULL,`allergie` TEXT NOT NULL,`antecedant` TEXT NOT NULL,`id_rfid` varchar(255) NOT NULL,`last_scan` TEXT,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
                 pb_chargement.PerformStep();
             }
+            l_chargement.Text = "TEST SI LA TABLE PERSONNELS HOSPITALIERS EXISTE SINON ON LA CREER!";
+            if(bdd.table_existe("personnel_hospitalier")) //Si table personnel_hospitalier existe
+            {
+                pb_chargement.PerformStep();
+            }
+            else//Si table personnel_hospitalier existe pas on la créer
+            {
+                bdd.table_creer("CREATE TABLE IF NOT EXISTS `personnel_hospitalier` (`id` int(11) NOT NULL AUTO_INCREMENT,`identifiant` TEXT NOT NULL,`mdp` TEXT NOT NULL,`service` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                pb_chargement.PerformStep();
+            }
+            l_chargement.Text = "TEST SI LA TABLE SALLE OPE 1 EXISTE SINON ON LA CREER!";
             if (bdd.table_existe("salle_ope_1")) //Si table salle_ope_1 existe
             {
                 pb_chargement.PerformStep();
@@ -192,6 +203,12 @@ namespace prototype_app_chef_infirmier
         {
             F_view_calendrier f_check_calendrier = new F_view_calendrier();
             f_check_calendrier.Show();
+        }
+
+        private void b_personnel_Click(object sender, EventArgs e)
+        {
+            F_personnel_hospitalier f_personnel_hospitalier = new F_personnel_hospitalier();
+            f_personnel_hospitalier.Show();
         }
     }
 }

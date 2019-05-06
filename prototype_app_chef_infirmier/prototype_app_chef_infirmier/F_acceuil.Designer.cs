@@ -46,6 +46,7 @@
             this.b_connexion = new System.Windows.Forms.Button();
             this.l_date_heure = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.b_personnel = new System.Windows.Forms.Button();
             this.m_menu.SuspendLayout();
             this.p_showbutton.SuspendLayout();
             this.SuspendLayout();
@@ -81,6 +82,7 @@
             // 
             // p_showbutton
             // 
+            this.p_showbutton.Controls.Add(this.b_personnel);
             this.p_showbutton.Controls.Add(this.b_gerer_planning);
             this.p_showbutton.Controls.Add(this.b_check_planning);
             this.p_showbutton.Controls.Add(this.b_edit_patient);
@@ -216,6 +218,16 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // b_personnel
+            // 
+            this.b_personnel.Location = new System.Drawing.Point(769, 34);
+            this.b_personnel.Name = "b_personnel";
+            this.b_personnel.Size = new System.Drawing.Size(75, 23);
+            this.b_personnel.TabIndex = 4;
+            this.b_personnel.Text = "test";
+            this.b_personnel.UseVisualStyleBackColor = true;
+            this.b_personnel.Click += new System.EventHandler(this.b_personnel_Click);
+            // 
             // F_Acceuil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,6 +274,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label l_chargement;
         private System.Windows.Forms.ProgressBar pb_chargement;
+        private System.Windows.Forms.Button b_personnel;
     }
 }
 

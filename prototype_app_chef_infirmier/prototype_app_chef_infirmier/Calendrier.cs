@@ -130,8 +130,7 @@ namespace prototype_app_chef_infirmier
                     dimanche = datetime_traitement;
                     break;
                 default://Si erreur
-                    F_erreur erreur_date = new F_erreur("ERREUR : Lors de la séléction de la date pour le calendrier!");
-                    erreur_date.ShowDialog();
+                    MessageBox.Show("ERREUR : Lors de la séléction de la date pour le calendrier!");
                     //this.timer2.Stop();
                     break;
             }
