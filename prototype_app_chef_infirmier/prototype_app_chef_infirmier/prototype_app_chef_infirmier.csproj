@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendrier.cs" />
     <Compile Include="F_acceuil.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,12 +63,6 @@
     <Compile Include="F_ajout_patient.Designer.cs">
       <DependentUpon>F_ajout_patient.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_erreur.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_erreur.Designer.cs">
-      <DependentUpon>F_erreur.cs</DependentUpon>
-    </Compile>
     <Compile Include="F_gerer_planning.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +74,12 @@
     </Compile>
     <Compile Include="F_modif_patient.Designer.cs">
       <DependentUpon>F_modif_patient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_personnel_hospitalier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_personnel_hospitalier.Designer.cs">
+      <DependentUpon>F_personnel_hospitalier.cs</DependentUpon>
     </Compile>
     <Compile Include="F_view_calendrier.cs">
       <SubType>Form</SubType>
@@ -96,14 +97,14 @@
     <EmbeddedResource Include="F_ajout_patient.resx">
       <DependentUpon>F_ajout_patient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F_erreur.resx">
-      <DependentUpon>F_erreur.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="F_gerer_planning.resx">
       <DependentUpon>F_gerer_planning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_modif_patient.resx">
       <DependentUpon>F_modif_patient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_personnel_hospitalier.resx">
+      <DependentUpon>F_personnel_hospitalier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_view_calendrier.resx">
       <DependentUpon>F_view_calendrier.cs</DependentUpon>

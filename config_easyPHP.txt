@@ -1,0 +1,9 @@
+Clique droit sur EasyPHP, configuration et commence par choisir Apache
+Chercher la ligne Listen et ajouter 0.0.0.0:80, exemple :
+                                                         #Listen 12.34.56.78:80
+                                                         Listen 127.0.0.1:80
+                                                         Listen 0.0.0.0:80
+Clique droit sur EasyPHP, configuration et on choisis MySQL
+On met le bind-adress à 0.0.0.0
+Exemple :
+        bind-address	= 0.0.0.0

@@ -9,100 +9,75 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using System.IO.Ports;
+using System.Threading;
 
 namespace prototype_app_chef_infirmier
 {
     public partial class F_ajout_patient : Form
     {
         static string salle;
+        SerialPort my_serie;
         public F_ajout_patient()
         {
             InitializeComponent();
+            this.FormClosed += new FormClosedEventHandler(Form_FormClosed); //Catch event si la form se ferme
             timer1.Interval = 3000;
             timer1.Start();
+            this.dgv_calendrier.DefaultCellStyle.Font = new Font("Tahoma", 15);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT RFID
+            try
+            {
+                my_serie = new SerialPort("COM1");
+                my_serie.BaudRate = Convert.ToInt32(9600);
+                my_serie.DataBits = 8;
+                my_serie.StopBits = StopBits.One;
+                my_serie.Parity = Parity.None;
+                my_serie.Handshake = Handshake.None;
+                my_serie.Open();
+                my_serie.DataReceived += new SerialDataReceivedEventHandler(ReceptionSerie);
+                //"Ouverture du port " + portCom;
+            }
+            catch { }
         }
-        private DataTable GetCalendrier(string requette)
+        void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            DataTable dt = new DataTable(); 
+            my_serie.Close();// Destructeur, on libère le port série pour les autres fenetres
+        }
+        delegate void SetTextCallback(string text);
+        private void ReceptionSerie(object sender, SerialDataReceivedEventArgs e)
+        {
+            Thread.Sleep(750);///attente pour les gros paquets de données
+            string data = my_serie.ReadExisting();
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            SetText(data);
+        }
+        private void SetText(string textCOM)
+        {
+            if (t_rfid.InvokeRequired)
+            {
 
-            MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-            con.Open(); //On ouvre le flux BDD
-            MySqlCommand cmd = new MySqlCommand(requette,con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-            MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
-            dt.Load(reader); // Lecture de la BDD et on la met dans le datatable 
-            con.Close(); //Fermuture du flux BDD
-            ///////////////////////////////////////////////////////////////
-            dt.Columns[0].AllowDBNull = true;
-            dt.Columns.Add("Heure");
-            dt.Columns.Add("Lundi");
-            dt.Columns.Add("Mardi");
-            dt.Columns.Add("Mercredi");
-            dt.Columns.Add("Jeudi");
-            dt.Columns.Add("Vendredi");
-            dt.Columns.Add("Samedi");
-            dt.Columns.Add("Dimanche");
-            int compteur = 0;
-            foreach (DataRow row in dt.Rows)
-            {
-                compteur++;
-            }
-            for (int i = 0; i < 24; i++)
-            {
-                dt.Rows.Add(null, "" + i);
-            }
-            foreach (DataRow row in dt.Rows)
-            {
-                foreach (var item in row.ItemArray)
+                SetTextCallback d = new SetTextCallback(SetText);
+                t_rfid.Invoke(d, new object[] { textCOM });
+
+                string input = this.t_rfid.Text;
+                char[] values = input.ToCharArray();
+                textCOM = string.Empty;
+                foreach (char letter in values)
                 {
-                    DateTime result;
-                    if (DateTime.TryParse(item.ToString(),out result)) //On essaie de faire un date time, si sa passe on le stock dans result sinon on rentre pas dans le IF permet de savoir si c'est un date time
-                    {
-                        string[] donner_a_traiter = item.ToString().Split(' ');
-                        string[] annee_mois_jour = donner_a_traiter[0].Split('/');
-                        string[] heure_minute_seconde = donner_a_traiter[1].Split(':');
-                        int annee = Convert.ToInt32(annee_mois_jour[2]), mois = Convert.ToInt32(annee_mois_jour[1]), jour = Convert.ToInt32(annee_mois_jour[0]);
-                        int heure = Convert.ToInt32(heure_minute_seconde[0]), minute = Convert.ToInt32(heure_minute_seconde[1]), seconde = Convert.ToInt32(heure_minute_seconde[2]);
-                        DateTime jour_a_determiner = new DateTime(annee, mois, jour);
-                        switch (jour_a_determiner.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine
-                        {
-                            case "Monday"://Lundi
-                                dt.Rows[heure+compteur].SetField(2, "ya un gars ici");
-                                break;
-                            case "Tuesday"://Mardi
-                                dt.Rows[heure+compteur].SetField(3, "ya un gars ici");
-                                break;
-                            case "Wednesday"://Mercredi
-                                dt.Rows[heure+compteur].SetField(4, "ya un gars ici");
-                                break;
-                            case "Thursday"://Jeudi
-                                dt.Rows[heure+compteur].SetField(5, "ya un gars ici");
-                                break;
-                            case "Friday"://Vendredi
-                                dt.Rows[heure+compteur].SetField(6, "ya un gars ici");
-                                break;
-                            case "Saturday"://Samedi
-                                dt.Rows[heure+compteur].SetField(7, "ya un gars ici");
-                                break;
-                            case "Sunday"://Dimanche
-                                dt.Rows[heure+compteur].SetField(8, "ya un gars ici");
-                                break;
-                            default://Si erreur
-                                F_erreur erreur_date = new F_erreur("ERREUR : Lors du traitement des heures/date.");
-                                erreur_date.ShowDialog();
-                                this.timer3.Stop();
-                                break;
-                        }
-                    }
+                    int value = Convert.ToInt32(letter);
+                    textCOM += String.Format("{0:X}", value); ;
                 }
             }
-            dt.Columns.RemoveAt(0);
-            for (int i = 0; i < compteur; i++)
+            else
             {
-                dt.Rows.RemoveAt(0);
-            }
-            return dt; //On return le DataTable traité qui contiens les info de la BDD
-        }
+                textCOM = textCOM.Substring(1, textCOM.Length - 2);
+                t_rfid.Text = "";
+                t_rfid.Text += textCOM;
 
+            }
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// FIN RFID
         private void m_quitter_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -126,7 +101,7 @@ namespace prototype_app_chef_infirmier
 
         private void b_add_patient_Click(object sender, EventArgs e)
         {
-            if (t_nom.Text.Length > 0 && t_prenom.Text.Length > 0 && t_age.Text.Length > 0  && t_sexe.Text.Length > 0 && t_situation_familial.Text.Length > 0 && t_note.Text.Length > 0 && t_poid.Text.Length > 0 && t_taille.Text.Length > 0 && t_allergie.Text.Length > 0 && t_antecedent_medicaux.Text.Length > 0)//tous les champs remplie
+            if (t_rfid.Text.Length > 0 && t_nom.Text.Length > 0 && t_prenom.Text.Length > 0 && t_age.Text.Length > 0  && t_sexe.Text.Length > 0 && t_situation_familial.Text.Length > 0 && t_note.Text.Length > 0 && t_poid.Text.Length > 0 && t_taille.Text.Length > 0 && t_allergie.Text.Length > 0 && t_antecedent_medicaux.Text.Length > 0)//tous les champs remplie
             {
                 ///////////////////////////////////////////////////////////////Partie info patient
                 string nom = t_nom.Text;
@@ -144,9 +119,10 @@ namespace prototype_app_chef_infirmier
                 string taille = t_taille.Text;
                 string allergie = t_allergie.Text;
                 string antecedant = t_antecedent_medicaux.Text;
+                string rfid = t_rfid.Text;
                 //////////////////////////////////////////////////////////////
-                string requette = "INSERT INTO test (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "')";
-                MySqlConnection con = new MySqlConnection("server=localhost;database=aaa;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                string requette = "INSERT INTO patient (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant, id_rfid) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "' , '" + rfid + "')";
+                MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                 con.Open(); //On ouvre le flux BDD
                 MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                 cmd.ExecuteNonQuery();
@@ -165,77 +141,17 @@ namespace prototype_app_chef_infirmier
                             t_taille.Clear();
                             t_allergie.Clear();
                             t_antecedent_medicaux.Clear();
+                            t_rfid.Clear();
                             #endregion
                 MessageBox.Show("INSERTION REUSSI", "PATIENT AJOUTER", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else //pas tout les champs remplie
             {
-                F_erreur champ_vide = new F_erreur("ERREUR : Tous les champs ne sont pas remplie!");
-                champ_vide.ShowDialog();
+                MessageBox.Show("ERREUR : Tous les champs ne sont pas remplie!");
             }
-        }
-
-        private void afficher_calendrier()
-        {
-            DataSet db_content = new DataSet();
-            DateTime datetime_traitement = dt_calendrier.Value;
-            DateTime lundi = new DateTime();
-            DateTime dimanche = new DateTime();
-
-            switch (datetime_traitement.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine, Tostring("dddd") permet d'afficher juste le jour
-            {
-                case "Monday"://Lundi
-                    lundi = datetime_traitement;
-                    dimanche = datetime_traitement.AddDays(6);
-                    break;
-                case "Tuesday"://Mardi
-                    lundi = datetime_traitement.AddDays(-1);
-                    dimanche = datetime_traitement.AddDays(5);
-                    break;
-                case "Wednesday"://Mercredi
-                    lundi = datetime_traitement.AddDays(-2);
-                    dimanche = datetime_traitement.AddDays(4);
-                    break;
-                case "Thursday"://Jeudi
-                    lundi = datetime_traitement.AddDays(-3);
-                    dimanche = datetime_traitement.AddDays(3);
-                    break;
-                case "Friday"://Vendredi
-                    lundi = datetime_traitement.AddDays(-4);
-                    dimanche = datetime_traitement.AddDays(2);
-                    break;
-                case "Saturday"://Samedi
-                    lundi = datetime_traitement.AddDays(-5);
-                    dimanche = datetime_traitement.AddDays(1);
-                    break;
-                case "Sunday"://Dimanche
-                    lundi = datetime_traitement.AddDays(-6);
-                    dimanche = datetime_traitement;
-                    break;
-                default://Si erreur
-                    F_erreur erreur_date = new F_erreur("ERREUR : Lors de la séléction de la date pour le calendrier!");
-                    erreur_date.ShowDialog();
-                    this.timer3.Stop();
-                    break;
-            }
-            string lundi_traiter = lundi.ToString("yyyy-MM-dd");
-            string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd");
-            string requette = "SELECT date_heure FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter + "'";
-            ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
-            DataTable dt = new DataTable(); // On déclare une DataTable
-            dt = GetCalendrier(requette); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
-            dgv_calendrier.RowHeadersVisible = false;
-            dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
-            ///////////////////////////////////////////////////////////////
-        }
-
-        private void timer3_Tick(object sender, EventArgs e) 
-        {
-            afficher_calendrier();
         }
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
         {
-            timer3.Stop(); //Sécurise si on change la salle a afficher 
             string selected = cb_salle.Text;
             switch (selected)
             {
@@ -255,9 +171,15 @@ namespace prototype_app_chef_infirmier
                     salle = "salle_rea";
                     break;
             }
-            afficher_calendrier();
-            timer3.Interval = 60000;//toutes les 10 minutes refresh des info 
-            timer3.Start();
+            Calendrier mon_calendrier = new Calendrier();
+            DataTable dt = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
+            dgv_calendrier.RowHeadersVisible = false;
+            dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
+        }
+
+        private void t_rfid_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
