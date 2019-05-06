@@ -37,15 +37,15 @@
             this.dgv_personnel_hospitalier = new System.Windows.Forms.DataGridView();
             this.b_nouveau = new System.Windows.Forms.Button();
             this.p_personnel = new System.Windows.Forms.Panel();
-            this.t_identifiant = new System.Windows.Forms.TextBox();
-            this.l_identifiant = new System.Windows.Forms.Label();
-            this.t_mdp = new System.Windows.Forms.TextBox();
-            this.l_mdp = new System.Windows.Forms.Label();
+            this.b_cancel = new System.Windows.Forms.Button();
+            this.b_save = new System.Windows.Forms.Button();
+            this.b_new_mdp = new System.Windows.Forms.Button();
             this.t_service = new System.Windows.Forms.TextBox();
             this.l_service = new System.Windows.Forms.Label();
-            this.b_new_mdp = new System.Windows.Forms.Button();
-            this.b_save = new System.Windows.Forms.Button();
-            this.b_cancel = new System.Windows.Forms.Button();
+            this.t_mdp = new System.Windows.Forms.TextBox();
+            this.l_mdp = new System.Windows.Forms.Label();
+            this.t_identifiant = new System.Windows.Forms.TextBox();
+            this.l_identifiant = new System.Windows.Forms.Label();
             this.m_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_personnel_hospitalier)).BeginInit();
             this.p_personnel.SuspendLayout();
@@ -94,9 +94,12 @@
             // 
             // dgv_personnel_hospitalier
             // 
+            this.dgv_personnel_hospitalier.AllowUserToAddRows = false;
+            this.dgv_personnel_hospitalier.AllowUserToDeleteRows = false;
             this.dgv_personnel_hospitalier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_personnel_hospitalier.Location = new System.Drawing.Point(0, 32);
             this.dgv_personnel_hospitalier.Name = "dgv_personnel_hospitalier";
+            this.dgv_personnel_hospitalier.ReadOnly = true;
             this.dgv_personnel_hospitalier.Size = new System.Drawing.Size(1272, 485);
             this.dgv_personnel_hospitalier.TabIndex = 6;
             this.dgv_personnel_hospitalier.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_personnel_hospitalier_CellContentClick);
@@ -128,21 +131,51 @@
             this.p_personnel.Size = new System.Drawing.Size(1272, 523);
             this.p_personnel.TabIndex = 8;
             // 
-            // t_identifiant
+            // b_cancel
             // 
-            this.t_identifiant.Location = new System.Drawing.Point(489, 41);
-            this.t_identifiant.Name = "t_identifiant";
-            this.t_identifiant.Size = new System.Drawing.Size(176, 29);
-            this.t_identifiant.TabIndex = 1;
+            this.b_cancel.Location = new System.Drawing.Point(587, 194);
+            this.b_cancel.Name = "b_cancel";
+            this.b_cancel.Size = new System.Drawing.Size(160, 45);
+            this.b_cancel.TabIndex = 8;
+            this.b_cancel.Text = "Annuler";
+            this.b_cancel.UseVisualStyleBackColor = true;
+            this.b_cancel.Click += new System.EventHandler(this.b_cancel_Click);
             // 
-            // l_identifiant
+            // b_save
             // 
-            this.l_identifiant.AutoSize = true;
-            this.l_identifiant.Location = new System.Drawing.Point(526, 14);
-            this.l_identifiant.Name = "l_identifiant";
-            this.l_identifiant.Size = new System.Drawing.Size(88, 24);
-            this.l_identifiant.TabIndex = 0;
-            this.l_identifiant.Text = "Identifiant";
+            this.b_save.Location = new System.Drawing.Point(421, 194);
+            this.b_save.Name = "b_save";
+            this.b_save.Size = new System.Drawing.Size(160, 45);
+            this.b_save.TabIndex = 7;
+            this.b_save.Text = "Sauvegarder";
+            this.b_save.UseVisualStyleBackColor = true;
+            this.b_save.Click += new System.EventHandler(this.b_save_Click);
+            // 
+            // b_new_mdp
+            // 
+            this.b_new_mdp.Location = new System.Drawing.Point(685, 100);
+            this.b_new_mdp.Name = "b_new_mdp";
+            this.b_new_mdp.Size = new System.Drawing.Size(336, 29);
+            this.b_new_mdp.TabIndex = 6;
+            this.b_new_mdp.Text = "Génerer un nouveau mot de passe";
+            this.b_new_mdp.UseVisualStyleBackColor = true;
+            this.b_new_mdp.Click += new System.EventHandler(this.b_new_mdp_Click);
+            // 
+            // t_service
+            // 
+            this.t_service.Location = new System.Drawing.Point(489, 159);
+            this.t_service.Name = "t_service";
+            this.t_service.Size = new System.Drawing.Size(176, 29);
+            this.t_service.TabIndex = 5;
+            // 
+            // l_service
+            // 
+            this.l_service.AutoSize = true;
+            this.l_service.Location = new System.Drawing.Point(541, 132);
+            this.l_service.Name = "l_service";
+            this.l_service.Size = new System.Drawing.Size(73, 24);
+            this.l_service.TabIndex = 4;
+            this.l_service.Text = "Service";
             // 
             // t_mdp
             // 
@@ -161,51 +194,21 @@
             this.l_mdp.TabIndex = 2;
             this.l_mdp.Text = "Mot de passe";
             // 
-            // t_service
+            // t_identifiant
             // 
-            this.t_service.Location = new System.Drawing.Point(489, 159);
-            this.t_service.Name = "t_service";
-            this.t_service.Size = new System.Drawing.Size(176, 29);
-            this.t_service.TabIndex = 5;
+            this.t_identifiant.Location = new System.Drawing.Point(489, 41);
+            this.t_identifiant.Name = "t_identifiant";
+            this.t_identifiant.Size = new System.Drawing.Size(176, 29);
+            this.t_identifiant.TabIndex = 1;
             // 
-            // l_service
+            // l_identifiant
             // 
-            this.l_service.AutoSize = true;
-            this.l_service.Location = new System.Drawing.Point(541, 132);
-            this.l_service.Name = "l_service";
-            this.l_service.Size = new System.Drawing.Size(73, 24);
-            this.l_service.TabIndex = 4;
-            this.l_service.Text = "Service";
-            // 
-            // b_new_mdp
-            // 
-            this.b_new_mdp.Location = new System.Drawing.Point(685, 100);
-            this.b_new_mdp.Name = "b_new_mdp";
-            this.b_new_mdp.Size = new System.Drawing.Size(336, 29);
-            this.b_new_mdp.TabIndex = 6;
-            this.b_new_mdp.Text = "Génerer un nouveau mot de passe";
-            this.b_new_mdp.UseVisualStyleBackColor = true;
-            this.b_new_mdp.Click += new System.EventHandler(this.b_new_mdp_Click);
-            // 
-            // b_save
-            // 
-            this.b_save.Location = new System.Drawing.Point(421, 194);
-            this.b_save.Name = "b_save";
-            this.b_save.Size = new System.Drawing.Size(160, 45);
-            this.b_save.TabIndex = 7;
-            this.b_save.Text = "Sauvegarder";
-            this.b_save.UseVisualStyleBackColor = true;
-            this.b_save.Click += new System.EventHandler(this.b_save_Click);
-            // 
-            // b_cancel
-            // 
-            this.b_cancel.Location = new System.Drawing.Point(587, 194);
-            this.b_cancel.Name = "b_cancel";
-            this.b_cancel.Size = new System.Drawing.Size(160, 45);
-            this.b_cancel.TabIndex = 8;
-            this.b_cancel.Text = "Annuler";
-            this.b_cancel.UseVisualStyleBackColor = true;
-            this.b_cancel.Click += new System.EventHandler(this.b_cancel_Click);
+            this.l_identifiant.AutoSize = true;
+            this.l_identifiant.Location = new System.Drawing.Point(526, 14);
+            this.l_identifiant.Name = "l_identifiant";
+            this.l_identifiant.Size = new System.Drawing.Size(88, 24);
+            this.l_identifiant.TabIndex = 0;
+            this.l_identifiant.Text = "Identifiant";
             // 
             // F_personnel_hospitalier
             // 

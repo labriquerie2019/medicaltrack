@@ -98,7 +98,6 @@ namespace prototype_app_chef_infirmier
             if (rep == DialogResult.Yes) //Si on appuie sur Modifier
             {
                 nouveau = false;
-                t_mdp.PasswordChar = '*';
                 t_mdp.UseSystemPasswordChar = true;
                 p_personnel.Visible = true;
                 t_identifiant.Text = identifiant;
@@ -201,11 +200,12 @@ namespace prototype_app_chef_infirmier
 
         private void b_new_mdp_Click(object sender, EventArgs e)
         {
+            t_mdp.UseSystemPasswordChar = false;
             string rdm = Random(8);
             t_mdp.Text = rdm;
         }
 
-        private void dgv_personnel_hospitalier_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+       private void dgv_personnel_hospitalier_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if(e.ColumnIndex == 2)
             {
