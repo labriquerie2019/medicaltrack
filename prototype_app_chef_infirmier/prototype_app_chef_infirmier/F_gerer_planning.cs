@@ -13,8 +13,9 @@ namespace prototype_app_chef_infirmier
 {
     public partial class F_gerer_planning : Form
     {
-        string salle, id_patient, heure;
+        string salle, id_patient, duree;
         int nb_patient=0;
+        bool patient_select=false, duree_select = false;
         public F_gerer_planning()
         {
             InitializeComponent();
@@ -71,6 +72,7 @@ namespace prototype_app_chef_infirmier
         {
 
         }
+
         private void cb_salle_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selected = cb_salle.Text;
@@ -101,7 +103,7 @@ namespace prototype_app_chef_infirmier
         {
             string[] raw_data = cb_patient.Text.Split(':');
             id_patient = raw_data[0];
-
+            patient_select = true;
         }
 
         private void cb_duree_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,21 +112,107 @@ namespace prototype_app_chef_infirmier
             switch(selected)
             {
                 case "1h":
-                    heure = "1";
+                    duree = "1";
                     break;
                 case "2h":
-                    heure = "2";
+                    duree = "2";
                     break;
                 case "3h":
-                    heure = "3";
+                    duree = "3";
                     break;
                 case "4h":
-                    heure = "4";
+                    duree = "4";
                     break;
                 default: //Choix invalide
                     MessageBox.Show("Choix invalide, veuilliez recommencer.", "Choix invalide", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
+            duree_select = true;
         }
+        private void dgv_calendrier_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(duree_select && patient_select) //Verif durée choisis et patient choisis
+            {
+                string jour = e.ColumnIndex.ToString(); //On recup le jour
+                string heure_choisis = e.RowIndex.ToString(); //On recup l'heure
+                ////////////////////////////////////////////////////////////////////////////////
+                DateTime datetime_traitement = dt_calendrier.Value;
+                DateTime lundi = new DateTime();
+                DateTime dimanche = new DateTime();
+
+                switch (datetime_traitement.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine, Tostring("dddd") permet d'afficher juste le jour
+                {
+                    case "Monday"://Lundi
+                        lundi = datetime_traitement;
+                        dimanche = datetime_traitement.AddDays(6);
+                        break;
+                    case "Tuesday"://Mardi
+                        lundi = datetime_traitement.AddDays(-1);
+                        dimanche = datetime_traitement.AddDays(5);
+                        break;
+                    case "Wednesday"://Mercredi
+                        lundi = datetime_traitement.AddDays(-2);
+                        dimanche = datetime_traitement.AddDays(4);
+                        break;
+                    case "Thursday"://Jeudi
+                        lundi = datetime_traitement.AddDays(-3);
+                        dimanche = datetime_traitement.AddDays(3);
+                        break;
+                    case "Friday"://Vendredi
+                        lundi = datetime_traitement.AddDays(-4);
+                        dimanche = datetime_traitement.AddDays(2);
+                        break;
+                    case "Saturday"://Samedi
+                        lundi = datetime_traitement.AddDays(-5);
+                        dimanche = datetime_traitement.AddDays(1);
+                        break;
+                    case "Sunday"://Dimanche
+                        lundi = datetime_traitement.AddDays(-6);
+                        dimanche = datetime_traitement;
+                        break;
+                    default://Si erreur
+                        MessageBox.Show("ERREUR : Lors de la séléction de la date pour le calendrier!");
+                        //this.timer2.Stop();
+                        break;
+                }
+                ////////////////////////////////////////////////////////////////////////////////
+                DateTime date_debut,date_fin;
+                switch (jour)//Datetime pour la date_debut et date_fin
+                {
+                    case "Lundi":
+                        date_debut = new DateTime(lundi.Year, lundi.Month, lundi.Day, Convert.ToInt32(heure_choisis), 0, 0);
+                        date_fin = new DateTime(lundi.Year, lundi.Month, lundi.Day, Convert.ToInt32(heure_choisis)+Convert.ToInt32(duree), 0, 0);
+                        break;
+                    case "Mardi":
+                        date_debut = new DateTime(lundi.AddDays(1).Year, lundi.AddDays(1).Month, lundi.AddDays(1).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                        date_fin = new DateTime(lundi.AddDays(1).Year, lundi.AddDays(1).Month, lundi.AddDays(1).Day, Convert.ToInt32(heure_choisis)+Convert.ToInt32(duree), 0, 0);
+                        break;
+                    case "Mercredi":
+                        date_debut = new DateTime(lundi.AddDays(2).Year, lundi.AddDays(2).Month, lundi.AddDays(2).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                        date_fin = new DateTime(lundi.AddDays(2).Year, lundi.AddDays(2).Month, lundi.AddDays(2).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                        break;
+                    case "Jeudi":
+                        date_debut = new DateTime(lundi.AddDays(3).Year, lundi.AddDays(3).Month, lundi.AddDays(3).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                        date_fin = new DateTime(lundi.AddDays(3).Year, lundi.AddDays(3).Month, lundi.AddDays(3).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                        break;
+                    case "Vendredi":
+                        date_debut = new DateTime(lundi.AddDays(4).Year, lundi.AddDays(4).Month, lundi.AddDays(4).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                        date_fin = new DateTime(lundi.AddDays(4).Year, lundi.AddDays(4).Month, lundi.AddDays(4).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                        break;
+                    case "Samedi":
+                        date_debut = new DateTime(lundi.AddDays(5).Year, lundi.AddDays(5).Month, lundi.AddDays(5).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                        date_fin = new DateTime(lundi.AddDays(5).Year, lundi.AddDays(5).Month, lundi.AddDays(5).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                        break;
+                    case "Dimanche":
+                        date_debut = new DateTime(lundi.AddDays(6).Year, lundi.AddDays(6).Month, lundi.AddDays(6).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                        date_fin = new DateTime(lundi.AddDays(6).Year, lundi.AddDays(6).Month, lundi.AddDays(6).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                        break;
+                    default:
+                        MessageBox.Show("ERREUR : Lors du retracage de la date!");
+                        break;
+                }
+            }
+        }
+
     }
 }

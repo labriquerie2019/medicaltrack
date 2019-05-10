@@ -97,6 +97,7 @@
             this.dgv_calendrier.Name = "dgv_calendrier";
             this.dgv_calendrier.Size = new System.Drawing.Size(1327, 505);
             this.dgv_calendrier.TabIndex = 32;
+            this.dgv_calendrier.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_calendrier_CellContentClick);
             // 
             // l_choix_patient
             // 

@@ -109,51 +109,9 @@ namespace prototype_app_chef_infirmier
                             break;
                     }
                 }
-                /*
-                foreach (var item in row.ItemArray)
-                {
-                    DateTime result;
-                    if (DateTime.TryParse(item.ToString(), out result)) //On essaie de faire un date time, si sa passe on le stock dans result sinon on rentre pas dans le IF permet de savoir si c'est un date time
-                    {
-                        string[] donner_a_traiter = item.ToString().Split(' ');
-                        string[] annee_mois_jour = donner_a_traiter[0].Split('/');
-                        string[] heure_minute_seconde = donner_a_traiter[1].Split(':');
-                        int annee = Convert.ToInt32(annee_mois_jour[2]), mois = Convert.ToInt32(annee_mois_jour[1]), jour = Convert.ToInt32(annee_mois_jour[0]);
-                        int heure = Convert.ToInt32(heure_minute_seconde[0]), minute = Convert.ToInt32(heure_minute_seconde[1]), seconde = Convert.ToInt32(heure_minute_seconde[2]);
-                        DateTime jour_a_determiner = new DateTime(annee, mois, jour);
-                        switch (jour_a_determiner.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine
-                        {
-                            case "Monday"://Lundi
-                                dt.Rows[heure + compteur].SetField(3, "ya un gars ici");
-                                break;
-                            case "Tuesday"://Mardi
-                                dt.Rows[heure + compteur].SetField(4, "ya un gars ici");
-                                break;
-                            case "Wednesday"://Mercredi
-                                dt.Rows[heure + compteur].SetField(5, "ya un gars ici");
-                                break;
-                            case "Thursday"://Jeudi
-                                dt.Rows[heure + compteur].SetField(6, "ya un gars ici");
-                                break;
-                            case "Friday"://Vendredi
-                                dt.Rows[heure + compteur].SetField(7, "ya un gars ici");
-                                break;
-                            case "Saturday"://Samedi
-                                dt.Rows[heure + compteur].SetField(8, "ya un gars ici");
-                                break;
-                            case "Sunday"://Dimanche
-                                dt.Rows[heure + compteur].SetField(9, "ya un gars ici");
-                                break;
-                            default://Si erreur
-                                MessageBox.Show("ERREUR : Lors du traitement des heures/date.");
-                                //timer2.Stop();
-                                break;
-                        }
-                    }
-                }*/
             }
-            dt.Columns.RemoveAt(0);
-            dt.Columns.RemoveAt(0);
+            dt.Columns.RemoveAt(0);//Colonne Date_heure
+            dt.Columns.RemoveAt(0);//Colonne ID_patient, deviens 0 car on supprime l'ancien 0
             for (int i = 0; i < compteur; i++)
             {
                 dt.Rows.RemoveAt(0);
@@ -162,7 +120,6 @@ namespace prototype_app_chef_infirmier
         }
         public DataTable afficher_calendrier(DateTime datetimepicker,string salle)
         {
-            DataSet db_content = new DataSet();
             DateTime datetime_traitement = datetimepicker;
             DateTime lundi = new DateTime();
             DateTime dimanche = new DateTime();
