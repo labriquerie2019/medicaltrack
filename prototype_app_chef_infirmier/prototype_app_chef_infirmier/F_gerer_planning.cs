@@ -13,7 +13,7 @@ namespace prototype_app_chef_infirmier
 {
     public partial class F_gerer_planning : Form
     {
-        string salle;
+        string salle, id_patient, heure;
         int nb_patient=0;
         public F_gerer_planning()
         {
@@ -35,7 +35,7 @@ namespace prototype_app_chef_infirmier
                 nb_patient++; //On compte le nombre de patient
                 string[] toadd = { read_bdd.Rows[i]["id"].ToString(), read_bdd.Rows[i]["nom"].ToString(), read_bdd.Rows[i]["prenom"].ToString() }; //On créer un array de string pour l'ajouter dans un Dictonary
                 patient[i] = toadd;  //On stock id,nom,prenom pour plus tard dans une List
-                cb_patient.Items.Add(read_bdd.Rows[i]["nom"] + " " + read_bdd.Rows[i]["prenom"]); //On remplie le combo box avec : Nom Prenom
+                cb_patient.Items.Add(read_bdd.Rows[i]["id"]+ " : " +read_bdd.Rows[i]["nom"] + " " + read_bdd.Rows[i]["prenom"]); //On remplie le combo box avec : ID:Nom Prenom
             }
 
             /*for(int i = 0; i < patient.LongCount();i++)
@@ -99,7 +99,32 @@ namespace prototype_app_chef_infirmier
         }
         private void cb_patient_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string[] raw_data = cb_patient.Text.Split(':');
+            id_patient = raw_data[0];
 
+        }
+
+        private void cb_duree_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = cb_duree.Text;
+            switch(selected)
+            {
+                case "1h":
+                    heure = "1";
+                    break;
+                case "2h":
+                    heure = "2";
+                    break;
+                case "3h":
+                    heure = "3";
+                    break;
+                case "4h":
+                    heure = "4";
+                    break;
+                default: //Choix invalide
+                    MessageBox.Show("Choix invalide, veuilliez recommencer.", "Choix invalide", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
         }
     }
 }
