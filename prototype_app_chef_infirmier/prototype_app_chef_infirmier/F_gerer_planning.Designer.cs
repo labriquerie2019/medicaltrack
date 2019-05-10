@@ -91,18 +91,22 @@
             // 
             // dgv_calendrier
             // 
+            this.dgv_calendrier.AllowUserToAddRows = false;
+            this.dgv_calendrier.AllowUserToDeleteRows = false;
             this.dgv_calendrier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_calendrier.Location = new System.Drawing.Point(582, 43);
+            this.dgv_calendrier.Location = new System.Drawing.Point(435, 43);
             this.dgv_calendrier.Margin = new System.Windows.Forms.Padding(6);
             this.dgv_calendrier.Name = "dgv_calendrier";
-            this.dgv_calendrier.Size = new System.Drawing.Size(1327, 505);
+            this.dgv_calendrier.ReadOnly = true;
+            this.dgv_calendrier.Size = new System.Drawing.Size(977, 505);
             this.dgv_calendrier.TabIndex = 32;
             this.dgv_calendrier.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_calendrier_CellContentClick);
+            this.dgv_calendrier.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_calendrier_CellMouseUp);
             // 
             // l_choix_patient
             // 
             this.l_choix_patient.AutoSize = true;
-            this.l_choix_patient.Location = new System.Drawing.Point(22, 184);
+            this.l_choix_patient.Location = new System.Drawing.Point(22, 215);
             this.l_choix_patient.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.l_choix_patient.Name = "l_choix_patient";
             this.l_choix_patient.Size = new System.Drawing.Size(146, 24);
@@ -113,7 +117,7 @@
             // 
             this.cb_patient.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_patient.FormattingEnabled = true;
-            this.cb_patient.Location = new System.Drawing.Point(15, 213);
+            this.cb_patient.Location = new System.Drawing.Point(15, 244);
             this.cb_patient.Margin = new System.Windows.Forms.Padding(6);
             this.cb_patient.Name = "cb_patient";
             this.cb_patient.Size = new System.Drawing.Size(363, 32);
@@ -141,7 +145,7 @@
             // l_nb_patient
             // 
             this.l_nb_patient.AutoSize = true;
-            this.l_nb_patient.Location = new System.Drawing.Point(390, 213);
+            this.l_nb_patient.Location = new System.Drawing.Point(15, 184);
             this.l_nb_patient.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.l_nb_patient.Name = "l_nb_patient";
             this.l_nb_patient.Size = new System.Drawing.Size(92, 24);
@@ -161,7 +165,7 @@
             "6h",
             "7h",
             "8h"});
-            this.cb_duree.Location = new System.Drawing.Point(15, 280);
+            this.cb_duree.Location = new System.Drawing.Point(15, 311);
             this.cb_duree.Margin = new System.Windows.Forms.Padding(6);
             this.cb_duree.Name = "cb_duree";
             this.cb_duree.Size = new System.Drawing.Size(363, 32);
@@ -171,7 +175,7 @@
             // l_duree
             // 
             this.l_duree.AutoSize = true;
-            this.l_duree.Location = new System.Drawing.Point(22, 251);
+            this.l_duree.Location = new System.Drawing.Point(22, 282);
             this.l_duree.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.l_duree.Name = "l_duree";
             this.l_duree.Size = new System.Drawing.Size(261, 24);
@@ -201,7 +205,7 @@
             this.m_menu.Location = new System.Drawing.Point(0, 0);
             this.m_menu.Name = "m_menu";
             this.m_menu.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
-            this.m_menu.Size = new System.Drawing.Size(1924, 37);
+            this.m_menu.Size = new System.Drawing.Size(1429, 37);
             this.m_menu.TabIndex = 2;
             this.m_menu.Text = "menuStrip1";
             this.m_menu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.m_menu_ItemClicked);
@@ -210,7 +214,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 563);
+            this.ClientSize = new System.Drawing.Size(1429, 563);
             this.Controls.Add(this.cb_duree);
             this.Controls.Add(this.l_duree);
             this.Controls.Add(this.l_nb_patient);
