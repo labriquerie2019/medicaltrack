@@ -14,7 +14,7 @@ namespace prototype_app_chef_infirmier
     public partial class F_gerer_planning : Form
     {
         Calendrier mon_calendrier = new Calendrier();
-        string salle, id_patient, duree,nom;
+        string salle, id_patient, duree, nom, salle_mysql;
         int nb_patient=0;
         DateTime date_debut, date_fin;
         bool patient_select=false, duree_select = false;
@@ -163,9 +163,28 @@ namespace prototype_app_chef_infirmier
                     try
                     {
                         ////////////////////////////////////////////////////////////// Pour affichage grand écran
+                        string selected = cb_salle.Text;
+                        switch (selected)
+                        {
+                            case "Salle d'opération 1":
+                                salle_mysql = "Salle operation 1";
+                                break;
+                            case "Salle d'opération 2":
+                                salle_mysql = "Salle operation 2";
+                                break;
+                            case "Salle d'anesthesie":
+                                salle_mysql = "Salle anesthesie";
+                                break;
+                            case "Salle de reveil":
+                                salle_mysql = "Salle de reveil";
+                                break;
+                            case "Salle de réanimation":
+                                salle_mysql = "Salle de reanimation";
+                                break;
+                        }
                         string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
                         string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
-                        string requette_sql = "INSERT INTO grand_ecran (salle,date_heure_debut,date_heure_fin,nom_patient) VALUES('" + cb_salle.Text + "','" + datedebut_formatForMySql + "','" + datefin_formatForMySql + "','" + nom + "')";
+                        string requette_sql = "INSERT INTO grand_ecran(salle,date_heure_debut,date_heure_fin,nom_patient) VALUES('" + salle_mysql + "' , '" + datedebut_formatForMySql + "' , '" + datefin_formatForMySql + "' , '" + nom + "')";
                         MySqlConnection connect_sql = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                         connect_sql.Open(); //On ouvre le flux BDD
                         MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
@@ -176,7 +195,7 @@ namespace prototype_app_chef_infirmier
                         {
                             DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
                             string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
-                            string req_sql = "INSERT INTO " + salle + " (date_heure,id_patient) VALUES('" + date_formatForMySql + "','" + id_patient + "')";
+                            string req_sql = "INSERT INTO " + salle + "(date_heure,id_patient) VALUES('" + date_formatForMySql + "','" + id_patient + "')";
                             MySqlConnection con_sql = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                             con_sql.Open(); //On ouvre le flux BDD
                             MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
