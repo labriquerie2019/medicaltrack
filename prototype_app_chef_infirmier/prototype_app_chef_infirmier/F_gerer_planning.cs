@@ -21,7 +21,9 @@ namespace prototype_app_chef_infirmier
         public F_gerer_planning()
         {
             InitializeComponent();
-            timer1.Interval = 1000;
+            timer2.Interval = 500; //Timer pour savoir dans quelle mode on est
+            timer2.Start();
+            timer1.Interval = 1000; //Timer pour l'heure et la date
             timer1.Start();
             #region initialisation combo box et recuperation nom prenom id
             string requette = "SELECT * FROM patient";
@@ -69,6 +71,18 @@ namespace prototype_app_chef_infirmier
         private void m_menu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if(delete)
+            {
+                l_mode.Text = "Suppression";
+            }
+            else
+            {
+                l_mode.Text = "Ajout";
+            }
         }
 
         private void b_delete_Click(object sender, EventArgs e)
@@ -164,7 +178,7 @@ namespace prototype_app_chef_infirmier
                             MessageBox.Show("ERREUR : Lors du retracage de la date!");
                             break;
                     }
-                    if (traiter)
+                    if (traiter && nom != null && duree != null)
                     {
                         try
                         {
@@ -220,6 +234,10 @@ namespace prototype_app_chef_infirmier
                         {
                             MessageBox.Show("ERREUR : " + erreur, "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("ERREUR : Merci de choisir un patient et une durée","ERREUR",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     }
                 }
                     #endregion

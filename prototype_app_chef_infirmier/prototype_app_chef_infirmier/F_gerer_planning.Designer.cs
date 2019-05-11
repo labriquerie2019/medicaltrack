@@ -45,6 +45,9 @@
             this.m_acceuil = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menu = new System.Windows.Forms.MenuStrip();
             this.b_delete = new System.Windows.Forms.Button();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.l_l_mode = new System.Windows.Forms.Label();
+            this.l_mode = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
             this.m_menu.SuspendLayout();
             this.SuspendLayout();
@@ -217,11 +220,35 @@
             this.b_delete.UseVisualStyleBackColor = true;
             this.b_delete.Click += new System.EventHandler(this.b_delete_Click);
             // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // l_l_mode
+            // 
+            this.l_l_mode.AutoSize = true;
+            this.l_l_mode.Location = new System.Drawing.Point(11, 524);
+            this.l_l_mode.Name = "l_l_mode";
+            this.l_l_mode.Size = new System.Drawing.Size(124, 24);
+            this.l_l_mode.TabIndex = 42;
+            this.l_l_mode.Text = "Mode actuel :";
+            // 
+            // l_mode
+            // 
+            this.l_mode.AutoSize = true;
+            this.l_mode.Location = new System.Drawing.Point(141, 524);
+            this.l_mode.Name = "l_mode";
+            this.l_mode.Size = new System.Drawing.Size(60, 24);
+            this.l_mode.TabIndex = 43;
+            this.l_mode.Text = "label1";
+            // 
             // F_gerer_planning
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1429, 563);
+            this.Controls.Add(this.l_mode);
+            this.Controls.Add(this.l_l_mode);
             this.Controls.Add(this.b_delete);
             this.Controls.Add(this.cb_duree);
             this.Controls.Add(this.l_duree);
@@ -265,5 +292,8 @@
         private System.Windows.Forms.ToolStripMenuItem m_acceuil;
         private System.Windows.Forms.MenuStrip m_menu;
         private System.Windows.Forms.Button b_delete;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label l_l_mode;
+        private System.Windows.Forms.Label l_mode;
     }
 }
