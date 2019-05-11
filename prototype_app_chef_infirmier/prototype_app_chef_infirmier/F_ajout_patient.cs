@@ -122,7 +122,7 @@ namespace prototype_app_chef_infirmier
                 string rfid = t_rfid.Text;
                 //////////////////////////////////////////////////////////////
                 string requette = "INSERT INTO patient (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant, id_rfid) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "' , '" + rfid + "')";
-                MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                 con.Open(); //On ouvre le flux BDD
                 MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                 cmd.ExecuteNonQuery();

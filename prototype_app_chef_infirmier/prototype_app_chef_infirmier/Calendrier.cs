@@ -17,7 +17,7 @@ namespace prototype_app_chef_infirmier
         {
             DataTable dt = new DataTable();
 
-            MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+            MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
             con.Open(); //On ouvre le flux BDD
             MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
             MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
@@ -62,7 +62,7 @@ namespace prototype_app_chef_infirmier
                     id = row.ItemArray[1].ToString();
                     string req = "SELECT nom,prenom FROM patient WHERE id = '" + id + "'";
                     DataTable datatable = new DataTable();
-                    MySqlConnection connection = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                    MySqlConnection connection = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                     con.Open(); //On ouvre le flux BDD
                     MySqlCommand commande = new MySqlCommand(req, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                     MySqlDataReader lire = commande.ExecuteReader(); //On execute la requette

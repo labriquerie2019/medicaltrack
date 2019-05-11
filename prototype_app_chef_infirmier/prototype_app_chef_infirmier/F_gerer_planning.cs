@@ -17,7 +17,7 @@ namespace prototype_app_chef_infirmier
         string salle, id_patient, duree, nom, salle_mysql;
         int nb_patient=0;
         DateTime date_debut, date_fin;
-        bool patient_select=false, duree_select = false;
+        bool patient_select=false, duree_select = false,delete=false;
         public F_gerer_planning()
         {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace prototype_app_chef_infirmier
             timer1.Start();
             #region initialisation combo box et recuperation nom prenom id
             string requette = "SELECT * FROM patient";
-            MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+            MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
             con.Open(); //On ouvre le flux BDD
             MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
             MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
@@ -71,9 +71,19 @@ namespace prototype_app_chef_infirmier
 
         }
 
+        private void b_delete_Click(object sender, EventArgs e)
+        {
+            delete = true;
+        }
+
         private void dgv_calendrier_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (duree_select && patient_select) //Verif durée choisis et patient choisis
+            if(delete)
+            {
+                string jour = dgv_calendrier.Columns[e.ColumnIndex].HeaderText;//On recup le jour
+                string heure_choisis = e.RowIndex.ToString(); //On recup l'heure
+            }
+            else if (duree_select && patient_select) //Verif durée choisis et patient choisis
             {
                 string jour = dgv_calendrier.Columns[e.ColumnIndex].HeaderText;//On recup le jour
                 string heure_choisis = e.RowIndex.ToString(); //On recup l'heure
@@ -185,7 +195,7 @@ namespace prototype_app_chef_infirmier
                         string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
                         string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
                         string requette_sql = "INSERT INTO grand_ecran(salle,date_heure_debut,date_heure_fin,nom_patient) VALUES('" + salle_mysql + "' , '" + datedebut_formatForMySql + "' , '" + datefin_formatForMySql + "' , '" + nom + "')";
-                        MySqlConnection connect_sql = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                        MySqlConnection connect_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                         connect_sql.Open(); //On ouvre le flux BDD
                         MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                         cmd_sql.ExecuteNonQuery();
@@ -196,7 +206,7 @@ namespace prototype_app_chef_infirmier
                             DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
                             string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
                             string req_sql = "INSERT INTO " + salle + "(date_heure,id_patient) VALUES('" + date_formatForMySql + "','" + id_patient + "')";
-                            MySqlConnection con_sql = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                            MySqlConnection con_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                             con_sql.Open(); //On ouvre le flux BDD
                             MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                             command_sql.ExecuteNonQuery();

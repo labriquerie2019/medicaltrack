@@ -99,7 +99,7 @@ namespace prototype_app_chef_infirmier
         {
             DataTable dt = new DataTable();
 
-            MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+            MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
             con.Open(); //On ouvre le flux BDD
             MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
             MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
@@ -195,7 +195,7 @@ namespace prototype_app_chef_infirmier
                 if (id != null)
                 {
                     string requette = "DELETE FROM patient WHERE id = " + id;
-                    MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                    MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                     con.Open(); //On ouvre le flux BDD
                     MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                     MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
@@ -245,7 +245,7 @@ namespace prototype_app_chef_infirmier
                 string rfid = t_rfid.Text;
                 //////////////////////////////////////////////////////////////
                 string requette = "UPDATE patient SET nom = '" + nom + "', prenom = '" + prenom + "', age = '" + age + "', date_naissance = '" + dt_nai + "', sexe = '" + sexe + "', situation_familial = '" + situation_familial + "', note = '" + note + "', poid = '" + poid + "', taille = '" + taille + "', allergie = '" + allergie + "', antecedant= '" + antecedant + "', id_rfid = '" + rfid +"' WHERE id = " + id;
-                MySqlConnection con = new MySqlConnection("server=localhost;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                 con.Open(); //On ouvre le flux BDD
                 MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                 MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette

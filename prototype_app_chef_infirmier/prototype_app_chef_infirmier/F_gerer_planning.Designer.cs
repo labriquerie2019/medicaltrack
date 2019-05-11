@@ -44,6 +44,7 @@
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
             this.m_acceuil = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menu = new System.Windows.Forms.MenuStrip();
+            this.b_delete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).BeginInit();
             this.m_menu.SuspendLayout();
             this.SuspendLayout();
@@ -210,11 +211,22 @@
             this.m_menu.Text = "menuStrip1";
             this.m_menu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.m_menu_ItemClicked);
             // 
+            // b_delete
+            // 
+            this.b_delete.Location = new System.Drawing.Point(15, 466);
+            this.b_delete.Name = "b_delete";
+            this.b_delete.Size = new System.Drawing.Size(363, 39);
+            this.b_delete.TabIndex = 41;
+            this.b_delete.Text = "Effacer une heure";
+            this.b_delete.UseVisualStyleBackColor = true;
+            this.b_delete.Click += new System.EventHandler(this.b_delete_Click);
+            // 
             // F_gerer_planning
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1429, 563);
+            this.Controls.Add(this.b_delete);
             this.Controls.Add(this.cb_duree);
             this.Controls.Add(this.l_duree);
             this.Controls.Add(this.l_nb_patient);
@@ -256,5 +268,6 @@
         private System.Windows.Forms.ToolStripMenuItem m_quitter;
         private System.Windows.Forms.ToolStripMenuItem m_acceuil;
         private System.Windows.Forms.MenuStrip m_menu;
+        private System.Windows.Forms.Button b_delete;
     }
 }

@@ -136,13 +136,14 @@ namespace prototype_app_chef_infirmier
                 bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_reveil` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
                 pb_chargement.PerformStep();
             }
-            if (bdd.table_existe("grand_ecran"))//Si salle_reveil existe
+            l_chargement.Text = "TEST SI LA TABLE SALLE REA EXISTE SINON ON LA CREER!";
+            if (bdd.table_existe("grand_ecran"))//Si grand_ecran existe
             {
                 pb_chargement.PerformStep();
             }
             else//Si salle_reveil existe pas
             {
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `grand_ecran` ('id' int(11) NOT NULL AUTO_INCREMENT,'salle' TEXT NOT NULL,'date_heure_debut' DATETIME NOT NULL,'date_heure_fin' DATETIME NOT NULL,'nom_patient' TEXT NOT NULL,PRIMARY KEY('id')) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                bdd.table_creer("CREATE TABLE IF NOT EXISTS `grand_ecran` (`id` int(11) NOT NULL AUTO_INCREMENT,`salle` TEXT NOT NULL,`date_heure_debut` DATETIME NOT NULL,`date_heure_fin` DATETIME NOT NULL,`nom_patient` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
                 pb_chargement.PerformStep();
             }
             if (bdd.table_existe("salle_ane"))//Si salle_ane existe
