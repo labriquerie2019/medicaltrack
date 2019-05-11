@@ -94,7 +94,7 @@ namespace prototype_app_chef_infirmier
         {
             if (delete)
             {
-                if (dgv_calendrier.SelectedCells[0].Value.ToString() != "") //Si on choisis une cellule avec des info
+                if (dgv_calendrier.SelectedCells[0].Value.ToString() != "" && dgv_calendrier.SelectedCells[0].Value.ToString().Contains(nom)) //Si on choisis une cellule avec des info et avec le bon prenom
                 {
                     #region suppression d'info
                     string jour = dgv_calendrier.Columns[e.ColumnIndex].HeaderText;//On recup le jour
@@ -202,33 +202,53 @@ namespace prototype_app_chef_infirmier
                                     salle_mysql = "Salle de reanimation";
                                     break;
                             }
-
-                            string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
-                            string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
-                            string requette_sql = "DELETE FROM grand_ecran WHERE salle='" + salle_mysql + "' AND date_heure_debut='" + datedebut_formatForMySql + "' AND date_heure_fin='" + datefin_formatForMySql + "' AND nom_patient='" + nom + "'";
-                            MySqlConnection connect_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-                            connect_sql.Open(); //On ouvre le flux BDD
-                            MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-                            cmd_sql.ExecuteNonQuery();
-                            connect_sql.Close(); //Fermuture du flux BDD
-                            /////////////////////////////////////////////////////////////// Pour table de MedicalOPS et MedicalAdmin
-                            for (int i = 0; i < Convert.ToInt32(duree); i++)
+                            bool valide = false;
+                            string content = dgv_calendrier.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                            for(int i=0;i<Convert.ToInt32(duree);i++)
                             {
-                                DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
-                                string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
-                                string req_sql = "DELETE FROM " + salle + " WHERE date_heure='" + date_formatForMySql + "' AND id_patient='" + id_patient + "'";
-                                MySqlConnection con_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-                                con_sql.Open(); //On ouvre le flux BDD
-                                MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-                                command_sql.ExecuteNonQuery();
-                                con_sql.Close(); //Fermuture du flux BDD
+                                if(dgv_calendrier.Rows[e.RowIndex+i].Cells[e.ColumnIndex].Value.ToString() == content) //Permet de bouclier sur les lignes en dessous afin de vérifier que la durée dépasse pas
+                                {
+                                    valide = true;
+                                }
+                                else
+                                {
+                                    valide = false;
+                                }
                             }
-                            /////////////////////////////////////////////////////////////// On refresh le datagriedview
-                            DataTable datatable = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
-                            dgv_calendrier.RowHeadersVisible = false;
-                            dgv_calendrier.DataSource = datatable; // On attribue les sources du DataGridView au DataTable
-                            delete = false; //On repasse le delete en false
-                            MessageBox.Show("Horraire supprimer avec succes, si vous voulez repasser en mode suppression, il faut appuyer de nouveau sur le bouton.", "SUPPRESION EFFECTUER AVEC SUCCES", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (valide)//Si TOUT est bon
+                            {
+                                string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
+                                string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
+                                string requette_sql = "DELETE FROM grand_ecran WHERE salle='" + salle_mysql + "' AND date_heure_debut='" + datedebut_formatForMySql + "' AND date_heure_fin='" + datefin_formatForMySql + "' AND nom_patient='" + nom + "'";
+                                MySqlConnection connect_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                                connect_sql.Open(); //On ouvre le flux BDD
+                                MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                                cmd_sql.ExecuteNonQuery();
+                                connect_sql.Close(); //Fermuture du flux BDD
+                                                     /////////////////////////////////////////////////////////////// Pour table de MedicalOPS et MedicalAdmin
+                                for (int i = 0; i < Convert.ToInt32(duree); i++)
+                                {
+                                    DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
+                                    string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
+                                    string req_sql = "DELETE FROM " + salle + " WHERE date_heure='" + date_formatForMySql + "' AND id_patient='" + id_patient + "'";
+                                    MySqlConnection con_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                                    con_sql.Open(); //On ouvre le flux BDD
+                                    MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                                    command_sql.ExecuteNonQuery();
+                                    con_sql.Close(); //Fermuture du flux BDD
+                                }
+                                /////////////////////////////////////////////////////////////// On refresh le datagriedview
+                                DataTable datatable = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
+                                dgv_calendrier.RowHeadersVisible = false;
+                                dgv_calendrier.DataSource = datatable; // On attribue les sources du DataGridView au DataTable
+                                delete = false; //On repasse le delete en false
+                                valide = false;
+                                MessageBox.Show("Horraire supprimer avec succes, si vous voulez repasser en mode suppression, il faut appuyer de nouveau sur le bouton.", "SUPPRESION EFFECTUER AVEC SUCCES", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else //else qui recupere erreur : horraire qui dépasse ce patient
+                            {
+                                MessageBox.Show("Vérifier la durée choisis et le patient séléctionner, si l'erreur persiste, retirer une heure par une");
+                            }
                         }
                         catch (Exception erreur)
                         {
@@ -243,7 +263,7 @@ namespace prototype_app_chef_infirmier
                     #endregion
                 else //Tente de supprimer une cellule vide
                 {
-                    MessageBox.Show("ERREUR : Merci de choisir une heure qui contient un patient", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ERREUR : Merci de choisir une heure qui contient un patient ou vérifier que vous avez sélectionné le bon patient à gauche.", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -358,29 +378,49 @@ namespace prototype_app_chef_infirmier
                                     salle_mysql = "Salle de reanimation";
                                     break;
                             }
-                            string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
-                            string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
-                            string requette_sql = "INSERT INTO grand_ecran(salle,date_heure_debut,date_heure_fin,nom_patient) VALUES('" + salle_mysql + "' , '" + datedebut_formatForMySql + "' , '" + datefin_formatForMySql + "' , '" + nom + "')";
-                            MySqlConnection connect_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-                            connect_sql.Open(); //On ouvre le flux BDD
-                            MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-                            cmd_sql.ExecuteNonQuery();
-                            connect_sql.Close(); //Fermuture du flux BDD
-                            /////////////////////////////////////////////////////////////// Pour affichage MedicalOPS et MedicalAdmin
+                            bool valide = false;
+                            string content = dgv_calendrier.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                             for (int i = 0; i < Convert.ToInt32(duree); i++)
                             {
-                                DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
-                                string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
-                                string req_sql = "INSERT INTO " + salle + "(date_heure,id_patient) VALUES('" + date_formatForMySql + "','" + id_patient + "')";
-                                MySqlConnection con_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-                                con_sql.Open(); //On ouvre le flux BDD
-                                MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-                                command_sql.ExecuteNonQuery();
-                                con_sql.Close(); //Fermuture du flux BDD
+                                if (dgv_calendrier.Rows[e.RowIndex + i].Cells[e.ColumnIndex].Value.ToString() == content) //Permet de bouclier sur les lignes en dessous afin de vérifier que la durée dépasse pas
+                                {
+                                    valide = true;
+                                }
+                                else
+                                {
+                                    valide = false;
+                                }
                             }
-                            DataTable datatable = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
-                            dgv_calendrier.RowHeadersVisible = false;
-                            dgv_calendrier.DataSource = datatable; // On attribue les sources du DataGridView au DataTable
+                            if (valide)
+                            {
+                                string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
+                                string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
+                                string requette_sql = "INSERT INTO grand_ecran(salle,date_heure_debut,date_heure_fin,nom_patient) VALUES('" + salle_mysql + "' , '" + datedebut_formatForMySql + "' , '" + datefin_formatForMySql + "' , '" + nom + "')";
+                                MySqlConnection connect_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                                connect_sql.Open(); //On ouvre le flux BDD
+                                MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                                cmd_sql.ExecuteNonQuery();
+                                connect_sql.Close(); //Fermuture du flux BDD
+                                                     /////////////////////////////////////////////////////////////// Pour affichage MedicalOPS et MedicalAdmin
+                                for (int i = 0; i < Convert.ToInt32(duree); i++)
+                                {
+                                    DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
+                                    string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
+                                    string req_sql = "INSERT INTO " + salle + "(date_heure,id_patient) VALUES('" + date_formatForMySql + "','" + id_patient + "')";
+                                    MySqlConnection con_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                                    con_sql.Open(); //On ouvre le flux BDD
+                                    MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                                    command_sql.ExecuteNonQuery();
+                                    con_sql.Close(); //Fermuture du flux BDD
+                                }
+                                DataTable datatable = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
+                                dgv_calendrier.RowHeadersVisible = false;
+                                dgv_calendrier.DataSource = datatable; // On attribue les sources du DataGridView au DataTable
+                            }
+                            else
+                            {
+                                MessageBox.Show("ERREUR : ce créneaux horraire est déja pris", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                         catch (Exception erreur)
                         {
