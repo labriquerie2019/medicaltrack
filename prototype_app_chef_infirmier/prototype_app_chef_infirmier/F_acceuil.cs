@@ -20,7 +20,7 @@ namespace prototype_app_chef_infirmier
 
         private void F_Acceuil_Load(object sender, EventArgs e)
         {
-            timer1.Interval = 3000;
+            timer1.Interval = 1000;
             timer1.Start();
         }
 

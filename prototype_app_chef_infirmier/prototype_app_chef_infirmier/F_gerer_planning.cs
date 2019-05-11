@@ -78,149 +78,307 @@ namespace prototype_app_chef_infirmier
 
         private void dgv_calendrier_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if(delete)
+            if (delete)
             {
-                string jour = dgv_calendrier.Columns[e.ColumnIndex].HeaderText;//On recup le jour
-                string heure_choisis = e.RowIndex.ToString(); //On recup l'heure
+                if (dgv_calendrier.SelectedCells[0].Value.ToString() != "") //Si on choisis une cellule avec des info
+                {
+                    #region suppression d'info
+                    string jour = dgv_calendrier.Columns[e.ColumnIndex].HeaderText;//On recup le jour
+                    string heure_choisis = e.RowIndex.ToString(); //On recup l'heure
+                    DateTime datetime_traitement = dt_calendrier.Value;
+                    DateTime lundi = new DateTime();
+                    DateTime dimanche = new DateTime();
+                    switch (datetime_traitement.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher le jour, et determiner le lundi et le dimanche
+                    {
+                        case "Monday"://Lundi
+                            lundi = datetime_traitement;
+                            dimanche = datetime_traitement.AddDays(6);
+                            break;
+                        case "Tuesday"://Mardi
+                            lundi = datetime_traitement.AddDays(-1);
+                            dimanche = datetime_traitement.AddDays(5);
+                            break;
+                        case "Wednesday"://Mercredi
+                            lundi = datetime_traitement.AddDays(-2);
+                            dimanche = datetime_traitement.AddDays(4);
+                            break;
+                        case "Thursday"://Jeudi
+                            lundi = datetime_traitement.AddDays(-3);
+                            dimanche = datetime_traitement.AddDays(3);
+                            break;
+                        case "Friday"://Vendredi
+                            lundi = datetime_traitement.AddDays(-4);
+                            dimanche = datetime_traitement.AddDays(2);
+                            break;
+                        case "Saturday"://Samedi
+                            lundi = datetime_traitement.AddDays(-5);
+                            dimanche = datetime_traitement.AddDays(1);
+                            break;
+                        case "Sunday"://Dimanche
+                            lundi = datetime_traitement.AddDays(-6);
+                            dimanche = datetime_traitement;
+                            break;
+                        default://Si erreur
+                            MessageBox.Show("ERREUR : Lors de la séléction de la date pour le calendrier!");
+                            break;
+                    }
+                    bool traiter = false;
+                    switch (jour)//Datetime pour la date_debut et date_fin
+                    {
+                        case "Lundi":
+                            date_debut = new DateTime(lundi.Year, lundi.Month, lundi.Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.Year, lundi.Month, lundi.Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Mardi":
+                            date_debut = new DateTime(lundi.AddDays(1).Year, lundi.AddDays(1).Month, lundi.AddDays(1).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(1).Year, lundi.AddDays(1).Month, lundi.AddDays(1).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Mercredi":
+                            date_debut = new DateTime(lundi.AddDays(2).Year, lundi.AddDays(2).Month, lundi.AddDays(2).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(2).Year, lundi.AddDays(2).Month, lundi.AddDays(2).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Jeudi":
+                            date_debut = new DateTime(lundi.AddDays(3).Year, lundi.AddDays(3).Month, lundi.AddDays(3).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(3).Year, lundi.AddDays(3).Month, lundi.AddDays(3).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Vendredi":
+                            date_debut = new DateTime(lundi.AddDays(4).Year, lundi.AddDays(4).Month, lundi.AddDays(4).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(4).Year, lundi.AddDays(4).Month, lundi.AddDays(4).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Samedi":
+                            date_debut = new DateTime(lundi.AddDays(5).Year, lundi.AddDays(5).Month, lundi.AddDays(5).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(5).Year, lundi.AddDays(5).Month, lundi.AddDays(5).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Dimanche":
+                            date_debut = new DateTime(lundi.AddDays(6).Year, lundi.AddDays(6).Month, lundi.AddDays(6).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(6).Year, lundi.AddDays(6).Month, lundi.AddDays(6).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        default:
+                            MessageBox.Show("ERREUR : Lors du retracage de la date!");
+                            break;
+                    }
+                    if (traiter)
+                    {
+                        try
+                        {
+                            ////////////////////////////////////////////////////////////// Pour table grand écran 
+                            string selected = cb_salle.Text;
+                            switch (selected)
+                            {
+                                case "Salle d'opération 1":
+                                    salle_mysql = "Salle operation 1";
+                                    break;
+                                case "Salle d'opération 2":
+                                    salle_mysql = "Salle operation 2";
+                                    break;
+                                case "Salle d'anesthesie":
+                                    salle_mysql = "Salle anesthesie";
+                                    break;
+                                case "Salle de reveil":
+                                    salle_mysql = "Salle de reveil";
+                                    break;
+                                case "Salle de réanimation":
+                                    salle_mysql = "Salle de reanimation";
+                                    break;
+                            }
+
+                            string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
+                            string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
+                            string requette_sql = "DELETE FROM grand_ecran WHERE salle='" + salle_mysql + "' AND date_heure_debut='" + datedebut_formatForMySql + "' AND date_heure_fin='" + datefin_formatForMySql + "' AND nom_patient='" + nom + "'";
+                            MySqlConnection connect_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                            connect_sql.Open(); //On ouvre le flux BDD
+                            MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                            cmd_sql.ExecuteNonQuery();
+                            connect_sql.Close(); //Fermuture du flux BDD
+                            /////////////////////////////////////////////////////////////// Pour table de MedicalOPS et MedicalAdmin
+                            for (int i = 0; i < Convert.ToInt32(duree); i++)
+                            {
+                                DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
+                                string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
+                                string req_sql = "DELETE FROM " + salle + " WHERE date_heure='" + date_formatForMySql + "' AND id_patient='" + id_patient + "'";
+                                MySqlConnection con_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                                con_sql.Open(); //On ouvre le flux BDD
+                                MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                                command_sql.ExecuteNonQuery();
+                                con_sql.Close(); //Fermuture du flux BDD
+                            }
+                            /////////////////////////////////////////////////////////////// On refresh le datagriedview
+                            DataTable datatable = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
+                            dgv_calendrier.RowHeadersVisible = false;
+                            dgv_calendrier.DataSource = datatable; // On attribue les sources du DataGridView au DataTable
+                            delete = false; //On repasse le delete en false
+                            MessageBox.Show("Horraire supprimer avec succes, si vous voulez repasser en mode suppression, il faut appuyer de nouveau sur le bouton.", "SUPPRESION EFFECTUER AVEC SUCCES", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception erreur)
+                        {
+                            MessageBox.Show("ERREUR : " + erreur, "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                    #endregion
+                else //Tente de supprimer une cellule vide
+                {
+                    MessageBox.Show("ERREUR : Merci de choisir une heure qui contient un patient", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
             else if (duree_select && patient_select) //Verif durée choisis et patient choisis
             {
-                string jour = dgv_calendrier.Columns[e.ColumnIndex].HeaderText;//On recup le jour
-                string heure_choisis = e.RowIndex.ToString(); //On recup l'heure
-                ////////////////////////////////////////////////////////////////////////////////
-                DateTime datetime_traitement = dt_calendrier.Value;
-                DateTime lundi = new DateTime();
-                DateTime dimanche = new DateTime();
-                switch (datetime_traitement.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine, Tostring("dddd") permet d'afficher juste le jour
+                #region ajouter info calendrier
+                if (dgv_calendrier.SelectedCells[0].Value.ToString() == "")
                 {
-                    case "Monday"://Lundi
-                        lundi = datetime_traitement;
-                        dimanche = datetime_traitement.AddDays(6);
-                        break;
-                    case "Tuesday"://Mardi
-                        lundi = datetime_traitement.AddDays(-1);
-                        dimanche = datetime_traitement.AddDays(5);
-                        break;
-                    case "Wednesday"://Mercredi
-                        lundi = datetime_traitement.AddDays(-2);
-                        dimanche = datetime_traitement.AddDays(4);
-                        break;
-                    case "Thursday"://Jeudi
-                        lundi = datetime_traitement.AddDays(-3);
-                        dimanche = datetime_traitement.AddDays(3);
-                        break;
-                    case "Friday"://Vendredi
-                        lundi = datetime_traitement.AddDays(-4);
-                        dimanche = datetime_traitement.AddDays(2);
-                        break;
-                    case "Saturday"://Samedi
-                        lundi = datetime_traitement.AddDays(-5);
-                        dimanche = datetime_traitement.AddDays(1);
-                        break;
-                    case "Sunday"://Dimanche
-                        lundi = datetime_traitement.AddDays(-6);
-                        dimanche = datetime_traitement;
-                        break;
-                    default://Si erreur
-                        MessageBox.Show("ERREUR : Lors de la séléction de la date pour le calendrier!");
-                        //this.timer2.Stop();
-                        break;
-                }
-                bool traiter = false;
-                switch (jour)//Datetime pour la date_debut et date_fin
-                {
-                    case "Lundi":
-                        date_debut = new DateTime(lundi.Year, lundi.Month, lundi.Day, Convert.ToInt32(heure_choisis), 0, 0);
-                        date_fin = new DateTime(lundi.Year, lundi.Month, lundi.Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
-                        traiter = true;
-                        break;
-                    case "Mardi":
-                        date_debut = new DateTime(lundi.AddDays(1).Year, lundi.AddDays(1).Month, lundi.AddDays(1).Day, Convert.ToInt32(heure_choisis), 0, 0);
-                        date_fin = new DateTime(lundi.AddDays(1).Year, lundi.AddDays(1).Month, lundi.AddDays(1).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
-                        traiter = true;
-                        break;
-                    case "Mercredi":
-                        date_debut = new DateTime(lundi.AddDays(2).Year, lundi.AddDays(2).Month, lundi.AddDays(2).Day, Convert.ToInt32(heure_choisis), 0, 0);
-                        date_fin = new DateTime(lundi.AddDays(2).Year, lundi.AddDays(2).Month, lundi.AddDays(2).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
-                        traiter = true;
-                        break;
-                    case "Jeudi":
-                        date_debut = new DateTime(lundi.AddDays(3).Year, lundi.AddDays(3).Month, lundi.AddDays(3).Day, Convert.ToInt32(heure_choisis), 0, 0);
-                        date_fin = new DateTime(lundi.AddDays(3).Year, lundi.AddDays(3).Month, lundi.AddDays(3).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
-                        traiter = true;
-                        break;
-                    case "Vendredi":
-                        date_debut = new DateTime(lundi.AddDays(4).Year, lundi.AddDays(4).Month, lundi.AddDays(4).Day, Convert.ToInt32(heure_choisis), 0, 0);
-                        date_fin = new DateTime(lundi.AddDays(4).Year, lundi.AddDays(4).Month, lundi.AddDays(4).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
-                        traiter = true;
-                        break;
-                    case "Samedi":
-                        date_debut = new DateTime(lundi.AddDays(5).Year, lundi.AddDays(5).Month, lundi.AddDays(5).Day, Convert.ToInt32(heure_choisis), 0, 0);
-                        date_fin = new DateTime(lundi.AddDays(5).Year, lundi.AddDays(5).Month, lundi.AddDays(5).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
-                        traiter = true;
-                        break;
-                    case "Dimanche":
-                        date_debut = new DateTime(lundi.AddDays(6).Year, lundi.AddDays(6).Month, lundi.AddDays(6).Day, Convert.ToInt32(heure_choisis), 0, 0);
-                        date_fin = new DateTime(lundi.AddDays(6).Year, lundi.AddDays(6).Month, lundi.AddDays(6).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
-                        traiter = true;
-                        break;
-                    default:
-                        MessageBox.Show("ERREUR : Lors du retracage de la date!");
-                        break;
-                }
-                if (traiter)
-                {
-                    try
+                    string jour = dgv_calendrier.Columns[e.ColumnIndex].HeaderText;//On recup le jour
+                    string heure_choisis = e.RowIndex.ToString(); //On recup l'heure
+                    ////////////////////////////////////////////////////////////////////////////////
+                    DateTime datetime_traitement = dt_calendrier.Value;
+                    DateTime lundi = new DateTime();
+                    DateTime dimanche = new DateTime();
+                    switch (datetime_traitement.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher le jour, et determiner le lundi et le dimanche
                     {
-                        ////////////////////////////////////////////////////////////// Pour affichage grand écran
-                        string selected = cb_salle.Text;
-                        switch (selected)
-                        {
-                            case "Salle d'opération 1":
-                                salle_mysql = "Salle operation 1";
-                                break;
-                            case "Salle d'opération 2":
-                                salle_mysql = "Salle operation 2";
-                                break;
-                            case "Salle d'anesthesie":
-                                salle_mysql = "Salle anesthesie";
-                                break;
-                            case "Salle de reveil":
-                                salle_mysql = "Salle de reveil";
-                                break;
-                            case "Salle de réanimation":
-                                salle_mysql = "Salle de reanimation";
-                                break;
-                        }
-                        string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
-                        string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
-                        string requette_sql = "INSERT INTO grand_ecran(salle,date_heure_debut,date_heure_fin,nom_patient) VALUES('" + salle_mysql + "' , '" + datedebut_formatForMySql + "' , '" + datefin_formatForMySql + "' , '" + nom + "')";
-                        MySqlConnection connect_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-                        connect_sql.Open(); //On ouvre le flux BDD
-                        MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-                        cmd_sql.ExecuteNonQuery();
-                        connect_sql.Close(); //Fermuture du flux BDD
-                        /////////////////////////////////////////////////////////////// Pour affichage MedicalOPS et MedicalAdmin
-                        for (int i = 0; i < Convert.ToInt32(duree); i++)
-                        {
-                            DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
-                            string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
-                            string req_sql = "INSERT INTO " + salle + "(date_heure,id_patient) VALUES('" + date_formatForMySql + "','" + id_patient + "')";
-                            MySqlConnection con_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-                            con_sql.Open(); //On ouvre le flux BDD
-                            MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-                            command_sql.ExecuteNonQuery();
-                            con_sql.Close(); //Fermuture du flux BDD
-                        }
-                        DataTable datatable = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
-                        dgv_calendrier.RowHeadersVisible = false;
-                        dgv_calendrier.DataSource = datatable; // On attribue les sources du DataGridView au DataTable
+                        case "Monday"://Lundi
+                            lundi = datetime_traitement;
+                            dimanche = datetime_traitement.AddDays(6);
+                            break;
+                        case "Tuesday"://Mardi
+                            lundi = datetime_traitement.AddDays(-1);
+                            dimanche = datetime_traitement.AddDays(5);
+                            break;
+                        case "Wednesday"://Mercredi
+                            lundi = datetime_traitement.AddDays(-2);
+                            dimanche = datetime_traitement.AddDays(4);
+                            break;
+                        case "Thursday"://Jeudi
+                            lundi = datetime_traitement.AddDays(-3);
+                            dimanche = datetime_traitement.AddDays(3);
+                            break;
+                        case "Friday"://Vendredi
+                            lundi = datetime_traitement.AddDays(-4);
+                            dimanche = datetime_traitement.AddDays(2);
+                            break;
+                        case "Saturday"://Samedi
+                            lundi = datetime_traitement.AddDays(-5);
+                            dimanche = datetime_traitement.AddDays(1);
+                            break;
+                        case "Sunday"://Dimanche
+                            lundi = datetime_traitement.AddDays(-6);
+                            dimanche = datetime_traitement;
+                            break;
+                        default://Si erreur
+                            MessageBox.Show("ERREUR : Lors de la séléction de la date pour le calendrier!");
+                            break;
                     }
-                    catch (Exception erreur)
+                    bool traiter = false;
+                    switch (jour)//Datetime pour la date_debut et date_fin
                     {
-                        MessageBox.Show("ERREUR : " + erreur, "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        case "Lundi":
+                            date_debut = new DateTime(lundi.Year, lundi.Month, lundi.Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.Year, lundi.Month, lundi.Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Mardi":
+                            date_debut = new DateTime(lundi.AddDays(1).Year, lundi.AddDays(1).Month, lundi.AddDays(1).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(1).Year, lundi.AddDays(1).Month, lundi.AddDays(1).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Mercredi":
+                            date_debut = new DateTime(lundi.AddDays(2).Year, lundi.AddDays(2).Month, lundi.AddDays(2).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(2).Year, lundi.AddDays(2).Month, lundi.AddDays(2).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Jeudi":
+                            date_debut = new DateTime(lundi.AddDays(3).Year, lundi.AddDays(3).Month, lundi.AddDays(3).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(3).Year, lundi.AddDays(3).Month, lundi.AddDays(3).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Vendredi":
+                            date_debut = new DateTime(lundi.AddDays(4).Year, lundi.AddDays(4).Month, lundi.AddDays(4).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(4).Year, lundi.AddDays(4).Month, lundi.AddDays(4).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Samedi":
+                            date_debut = new DateTime(lundi.AddDays(5).Year, lundi.AddDays(5).Month, lundi.AddDays(5).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(5).Year, lundi.AddDays(5).Month, lundi.AddDays(5).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        case "Dimanche":
+                            date_debut = new DateTime(lundi.AddDays(6).Year, lundi.AddDays(6).Month, lundi.AddDays(6).Day, Convert.ToInt32(heure_choisis), 0, 0);
+                            date_fin = new DateTime(lundi.AddDays(6).Year, lundi.AddDays(6).Month, lundi.AddDays(6).Day, Convert.ToInt32(heure_choisis) + Convert.ToInt32(duree), 0, 0);
+                            traiter = true;
+                            break;
+                        default:
+                            MessageBox.Show("ERREUR : Lors du retracage de la date!");
+                            break;
+                    }
+                    if (traiter)
+                    {
+                        try
+                        {
+                            ////////////////////////////////////////////////////////////// Pour affichage grand écran
+                            string selected = cb_salle.Text;
+                            switch (selected)
+                            {
+                                case "Salle d'opération 1":
+                                    salle_mysql = "Salle operation 1";
+                                    break;
+                                case "Salle d'opération 2":
+                                    salle_mysql = "Salle operation 2";
+                                    break;
+                                case "Salle d'anesthesie":
+                                    salle_mysql = "Salle anesthesie";
+                                    break;
+                                case "Salle de reveil":
+                                    salle_mysql = "Salle de reveil";
+                                    break;
+                                case "Salle de réanimation":
+                                    salle_mysql = "Salle de reanimation";
+                                    break;
+                            }
+                            string datedebut_formatForMySql = date_debut.ToString("yyyy-MM-dd HH:mm:ss");
+                            string datefin_formatForMySql = date_fin.ToString("yyyy-MM-dd HH:mm:ss");
+                            string requette_sql = "INSERT INTO grand_ecran(salle,date_heure_debut,date_heure_fin,nom_patient) VALUES('" + salle_mysql + "' , '" + datedebut_formatForMySql + "' , '" + datefin_formatForMySql + "' , '" + nom + "')";
+                            MySqlConnection connect_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                            connect_sql.Open(); //On ouvre le flux BDD
+                            MySqlCommand cmd_sql = new MySqlCommand(requette_sql, connect_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                            cmd_sql.ExecuteNonQuery();
+                            connect_sql.Close(); //Fermuture du flux BDD
+                            /////////////////////////////////////////////////////////////// Pour affichage MedicalOPS et MedicalAdmin
+                            for (int i = 0; i < Convert.ToInt32(duree); i++)
+                            {
+                                DateTime datetime_bdd = new DateTime(date_debut.Year, date_debut.Month, date_debut.Day, date_debut.Hour + i, 0, 0);
+                                string date_formatForMySql = datetime_bdd.ToString("yyyy-MM-dd HH:mm:ss");
+                                string req_sql = "INSERT INTO " + salle + "(date_heure,id_patient) VALUES('" + date_formatForMySql + "','" + id_patient + "')";
+                                MySqlConnection con_sql = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                                con_sql.Open(); //On ouvre le flux BDD
+                                MySqlCommand command_sql = new MySqlCommand(req_sql, con_sql); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                                command_sql.ExecuteNonQuery();
+                                con_sql.Close(); //Fermuture du flux BDD
+                            }
+                            DataTable datatable = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
+                            dgv_calendrier.RowHeadersVisible = false;
+                            dgv_calendrier.DataSource = datatable; // On attribue les sources du DataGridView au DataTable
+                        }
+                        catch (Exception erreur)
+                        {
+                            MessageBox.Show("ERREUR : " + erreur, "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
+                #endregion
+                else // Si on clique sur une case avec des informations dedans
+                {
+                    MessageBox.Show("ERREUR : Merci de choisir une periode libre", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else //Pas de patient selectionner ou pas de durée
+            {
+                MessageBox.Show("ERREUR : merci de choisir un patient et une durée", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

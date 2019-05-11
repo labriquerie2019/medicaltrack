@@ -161,11 +161,7 @@
             "1h",
             "2h",
             "3h",
-            "4h",
-            "5h",
-            "6h",
-            "7h",
-            "8h"});
+            "4h"});
             this.cb_duree.Location = new System.Drawing.Point(15, 311);
             this.cb_duree.Margin = new System.Windows.Forms.Padding(6);
             this.cb_duree.Name = "cb_duree";
@@ -217,7 +213,7 @@
             this.b_delete.Name = "b_delete";
             this.b_delete.Size = new System.Drawing.Size(363, 39);
             this.b_delete.TabIndex = 41;
-            this.b_delete.Text = "Effacer une heure";
+            this.b_delete.Text = "Effacer une opération";
             this.b_delete.UseVisualStyleBackColor = true;
             this.b_delete.Click += new System.EventHandler(this.b_delete_Click);
             // 
