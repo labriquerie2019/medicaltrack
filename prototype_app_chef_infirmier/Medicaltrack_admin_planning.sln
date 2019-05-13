@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prototype_app_chef_infirmier", "prototype_app_chef_infirmier\prototype_app_chef_infirmier.csproj", "{1ABE3742-9C51-456C-80BF-398A4737789D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medicaltrack_admin_planning", "prototype_app_chef_infirmier\Medicaltrack_admin_planning.csproj", "{1ABE3742-9C51-456C-80BF-398A4737789D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87A4F0C1-8080-428C-B7E3-CA99122842D2}"
 EndProject
