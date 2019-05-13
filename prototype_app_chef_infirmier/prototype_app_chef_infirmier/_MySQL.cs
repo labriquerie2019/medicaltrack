@@ -20,7 +20,7 @@ namespace prototype_app_chef_infirmier
 
         public _MySQL(string Serveur, string Base, string User, string Pass)//constructeur
         {
-            cn_base = "server=" + Serveur + "; user id=" + User + "; password=" + Pass + "; database=" + Base + "; pooling=false";
+            cn_base = "server=" + Serveur + "; user id=" + User + "; password=" + Pass + ";SslMode=none; database=" + Base + "; pooling=false";
         }
         public string Serveur
         {
@@ -48,11 +48,11 @@ namespace prototype_app_chef_infirmier
             if (racine == true)
                 data = "server=" + Serveur
                 + "; user id=" + User + "; password=" + Pass
-                + "; database=" + "" + "; pooling=false";
+                + ";SslMode=none; database=" + "" + "; pooling=false";
             else
                 data = "server=" + Serveur
                 + "; user id=" + User + "; password=" + Pass
-                + "; database=" + Base + "; pooling=false";
+                + ";SslMode=none; database=" + Base + "; pooling=false";
             return data;
         }
 
