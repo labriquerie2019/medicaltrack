@@ -153,7 +153,7 @@
             this.p_modif.Controls.Add(this.t_nom);
             this.p_modif.Controls.Add(this.l_nom);
             this.p_modif.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.p_modif.Location = new System.Drawing.Point(86, 185);
+            this.p_modif.Location = new System.Drawing.Point(0, 24);
             this.p_modif.Name = "p_modif";
             this.p_modif.Size = new System.Drawing.Size(1247, 593);
             this.p_modif.TabIndex = 44;
@@ -220,6 +220,7 @@
             this.b_annuler.TabIndex = 45;
             this.b_annuler.Text = "Annuler";
             this.b_annuler.UseVisualStyleBackColor = true;
+            this.b_annuler.Click += new System.EventHandler(this.b_annuler_Click_1);
             // 
             // b_done_modif
             // 
@@ -229,6 +230,7 @@
             this.b_done_modif.TabIndex = 44;
             this.b_done_modif.Text = "Affecter une modification";
             this.b_done_modif.UseVisualStyleBackColor = true;
+            this.b_done_modif.Click += new System.EventHandler(this.b_done_modif_Click_1);
             // 
             // l_date_admission
             // 
@@ -442,6 +444,7 @@
             this.t_filtre.ReadOnly = true;
             this.t_filtre.Size = new System.Drawing.Size(711, 33);
             this.t_filtre.TabIndex = 47;
+            this.t_filtre.TextChanged += new System.EventHandler(this.t_filtre_TextChanged_1);
             // 
             // cb_filtre
             // 
@@ -467,6 +470,7 @@
             this.cb_filtre.Name = "cb_filtre";
             this.cb_filtre.Size = new System.Drawing.Size(200, 33);
             this.cb_filtre.TabIndex = 46;
+            this.cb_filtre.SelectedIndexChanged += new System.EventHandler(this.cb_filtre_SelectedIndexChanged_1);
             // 
             // l_filtre
             // 
@@ -488,6 +492,7 @@
             this.dgv_table_patient.ReadOnly = true;
             this.dgv_table_patient.Size = new System.Drawing.Size(1235, 549);
             this.dgv_table_patient.TabIndex = 43;
+            this.dgv_table_patient.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_table_patient_CellContentClick_1);
             // 
             // F_chef_modif_patient
             // 

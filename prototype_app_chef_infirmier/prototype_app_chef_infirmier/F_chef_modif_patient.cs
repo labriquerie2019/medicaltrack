@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Medicaltrack_admin_planning;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -65,7 +66,30 @@ namespace Medicaltrack_admin_planning
             DateTime heure = System.DateTime.Now;
             l_date_heure.Text = heure.Hour + ":" + heure.Minute + " " + heure.Day + "/" + heure.Month + "/" + heure.Year;
         }
-        private void dgv_table_patient_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        public void dgv_load(DataTable datatable)
+        {
+            if (datatable != null) //BDD remplie on affiche
+            {
+                dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
+                dgv_table_patient.DataSource = datatable;
+                dgv_table_patient.Columns["date_naissance"].Width = 160;
+                dgv_table_patient.Columns["date_admission"].Width = 160;
+                dgv_table_patient.Columns["id_rfid"].Width = 160;
+                dgv_table_patient.Columns["last_scan"].Width = 160;
+            }
+            else //Erreur BDD
+            {
+                string message = "Erreur lors du chargement des données de la base de données";//Message a afficher
+                string action = "ERREUR BDD"; //Nom de la fenettre
+                MessageBoxManager.OK = "Réessayer";//On utilise la classe MessageBoxManager pour changer les boutons
+                MessageBoxManager.Register(); //On applique nos changements
+                var rep = MessageBox.Show(message, action, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
+            }
+        }
+
+        private void dgv_table_patient_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             #region recup valeur datagriedview selection
             id = dgv_table_patient.CurrentRow.Cells[0].Value.ToString();
@@ -93,7 +117,7 @@ namespace Medicaltrack_admin_planning
             var rep = MessageBox.Show(message, action, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
             #endregion
-            if (rep == DialogResult.Yes) //Si on appuie sur Modifier
+            if (rep == DialogResult.OK) //Si on appuie sur Modifier
             {
                 p_modif.Visible = true;
                 t_nom.Text = nom;
@@ -132,7 +156,7 @@ namespace Medicaltrack_admin_planning
             }
         }
 
-        private void b_done_modif_Click(object sender, EventArgs e)
+        private void b_done_modif_Click_1(object sender, EventArgs e)
         {
             if (id != null)
             {
@@ -197,10 +221,9 @@ namespace Medicaltrack_admin_planning
             {
                 MessageBox.Show("ERREUR LORS DE LA MISE A JOUR : L'ID EST NUL", "ERREUR MAJ BDD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
-        private void b_annuler_Click(object sender, EventArgs e)
+        private void b_annuler_Click_1(object sender, EventArgs e)
         {
             #region clear textbox
             t_nom.Clear();
@@ -220,7 +243,7 @@ namespace Medicaltrack_admin_planning
             p_modif.Visible = false;
         }
 
-        private void t_filtre_TextChanged(object sender, EventArgs e)
+        private void t_filtre_TextChanged_1(object sender, EventArgs e)
         {
             DataTable dt;
             switch (cb_filtre.Text) //Permet de savoir quelle champs va être filter
@@ -325,29 +348,8 @@ namespace Medicaltrack_admin_planning
                     break;
             }
         }
-        public void dgv_load(DataTable datatable)
-        {
-            if (datatable != null) //BDD remplie on affiche
-            {
-                dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
-                dgv_table_patient.DataSource = datatable;
-                dgv_table_patient.Columns["date_naissance"].Width = 160;
-                dgv_table_patient.Columns["date_admission"].Width = 160;
-                dgv_table_patient.Columns["id_rfid"].Width = 160;
-                dgv_table_patient.Columns["last_scan"].Width = 160;
-            }
-            else //Erreur BDD
-            {
-                string message = "Erreur lors du chargement des données de la base de données";//Message a afficher
-                string action = "ERREUR BDD"; //Nom de la fenettre
-                MessageBoxManager.OK = "Réessayer";//On utilise la classe MessageBoxManager pour changer les boutons
-                MessageBoxManager.Register(); //On applique nos changements
-                var rep = MessageBox.Show(message, action, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
-            }
-        }
 
-        private void cb_filtre_SelectedIndexChanged(object sender, EventArgs e)
+        private void cb_filtre_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (cb_filtre.Text == "AUCUN")
             {

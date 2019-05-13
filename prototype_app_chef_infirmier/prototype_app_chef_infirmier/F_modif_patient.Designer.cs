@@ -165,7 +165,7 @@
             this.p_modif.Controls.Add(this.t_nom);
             this.p_modif.Controls.Add(this.l_nom);
             this.p_modif.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.p_modif.Location = new System.Drawing.Point(86, 199);
+            this.p_modif.Location = new System.Drawing.Point(0, 33);
             this.p_modif.Name = "p_modif";
             this.p_modif.Size = new System.Drawing.Size(1247, 593);
             this.p_modif.TabIndex = 5;

@@ -13,6 +13,56 @@ namespace prototype_app_chef_infirmier
     class Calendrier
     {
         string nom, prenom,id;
+        public DataTable afficher_calendrier(DateTime datetimepicker,string salle)
+        {
+            DateTime datetime_traitement = datetimepicker;
+            DateTime lundi = new DateTime();
+            DateTime dimanche = new DateTime();
+
+            switch (datetime_traitement.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine, Tostring("dddd") permet d'afficher juste le jour
+            {
+                case "Monday"://Lundi
+                    lundi = datetime_traitement;
+                    dimanche = datetime_traitement.AddDays(6);
+                    break;
+                case "Tuesday"://Mardi
+                    lundi = datetime_traitement.AddDays(-1);
+                    dimanche = datetime_traitement.AddDays(5);
+                    break;
+                case "Wednesday"://Mercredi
+                    lundi = datetime_traitement.AddDays(-2);
+                    dimanche = datetime_traitement.AddDays(4);
+                    break;
+                case "Thursday"://Jeudi
+                    lundi = datetime_traitement.AddDays(-3);
+                    dimanche = datetime_traitement.AddDays(3);
+                    break;
+                case "Friday"://Vendredi
+                    lundi = datetime_traitement.AddDays(-4);
+                    dimanche = datetime_traitement.AddDays(2);
+                    break;
+                case "Saturday"://Samedi
+                    lundi = datetime_traitement.AddDays(-5);
+                    dimanche = datetime_traitement.AddDays(1);
+                    break;
+                case "Sunday"://Dimanche
+                    lundi = datetime_traitement.AddDays(-6);
+                    dimanche = datetime_traitement;
+                    break;
+                default://Si erreur
+                    MessageBox.Show("ERREUR : Lors de la séléction de la date pour le calendrier!");
+                    //this.timer2.Stop();
+                    break;
+            }
+            string lundi_traiter = lundi.ToString("yyyy-MM-dd");
+            string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd");
+            string requette = "SELECT * FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter + "'";
+            ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
+            DataTable dt = new DataTable(); // On déclare une DataTable
+            dt = GetCalendrier(requette); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
+            return dt;
+            ///////////////////////////////////////////////////////////////
+        }
         private DataTable GetCalendrier(string requette)
         {
             DataTable dt = new DataTable();
@@ -68,14 +118,14 @@ namespace prototype_app_chef_infirmier
                     MySqlDataReader lire = commande.ExecuteReader(); //On execute la requette
                     datatable.Load(lire); // Lecture de la BDD et on la met dans le datatable 
                     con.Close(); //Fermuture du flux BDD  
-                    foreach(DataRow ligne in datatable.Rows)
+                    foreach (DataRow ligne in datatable.Rows)
                     {
                         try
                         {
                             nom = ligne.ItemArray[0].ToString();
                             prenom = ligne.ItemArray[1].ToString();
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             MessageBox.Show("ERREUR : " + e, "ERREUR RECUPERATION INFO PATIENT", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -84,16 +134,16 @@ namespace prototype_app_chef_infirmier
                     switch (jour_a_determiner.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine
                     {
                         case "Monday"://Lundi
-                            dt.Rows[heure + compteur].SetField(3,nom + " " + prenom);
+                            dt.Rows[heure + compteur].SetField(3, nom + " " + prenom);
                             break;
                         case "Tuesday"://Mardi
-                            dt.Rows[heure + compteur].SetField(4,nom + " " + prenom);
+                            dt.Rows[heure + compteur].SetField(4, nom + " " + prenom);
                             break;
                         case "Wednesday"://Mercredi
-                            dt.Rows[heure + compteur].SetField(5,nom + " " + prenom);
+                            dt.Rows[heure + compteur].SetField(5, nom + " " + prenom);
                             break;
                         case "Thursday"://Jeudi
-                            dt.Rows[heure + compteur].SetField(6,nom + " " + prenom);
+                            dt.Rows[heure + compteur].SetField(6, nom + " " + prenom);
                             break;
                         case "Friday"://Vendredi
                             dt.Rows[heure + compteur].SetField(7, nom + " " + prenom);
@@ -117,56 +167,6 @@ namespace prototype_app_chef_infirmier
                 dt.Rows.RemoveAt(0);
             }
             return dt; //On return le DataTable traité qui contiens les info de la BDD
-        }
-        public DataTable afficher_calendrier(DateTime datetimepicker,string salle)
-        {
-            DateTime datetime_traitement = datetimepicker;
-            DateTime lundi = new DateTime();
-            DateTime dimanche = new DateTime();
-
-            switch (datetime_traitement.DayOfWeek.ToString()) // Switch sur le jour de la date choisis pour afficher la semaine, Tostring("dddd") permet d'afficher juste le jour
-            {
-                case "Monday"://Lundi
-                    lundi = datetime_traitement;
-                    dimanche = datetime_traitement.AddDays(6);
-                    break;
-                case "Tuesday"://Mardi
-                    lundi = datetime_traitement.AddDays(-1);
-                    dimanche = datetime_traitement.AddDays(5);
-                    break;
-                case "Wednesday"://Mercredi
-                    lundi = datetime_traitement.AddDays(-2);
-                    dimanche = datetime_traitement.AddDays(4);
-                    break;
-                case "Thursday"://Jeudi
-                    lundi = datetime_traitement.AddDays(-3);
-                    dimanche = datetime_traitement.AddDays(3);
-                    break;
-                case "Friday"://Vendredi
-                    lundi = datetime_traitement.AddDays(-4);
-                    dimanche = datetime_traitement.AddDays(2);
-                    break;
-                case "Saturday"://Samedi
-                    lundi = datetime_traitement.AddDays(-5);
-                    dimanche = datetime_traitement.AddDays(1);
-                    break;
-                case "Sunday"://Dimanche
-                    lundi = datetime_traitement.AddDays(-6);
-                    dimanche = datetime_traitement;
-                    break;
-                default://Si erreur
-                    MessageBox.Show("ERREUR : Lors de la séléction de la date pour le calendrier!");
-                    //this.timer2.Stop();
-                    break;
-            }
-            string lundi_traiter = lundi.ToString("yyyy-MM-dd");
-            string dimanche_traiter = dimanche.ToString("yyyyy-MM-dd");
-            string requette = "SELECT * FROM " + salle + " WHERE date_heure BETWEEN '" + lundi_traiter + "' AND '" + dimanche_traiter + "'";
-            ///////////////////////////////////////////////////////////////Recuperation de la BDD pour le datagridview 
-            DataTable dt = new DataTable(); // On déclare une DataTable
-            dt = GetCalendrier(requette); // On utilise la méthode GetCalendrier() pour recup le dataTable remplie
-            return dt;
-            ///////////////////////////////////////////////////////////////
         }
     }
 }
