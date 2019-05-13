@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_modif_patient));
             this.m_menu = new System.Windows.Forms.MenuStrip();
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
             this.m_acceuil = new System.Windows.Forms.ToolStripMenuItem();
@@ -505,6 +506,7 @@
             this.Controls.Add(this.dgv_table_patient);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_modif_patient";
             this.Text = " ";
             this.m_menu.ResumeLayout(false);

@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_Acceuil));
             this.m_menu = new System.Windows.Forms.MenuStrip();
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
-            this.m_configuration = new System.Windows.Forms.ToolStripMenuItem();
             this.p_showbutton = new System.Windows.Forms.Panel();
+            this.b_personnel = new System.Windows.Forms.Button();
             this.b_gerer_planning = new System.Windows.Forms.Button();
             this.b_check_planning = new System.Windows.Forms.Button();
             this.b_edit_patient = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.b_connexion = new System.Windows.Forms.Button();
             this.l_date_heure = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.b_personnel = new System.Windows.Forms.Button();
             this.m_menu.SuspendLayout();
             this.p_showbutton.SuspendLayout();
             this.SuspendLayout();
@@ -54,8 +54,7 @@
             // m_menu
             // 
             this.m_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.m_quitter,
-            this.m_configuration});
+            this.m_quitter});
             this.m_menu.Location = new System.Drawing.Point(0, 0);
             this.m_menu.Name = "m_menu";
             this.m_menu.Size = new System.Drawing.Size(884, 29);
@@ -71,15 +70,6 @@
             this.m_quitter.Text = "Quitter";
             this.m_quitter.Click += new System.EventHandler(this.m_quitter_Click);
             // 
-            // m_configuration
-            // 
-            this.m_configuration.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_configuration.Name = "m_configuration";
-            this.m_configuration.Size = new System.Drawing.Size(118, 25);
-            this.m_configuration.Text = "Configuration";
-            this.m_configuration.Visible = false;
-            this.m_configuration.Click += new System.EventHandler(this.m_configuration_Click);
-            // 
             // p_showbutton
             // 
             this.p_showbutton.Controls.Add(this.b_personnel);
@@ -92,6 +82,17 @@
             this.p_showbutton.Size = new System.Drawing.Size(883, 506);
             this.p_showbutton.TabIndex = 1;
             this.p_showbutton.Visible = false;
+            // 
+            // b_personnel
+            // 
+            this.b_personnel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.b_personnel.Location = new System.Drawing.Point(838, 486);
+            this.b_personnel.Name = "b_personnel";
+            this.b_personnel.Size = new System.Drawing.Size(452, 102);
+            this.b_personnel.TabIndex = 4;
+            this.b_personnel.Text = "Gérer le personnel hospitalier";
+            this.b_personnel.UseVisualStyleBackColor = true;
+            this.b_personnel.Click += new System.EventHandler(this.b_personnel_Click);
             // 
             // b_gerer_planning
             // 
@@ -218,16 +219,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // b_personnel
-            // 
-            this.b_personnel.Location = new System.Drawing.Point(769, 34);
-            this.b_personnel.Name = "b_personnel";
-            this.b_personnel.Size = new System.Drawing.Size(75, 23);
-            this.b_personnel.TabIndex = 4;
-            this.b_personnel.Text = "test";
-            this.b_personnel.UseVisualStyleBackColor = true;
-            this.b_personnel.Click += new System.EventHandler(this.b_personnel_Click);
-            // 
             // F_Acceuil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,9 +234,10 @@
             this.Controls.Add(this.t_ndc);
             this.Controls.Add(this.t_mdp);
             this.Controls.Add(this.l_chargement);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.m_menu;
             this.Name = "F_Acceuil";
-            this.Text = "Gestion des patients";
+            this.Text = "Acceuil";
             this.Load += new System.EventHandler(this.F_Acceuil_Load);
             this.m_menu.ResumeLayout(false);
             this.m_menu.PerformLayout();
@@ -259,7 +251,6 @@
 
         private System.Windows.Forms.MenuStrip m_menu;
         private System.Windows.Forms.ToolStripMenuItem m_quitter;
-        private System.Windows.Forms.ToolStripMenuItem m_configuration;
         private System.Windows.Forms.Panel p_showbutton;
         private System.Windows.Forms.TextBox t_ndc;
         private System.Windows.Forms.TextBox t_mdp;

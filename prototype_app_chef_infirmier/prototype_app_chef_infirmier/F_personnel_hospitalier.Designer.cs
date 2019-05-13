@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_personnel_hospitalier));
             this.l_date_heure = new System.Windows.Forms.Label();
             this.m_menu = new System.Windows.Forms.MenuStrip();
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
@@ -221,6 +222,7 @@
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "F_personnel_hospitalier";
             this.Text = "F_personnel_hospitalier";

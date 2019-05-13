@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_view_calendrier));
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
             this.m_acceuil = new System.Windows.Forms.ToolStripMenuItem();
             this.l_date_heure = new System.Windows.Forms.Label();
@@ -153,6 +154,7 @@
             this.Controls.Add(this.dt_calendrier);
             this.Controls.Add(this.l_date_heure);
             this.Controls.Add(this.m_menu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_view_calendrier";
             this.Text = "F_view_calendrier";
             this.m_menu.ResumeLayout(false);

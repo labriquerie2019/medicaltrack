@@ -24,11 +24,6 @@ namespace prototype_app_chef_infirmier
             timer1.Start();
         }
 
-        private void m_configuration_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void m_quitter_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -165,8 +160,6 @@ namespace prototype_app_chef_infirmier
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             #endregion
-
-            m_configuration.Visible = true;
             l_ndc.Visible = false;
             t_ndc.Visible = false;
             l_mdp.Visible = false;
