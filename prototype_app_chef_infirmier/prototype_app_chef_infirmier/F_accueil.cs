@@ -171,10 +171,18 @@ namespace prototype_app_chef_infirmier
             if (ndc == "administration") //Tester qui est connecter
             {
                 b_gerer_planning.Visible = false; //Administration
+                b_personnel.Visible = false;
+                b_chef_modif_patient.Visible = false;
+                b_edit_patient.Visible = true;
+               
             }
             else if(ndc == "chef")
             {
                 b_gerer_planning.Visible = true; //Chef hospitalier
+                b_personnel.Visible = true;
+                b_chef_modif_patient.Visible = true;
+                b_add_patient.Visible = false;
+                b_edit_patient.Visible = false;
             }
         }
 
@@ -212,6 +220,12 @@ namespace prototype_app_chef_infirmier
         {
             F_personnel_hospitalier f_personnel_hospitalier = new F_personnel_hospitalier();
             f_personnel_hospitalier.Show();
+        }
+
+        private void b_chef_modif_patient_Click(object sender, EventArgs e)
+        {
+            F_chef_modif_patient f_chef_modif_patient = new F_chef_modif_patient();
+            f_chef_modif_patient.Show();
         }
     }
 }

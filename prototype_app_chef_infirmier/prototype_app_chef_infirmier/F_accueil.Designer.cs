@@ -33,6 +33,7 @@
             this.m_menu = new System.Windows.Forms.MenuStrip();
             this.m_quitter = new System.Windows.Forms.ToolStripMenuItem();
             this.p_showbutton = new System.Windows.Forms.Panel();
+            this.b_chef_modif_patient = new System.Windows.Forms.Button();
             this.b_personnel = new System.Windows.Forms.Button();
             this.b_gerer_planning = new System.Windows.Forms.Button();
             this.b_check_planning = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@
             // 
             // p_showbutton
             // 
+            this.p_showbutton.Controls.Add(this.b_chef_modif_patient);
             this.p_showbutton.Controls.Add(this.b_personnel);
             this.p_showbutton.Controls.Add(this.b_gerer_planning);
             this.p_showbutton.Controls.Add(this.b_check_planning);
@@ -83,12 +85,23 @@
             this.p_showbutton.TabIndex = 1;
             this.p_showbutton.Visible = false;
             // 
+            // b_chef_modif_patient
+            // 
+            this.b_chef_modif_patient.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.b_chef_modif_patient.Location = new System.Drawing.Point(226, 371);
+            this.b_chef_modif_patient.Name = "b_chef_modif_patient";
+            this.b_chef_modif_patient.Size = new System.Drawing.Size(452, 117);
+            this.b_chef_modif_patient.TabIndex = 5;
+            this.b_chef_modif_patient.Text = "Modifier un patient";
+            this.b_chef_modif_patient.UseVisualStyleBackColor = true;
+            this.b_chef_modif_patient.Click += new System.EventHandler(this.b_chef_modif_patient_Click);
+            // 
             // b_personnel
             // 
             this.b_personnel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.b_personnel.Location = new System.Drawing.Point(838, 486);
+            this.b_personnel.Location = new System.Drawing.Point(226, 248);
             this.b_personnel.Name = "b_personnel";
-            this.b_personnel.Size = new System.Drawing.Size(452, 102);
+            this.b_personnel.Size = new System.Drawing.Size(452, 116);
             this.b_personnel.TabIndex = 4;
             this.b_personnel.Text = "Gérer le personnel hospitalier";
             this.b_personnel.UseVisualStyleBackColor = true;
@@ -97,9 +110,9 @@
             // b_gerer_planning
             // 
             this.b_gerer_planning.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.b_gerer_planning.Location = new System.Drawing.Point(226, 16);
+            this.b_gerer_planning.Location = new System.Drawing.Point(226, 134);
             this.b_gerer_planning.Name = "b_gerer_planning";
-            this.b_gerer_planning.Size = new System.Drawing.Size(452, 102);
+            this.b_gerer_planning.Size = new System.Drawing.Size(452, 105);
             this.b_gerer_planning.TabIndex = 3;
             this.b_gerer_planning.Text = "Gérer le planning";
             this.b_gerer_planning.UseVisualStyleBackColor = true;
@@ -108,7 +121,7 @@
             // b_check_planning
             // 
             this.b_check_planning.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.b_check_planning.Location = new System.Drawing.Point(226, 129);
+            this.b_check_planning.Location = new System.Drawing.Point(226, 27);
             this.b_check_planning.Name = "b_check_planning";
             this.b_check_planning.Size = new System.Drawing.Size(452, 96);
             this.b_check_planning.TabIndex = 2;
@@ -119,7 +132,7 @@
             // b_edit_patient
             // 
             this.b_edit_patient.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.b_edit_patient.Location = new System.Drawing.Point(226, 364);
+            this.b_edit_patient.Location = new System.Drawing.Point(226, 248);
             this.b_edit_patient.Name = "b_edit_patient";
             this.b_edit_patient.Size = new System.Drawing.Size(452, 117);
             this.b_edit_patient.TabIndex = 1;
@@ -130,7 +143,7 @@
             // b_add_patient
             // 
             this.b_add_patient.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.b_add_patient.Location = new System.Drawing.Point(226, 244);
+            this.b_add_patient.Location = new System.Drawing.Point(226, 134);
             this.b_add_patient.Name = "b_add_patient";
             this.b_add_patient.Size = new System.Drawing.Size(452, 105);
             this.b_add_patient.TabIndex = 0;
@@ -266,6 +279,7 @@
         private System.Windows.Forms.Label l_chargement;
         private System.Windows.Forms.ProgressBar pb_chargement;
         private System.Windows.Forms.Button b_personnel;
+        private System.Windows.Forms.Button b_chef_modif_patient;
     }
 }
 

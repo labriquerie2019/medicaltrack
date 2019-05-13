@@ -128,10 +128,10 @@
             this.dgv_calendrier.AllowUserToDeleteRows = false;
             this.dgv_calendrier.AllowUserToOrderColumns = true;
             this.dgv_calendrier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_calendrier.Location = new System.Drawing.Point(226, 87);
+            this.dgv_calendrier.Location = new System.Drawing.Point(12, 87);
             this.dgv_calendrier.Name = "dgv_calendrier";
             this.dgv_calendrier.ReadOnly = true;
-            this.dgv_calendrier.Size = new System.Drawing.Size(821, 569);
+            this.dgv_calendrier.Size = new System.Drawing.Size(1220, 569);
             this.dgv_calendrier.TabIndex = 33;
             // 
             // dt_calendrier
@@ -156,7 +156,7 @@
             this.Controls.Add(this.m_menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_view_calendrier";
-            this.Text = "F_view_calendrier";
+            this.Text = "Calendrier";
             this.m_menu.ResumeLayout(false);
             this.m_menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calendrier)).EndInit();

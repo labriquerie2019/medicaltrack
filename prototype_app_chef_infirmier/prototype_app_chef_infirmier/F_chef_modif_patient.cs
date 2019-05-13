@@ -8,20 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.IO.Ports;
-using System.Threading;
 
-
-namespace prototype_app_chef_infirmier
+namespace Medicaltrack_admin_planning
 {
-    public partial class F_modif_patient : Form
+    public partial class F_chef_modif_patient : Form
     {
-        SerialPort my_serie;
         string id;
-        public F_modif_patient()
+        public F_chef_modif_patient()
         {
             InitializeComponent();
-            this.FormClosed += new FormClosedEventHandler(Form_FormClosed);//Catch event si la form se ferme
             dgv_table_patient.DefaultCellStyle.Font = new Font("Tahoma", 15);
             dgv_table_patient.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 15);
             dgv_table_patient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -42,59 +37,7 @@ namespace prototype_app_chef_infirmier
                 var rep = MessageBox.Show(message, action, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
             }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT RFID
-            try
-            {
-                my_serie = new SerialPort("COM1");
-                my_serie.BaudRate = Convert.ToInt32(9600);
-                my_serie.DataBits = 8;
-                my_serie.StopBits = StopBits.One;
-                my_serie.Parity = Parity.None;
-                my_serie.Handshake = Handshake.None;
-                my_serie.Open();
-                my_serie.DataReceived += new SerialDataReceivedEventHandler(ReceptionSerie);
-                //"Ouverture du port " + portCom;
-            }
-            catch { }
         }
-        void Form_FormClosed(object sender, FormClosedEventArgs e) 
-        {
-            my_serie.Close();// Destructeur, on libère le port série pour les autres fenetres
-        }
-        delegate void SetTextCallback(string text);
-        private void ReceptionSerie(object sender, SerialDataReceivedEventArgs e)
-        {
-            Thread.Sleep(750);///attente pour les gros paquets de données
-            string data = my_serie.ReadExisting();
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
-            SetText(data);
-        }
-        private void SetText(string textCOM)
-        {
-            if (t_rfid.InvokeRequired)
-            {
-
-                SetTextCallback d = new SetTextCallback(SetText);
-                t_rfid.Invoke(d, new object[] { textCOM });
-
-                string input = this.t_rfid.Text;
-                char[] values = input.ToCharArray();
-                textCOM = string.Empty;
-                foreach (char letter in values)
-                {
-                    int value = Convert.ToInt32(letter);
-                    textCOM += String.Format("{0:X}", value); ;
-                }
-            }
-            else
-            {
-                textCOM = textCOM.Substring(1, textCOM.Length - 2);
-                t_rfid.Text = "";
-                t_rfid.Text += textCOM;
-
-            }
-        }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// FIN RFID
         private DataTable recup_bdd(string requette)
         {
             DataTable dt = new DataTable();
@@ -107,13 +50,6 @@ namespace prototype_app_chef_infirmier
             con.Close(); //Fermuture du flux BDD
             return dt;
         }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            DateTime heure = System.DateTime.Now;
-            l_date_heure.Text = heure.Hour + ":" + heure.Minute + " " + heure.Day + "/" + heure.Month + "/" + heure.Year;
-        }
-
         private void m_quitter_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -124,6 +60,11 @@ namespace prototype_app_chef_infirmier
             this.Close();
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            DateTime heure = System.DateTime.Now;
+            l_date_heure.Text = heure.Hour + ":" + heure.Minute + " " + heure.Day + "/" + heure.Month + "/" + heure.Year;
+        }
         private void dgv_table_patient_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             #region recup valeur datagriedview selection
@@ -146,11 +87,10 @@ namespace prototype_app_chef_infirmier
             #region messagebox/popup
             string message = "nom : " + nom + " prenom : " + prenom + "\n Quelle action voulez-vous effectuer?";//Message a afficher
             string action = "Action à effectuer"; //Nom de la fenettre
-            MessageBoxManager.Yes = "Modifier";//On utilise la classe MessageBoxManager pour changer les boutons
-            MessageBoxManager.No = "Supprimer";
+            MessageBoxManager.OK = "Modifier";//On utilise la classe MessageBoxManager pour changer les boutons
             MessageBoxManager.Cancel = "Annuler";
             MessageBoxManager.Register(); //On applique nos changements
-            var rep = MessageBox.Show(message, action, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            var rep = MessageBox.Show(message, action, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
             #endregion
             if (rep == DialogResult.Yes) //Si on appuie sur Modifier
@@ -171,7 +111,7 @@ namespace prototype_app_chef_infirmier
                 string[] date_admission_traiter = date_admission_atraiter[0].Split('/'); //date_admission_traiter[0] = jj ; date_admission_traiter[1] = mm; date_admission_traiter[2] = yyyy
                 jj = Convert.ToInt32(date_admission_traiter[0]); mm = Convert.ToInt32(date_admission_traiter[1]); yyyy = Convert.ToInt32(date_admission_traiter[2]);
                 DateTime date_admission = new DateTime(yyyy, mm, jj);
-                l_date_admission.Text = date_admission.ToString().Substring(0,10); // Au final je le repasse en String mais il est déjà traiter si besoin
+                l_date_admission.Text = date_admission.ToString().Substring(0, 10); // Au final je le repasse en String mais il est déjà traiter si besoin
 
                 t_sexe.Text = sexe;
                 t_situation_familial.Text = situation_familial;
@@ -189,38 +129,6 @@ namespace prototype_app_chef_infirmier
                     l_last_scan.Text = last_scan;
                 }
                 t_rfid.Text = tag_rfid;
-            }
-            else if (rep == DialogResult.No) //Si on appuie sur supprimer
-            {
-                if (id != null)
-                {
-                    string requette = "DELETE FROM patient WHERE id = " + id;
-                    MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-                    con.Open(); //On ouvre le flux BDD
-                    MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-                    MySqlDataReader reader = cmd.ExecuteReader(); //On execute la requette
-                    con.Close(); //Fermuture du flux BDD
-
-                    DataTable dt = recup_bdd("SELECT * FROM patient");
-                    if (dt != null) //BDD remplie on affiche
-                    {
-                        dgv_table_patient.RowHeadersVisible = false; // On cache la colonne de gauche inutile
-                        dgv_table_patient.DataSource = dt;
-                    }
-                    else //Erreur BDD
-                    {
-                        string messagee = "Erreur lors du chargement des données de la base de données";//Message a afficher
-                        string actionn = "ERREUR BDD"; //Nom de la fenettre
-                        MessageBoxManager.OK = "Réessayer";//On utilise la classe MessageBoxManager pour changer les boutons
-                        MessageBoxManager.Register(); //On applique nos changements
-                        var repp = MessageBox.Show(messagee, actionn, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        MessageBoxManager.Unregister(); //Evite les erreurs "one handle per thread"
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("ERREUR LORS DE LA SUPPRESION : L'ID EST NUL", "ERREUR SUPPRESSION BDD", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
 
@@ -244,7 +152,7 @@ namespace prototype_app_chef_infirmier
                 string antecedant = t_antecedent_medicaux.Text;
                 string rfid = t_rfid.Text;
                 //////////////////////////////////////////////////////////////
-                string requette = "UPDATE patient SET nom = '" + nom + "', prenom = '" + prenom + "', age = '" + age + "', date_naissance = '" + dt_nai + "', sexe = '" + sexe + "', situation_familial = '" + situation_familial + "', note = '" + note + "', poid = '" + poid + "', taille = '" + taille + "', allergie = '" + allergie + "', antecedant= '" + antecedant + "', id_rfid = '" + rfid +"' WHERE id = " + id;
+                string requette = "UPDATE patient SET nom = '" + nom + "', prenom = '" + prenom + "', age = '" + age + "', date_naissance = '" + dt_nai + "', sexe = '" + sexe + "', situation_familial = '" + situation_familial + "', note = '" + note + "', poid = '" + poid + "', taille = '" + taille + "', allergie = '" + allergie + "', antecedant= '" + antecedant + "', id_rfid = '" + rfid + "' WHERE id = " + id;
                 MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
                 con.Open(); //On ouvre le flux BDD
                 MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
@@ -361,7 +269,7 @@ namespace prototype_app_chef_infirmier
                     }
                     break;
                 case "NOM":
-                    dt = recup_bdd("SELECT * FROM patient WHERE nom LIKE '%"+t_filtre.Text+"%'");
+                    dt = recup_bdd("SELECT * FROM patient WHERE nom LIKE '%" + t_filtre.Text + "%'");
                     dgv_load(dt);
                     break;
                 case "PRENOM":
@@ -409,7 +317,7 @@ namespace prototype_app_chef_infirmier
                     dgv_load(dt);
                     break;
                 default://Aucun filtre
-                    if(t_filtre.Text == "")
+                    if (t_filtre.Text == "")
                     {
                         dt = recup_bdd("SELECT * FROM patient");
                         dgv_load(dt);
@@ -441,7 +349,7 @@ namespace prototype_app_chef_infirmier
 
         private void cb_filtre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cb_filtre.Text == "AUCUN")
+            if (cb_filtre.Text == "AUCUN")
             {
                 t_filtre.Text = "";
                 t_filtre.ReadOnly = true;

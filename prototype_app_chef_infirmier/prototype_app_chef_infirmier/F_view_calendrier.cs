@@ -19,6 +19,7 @@ namespace prototype_app_chef_infirmier
             InitializeComponent();
             dgv_calendrier.DefaultCellStyle.Font = new Font("Tahoma", 15);
             dgv_calendrier.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 15);
+            dgv_calendrier.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             timer1.Interval = 1000;
             timer1.Start();
         }

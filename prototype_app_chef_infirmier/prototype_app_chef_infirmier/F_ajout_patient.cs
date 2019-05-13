@@ -25,7 +25,8 @@ namespace prototype_app_chef_infirmier
             timer1.Interval = 3000;
             timer1.Start();
             this.dgv_calendrier.DefaultCellStyle.Font = new Font("Tahoma", 15);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT RFID
+            dgv_calendrier.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT RFID
             try
             {
                 my_serie = new SerialPort("COM1");
@@ -175,6 +176,7 @@ namespace prototype_app_chef_infirmier
             DataTable dt = mon_calendrier.afficher_calendrier(dt_calendrier.Value, salle);
             dgv_calendrier.RowHeadersVisible = false;
             dgv_calendrier.DataSource = dt; // On attribue les sources du DataGridView au DataTable
+            dgv_calendrier.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void t_rfid_TextChanged(object sender, EventArgs e)

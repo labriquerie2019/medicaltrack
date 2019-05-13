@@ -21,6 +21,7 @@ namespace prototype_app_chef_infirmier
         public F_gerer_planning()
         {
             InitializeComponent();
+            dgv_calendrier.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             timer2.Interval = 500; //Timer pour savoir dans quelle mode on est
             timer2.Start();
             timer1.Interval = 1000; //Timer pour l'heure et la date
@@ -87,7 +88,14 @@ namespace prototype_app_chef_infirmier
 
         private void b_delete_Click(object sender, EventArgs e)
         {
-            delete = true;
+            if (delete)
+            {
+                delete = false;
+            }
+            else
+            {
+                delete = true;
+            }
         }
 
         private void dgv_calendrier_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
