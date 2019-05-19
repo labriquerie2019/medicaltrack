@@ -84,6 +84,12 @@
     <Compile Include="F_chef_modif_patient.Designer.cs">
       <DependentUpon>F_chef_modif_patient.cs</DependentUpon>
     </Compile>
+    <Compile Include="F_config.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_config.Designer.cs">
+      <DependentUpon>F_config.cs</DependentUpon>
+    </Compile>
     <Compile Include="F_gerer_planning.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F_chef_modif_patient.resx">
       <DependentUpon>F_chef_modif_patient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_config.resx">
+      <DependentUpon>F_config.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_gerer_planning.resx">
       <DependentUpon>F_gerer_planning.cs</DependentUpon>
