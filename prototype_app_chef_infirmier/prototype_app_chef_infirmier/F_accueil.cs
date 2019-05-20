@@ -8,15 +8,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 
 namespace prototype_app_chef_infirmier
 {
     public partial class F_Acceuil : Form
     {
+        string chef_ndc,chef_mdp,admin_ndc,admin_mdp;
         public F_Acceuil()
         {
             InitializeComponent();
+            string Chemin = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Medical_admin";
+            string path = @"\compte.txt";
+            StreamReader sr = File.OpenText(Chemin+path);
+            chef_ndc = sr.ReadLine();//On lis la ligne
+            chef_mdp = sr.ReadLine();
+            admin_ndc = sr.ReadLine();
+            admin_mdp = sr.ReadLine();
+            sr.Close();
         }
 
         private void F_Acceuil_Load(object sender, EventArgs e)
@@ -40,150 +50,163 @@ namespace prototype_app_chef_infirmier
             string ndc = t_ndc.Text;
             string mdp = t_mdp.Text;
 
-            bool connected = true; //methode pour se connecter
-            double step = 12.5;
-            pb_chargement.Step = (int)step;
-            l_chargement.Visible = true;
-            pb_chargement.Visible = true;
-            l_chargement.Text = "TEST SI LA BDD EXISTE!";
-            pb_chargement.PerformStep();
-            MessageBox.Show("MERCI DE PATIENTER QUELQUES SECONDES!", "CONNEXION BDD", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            bool connected = false; //methode pour se connecter
+            if (ndc == admin_ndc) //Tester qui est connecter
+            {
+                if (mdp == admin_mdp)
+                {
+                    b_gerer_planning.Visible = false; //Administration
+                    b_personnel.Visible = false;
+                    b_chef_modif_patient.Visible = false;
+                    b_edit_patient.Visible = true;
+                    connected = true;
+                }
 
-            #region config et connexion bdd puis test table,bdd,et tout sa qui existe
-            _MySQL bdd;
-            string Serveur = "localhost";
-            string Base = "medicaltrack";
-            string User = "root";
-            string Pass = "";
-            bdd = new _MySQL(Serveur, Base, User, Pass);
-            bdd.Serveur = Serveur;
-            bdd.Base = Base;
-            bdd.User = User;
-            bdd.Pass = Pass;
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            l_chargement.Text = "TEST SI LA BASE DE DONNEES EXISTE SINON ON LA CREER!";
-            if (bdd.base_exist()) //Si BDD existe
+            }
+            else if (ndc == chef_ndc)
             {
+                if (ndc == chef_mdp)
+                {
+                    b_gerer_planning.Visible = true; //Chef hospitalier
+                    b_personnel.Visible = true;
+                    b_chef_modif_patient.Visible = true;
+                    b_add_patient.Visible = false;
+                    b_edit_patient.Visible = false;
+                    connected = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("ERREUR : Identifiant incorrecte");
+            }
+            if (connected)
+            {
+                double step = 12.5;
+                pb_chargement.Step = (int)step;
+                l_chargement.Visible = true;
+                pb_chargement.Visible = true;
+                l_chargement.Text = "TEST SI LA BDD EXISTE!";
                 pb_chargement.PerformStep();
-            }
-            else //Si bdd existe pas
-            {
-                bdd.base_creer();
-                pb_chargement.PerformStep();
-            }
-            l_chargement.Text = "TEST SI LA TABLE PATIENT EXISTE SINON ON LA CREER!";
-            if (bdd.table_existe("patient")) //Si table patient existe
-            {
-                pb_chargement.PerformStep();
-            }
-            else //Si table patient existe pas
-            {
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `patient` (`id` int(11) NOT NULL AUTO_INCREMENT,`nom` varchar(30) NOT NULL,`prenom` varchar(30) NOT NULL,`age` int(11) NOT NULL,`date_naissance` DATE NOT NULL,`date_admission` DATE NOT NULL,`sexe` varchar(30) NOT NULL,`situation_familial` TEXT NOT NULL,`note` TEXT NOT NULL,`poid` TEXT NOT NULL,`taille` TEXT NOT NULL,`allergie` TEXT NOT NULL,`antecedant` TEXT NOT NULL,`id_rfid` varchar(255) NOT NULL,`last_scan` TEXT,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-                pb_chargement.PerformStep();
-            }
-            l_chargement.Text = "TEST SI LA TABLE PERSONNELS HOSPITALIERS EXISTE SINON ON LA CREER!";
-            if(bdd.table_existe("personnel_hospitalier")) //Si table personnel_hospitalier existe
-            {
-                pb_chargement.PerformStep();
-            }
-            else//Si table personnel_hospitalier existe pas on la créer
-            {
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `personnel_hospitalier` (`id` int(11) NOT NULL AUTO_INCREMENT,`identifiant` TEXT NOT NULL,`mdp` TEXT NOT NULL,`service` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-                pb_chargement.PerformStep();
-            }
-            l_chargement.Text = "TEST SI LA TABLE SALLE OPE 1 EXISTE SINON ON LA CREER!";
-            if (bdd.table_existe("salle_ope_1")) //Si table salle_ope_1 existe
-            {
-                pb_chargement.PerformStep();
-            }
-            else//Si table salle_ope_1 existe pas on la créer
-            {
-                pb_chargement.PerformStep();
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_1` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-            }
-            l_chargement.Text = "TEST SI LA TABLE SALLE OPE 2 EXISTE SINON ON LA CREER!";
-            if (bdd.table_existe("salle_ope_2"))//Si table salle_ope_2 existe
-            {
-                pb_chargement.PerformStep();
-            }
-            else//Si table salle_ope_2 existe pas on la créer
-            {
-                pb_chargement.PerformStep();
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_2` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-            }
-            l_chargement.Text = "TEST SI LA TABLE SALLE REA EXISTE SINON ON LA CREER!";
-            if (bdd.table_existe("salle_rea"))//Si salle_rea existe
-            {
-                l_chargement.Text = "TEST SI LA TABLE SALLE REVEIL EXISTE SINON ON LA CREER!";
-                pb_chargement.PerformStep();
-            }
-            else//Si salle_rea existe pas
-            {
-                pb_chargement.PerformStep();
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_rea` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-            }
-            l_chargement.Text = "TEST SI LA TABLE SALLE REA EXISTE SINON ON LA CREER!";
-            if (bdd.table_existe("salle_reveil"))//Si salle_reveil existe
-            {
-                pb_chargement.PerformStep();
-            }
-            else//Si salle_reveil existe pas
-            {
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_reveil` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-                pb_chargement.PerformStep();
-            }
-            l_chargement.Text = "TEST SI LA TABLE SALLE REA EXISTE SINON ON LA CREER!";
-            if (bdd.table_existe("grand_ecran"))//Si grand_ecran existe
-            {
-                pb_chargement.PerformStep();
-            }
-            else//Si salle_reveil existe pas
-            {
-                bdd.table_creer("CREATE TABLE IF NOT EXISTS `grand_ecran` (`id` int(11) NOT NULL AUTO_INCREMENT,`salle` TEXT NOT NULL,`date_heure_debut` DATETIME NOT NULL,`date_heure_fin` DATETIME NOT NULL,`nom_patient` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-                pb_chargement.PerformStep();
-            }
-            if (bdd.table_existe("salle_ane"))//Si salle_ane existe
-            { 
-                 l_chargement.Text = "TOUT EST PRET!";
-                 pb_chargement.Value=100;
-                 l_chargement.Visible = false;
-                 pb_chargement.Visible = false;
-                 MessageBox.Show("CONNEXION A LA BASE DE DONNEES REUSSI, VOUS POUVEZ UTILISER LE LOGICIEL!", "CONNEXION BDD REUSSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else //Si salle_ane existe pas
-            {
-                 bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ane` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
-                l_chargement.Text = "TOUT EST PRET!";
-                pb_chargement.Value = 100;
-                l_chargement.Visible = false;
-                pb_chargement.Visible = false;
-                MessageBox.Show("CONNEXION A LA BASE DE DONNEES REUSSI, VOUS POUVEZ UTILISER LE LOGICIEL!", "CONNEXION BDD REUSSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            #endregion
-            l_ndc.Visible = false;
-            t_ndc.Visible = false;
-            l_mdp.Visible = false;
-            t_mdp.Visible = false;
-            b_connexion.Visible = false;
+                MessageBox.Show("MERCI DE PATIENTER QUELQUES SECONDES!", "CONNEXION BDD", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            p_showbutton.Visible = true;
-
-            if (ndc == "administration") //Tester qui est connecter
-            {
-                b_gerer_planning.Visible = false; //Administration
-                b_personnel.Visible = false;
-                b_chef_modif_patient.Visible = false;
-                b_edit_patient.Visible = true;
-               
-            }
-            else if(ndc == "chef")
-            {
-                b_gerer_planning.Visible = true; //Chef hospitalier
-                b_personnel.Visible = true;
-                b_chef_modif_patient.Visible = true;
-                b_add_patient.Visible = false;
-                b_edit_patient.Visible = false;
+                #region config et connexion bdd puis test table,bdd,et tout sa qui existe
+                _MySQL bdd;
+                string Serveur = "localhost";
+                string Base = "medicaltrack";
+                string User = "root";
+                string Pass = "";
+                bdd = new _MySQL(Serveur, Base, User, Pass);
+                bdd.Serveur = Serveur;
+                bdd.Base = Base;
+                bdd.User = User;
+                bdd.Pass = Pass;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                l_chargement.Text = "TEST SI LA BASE DE DONNEES EXISTE SINON ON LA CREER!";
+                if (bdd.base_exist()) //Si BDD existe
+                {
+                    pb_chargement.PerformStep();
+                }
+                else //Si bdd existe pas
+                {
+                    bdd.base_creer();
+                    pb_chargement.PerformStep();
+                }
+                l_chargement.Text = "TEST SI LA TABLE PATIENT EXISTE SINON ON LA CREER!";
+                if (bdd.table_existe("patient")) //Si table patient existe
+                {
+                    pb_chargement.PerformStep();
+                }
+                else //Si table patient existe pas
+                {
+                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `patient` (`id` int(11) NOT NULL AUTO_INCREMENT,`nom` varchar(30) NOT NULL,`prenom` varchar(30) NOT NULL,`age` int(11) NOT NULL,`date_naissance` DATE NOT NULL,`date_admission` DATE NOT NULL,`sexe` varchar(30) NOT NULL,`situation_familial` TEXT NOT NULL,`note` TEXT NOT NULL,`poid` TEXT NOT NULL,`taille` TEXT NOT NULL,`allergie` TEXT NOT NULL,`antecedant` TEXT NOT NULL,`id_rfid` varchar(255) NOT NULL,`last_scan` TEXT,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                    pb_chargement.PerformStep();
+                }
+                l_chargement.Text = "TEST SI LA TABLE PERSONNELS HOSPITALIERS EXISTE SINON ON LA CREER!";
+                if (bdd.table_existe("personnel_hospitalier")) //Si table personnel_hospitalier existe
+                {
+                    pb_chargement.PerformStep();
+                }
+                else//Si table personnel_hospitalier existe pas on la créer
+                {
+                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `personnel_hospitalier` (`id` int(11) NOT NULL AUTO_INCREMENT,`identifiant` TEXT NOT NULL,`mdp` TEXT NOT NULL,`service` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                    pb_chargement.PerformStep();
+                }
+                l_chargement.Text = "TEST SI LA TABLE SALLE OPE 1 EXISTE SINON ON LA CREER!";
+                if (bdd.table_existe("salle_ope_1")) //Si table salle_ope_1 existe
+                {
+                    pb_chargement.PerformStep();
+                }
+                else//Si table salle_ope_1 existe pas on la créer
+                {
+                    pb_chargement.PerformStep();
+                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_1` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                }
+                l_chargement.Text = "TEST SI LA TABLE SALLE OPE 2 EXISTE SINON ON LA CREER!";
+                if (bdd.table_existe("salle_ope_2"))//Si table salle_ope_2 existe
+                {
+                    pb_chargement.PerformStep();
+                }
+                else//Si table salle_ope_2 existe pas on la créer
+                {
+                    pb_chargement.PerformStep();
+                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ope_2` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                }
+                l_chargement.Text = "TEST SI LA TABLE SALLE REA EXISTE SINON ON LA CREER!";
+                if (bdd.table_existe("salle_rea"))//Si salle_rea existe
+                {
+                    l_chargement.Text = "TEST SI LA TABLE SALLE REVEIL EXISTE SINON ON LA CREER!";
+                    pb_chargement.PerformStep();
+                }
+                else//Si salle_rea existe pas
+                {
+                    pb_chargement.PerformStep();
+                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_rea` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                }
+                l_chargement.Text = "TEST SI LA TABLE SALLE REA EXISTE SINON ON LA CREER!";
+                if (bdd.table_existe("salle_reveil"))//Si salle_reveil existe
+                {
+                    pb_chargement.PerformStep();
+                }
+                else//Si salle_reveil existe pas
+                {
+                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_reveil` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                    pb_chargement.PerformStep();
+                }
+                l_chargement.Text = "TEST SI LA TABLE SALLE REA EXISTE SINON ON LA CREER!";
+                if (bdd.table_existe("grand_ecran"))//Si grand_ecran existe
+                {
+                    pb_chargement.PerformStep();
+                }
+                else//Si salle_reveil existe pas
+                {
+                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `grand_ecran` (`id` int(11) NOT NULL AUTO_INCREMENT,`salle` TEXT NOT NULL,`date_heure_debut` DATETIME NOT NULL,`date_heure_fin` DATETIME NOT NULL,`nom_patient` TEXT NOT NULL,PRIMARY KEY(`id`)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                    pb_chargement.PerformStep();
+                }
+                if (bdd.table_existe("salle_ane"))//Si salle_ane existe
+                {
+                    l_chargement.Text = "TOUT EST PRET!";
+                    pb_chargement.Value = 100;
+                    l_chargement.Visible = false;
+                    pb_chargement.Visible = false;
+                    MessageBox.Show("CONNEXION A LA BASE DE DONNEES REUSSI, VOUS POUVEZ UTILISER LE LOGICIEL!", "CONNEXION BDD REUSSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else //Si salle_ane existe pas
+                {
+                    bdd.table_creer("CREATE TABLE IF NOT EXISTS `salle_ane` (date_heure DATETIME NOT NULL,id_patient int(11)) ENGINE = InnoDB  DEFAULT CHARSET = latin1;");
+                    l_chargement.Text = "TOUT EST PRET!";
+                    pb_chargement.Value = 100;
+                    l_chargement.Visible = false;
+                    pb_chargement.Visible = false;
+                    MessageBox.Show("CONNEXION A LA BASE DE DONNEES REUSSI, VOUS POUVEZ UTILISER LE LOGICIEL!", "CONNEXION BDD REUSSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                #endregion
+                l_ndc.Visible = false;
+                t_ndc.Visible = false;
+                l_mdp.Visible = false;
+                t_mdp.Visible = false;
+                b_connexion.Visible = false;
+                p_showbutton.Visible = true;
             }
         }
 

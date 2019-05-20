@@ -22,23 +22,30 @@ namespace Medicaltrack_admin_planning
         {
             if(t_ndc_admin.Text != null && t_ndc_chef.Text != null && t_mdp_admin.Text != null && t_mdp_chef.Text != null)
             {
-                string path = "config.txt";
+                string Chemin = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Medical_admin";
+                string path = @"\compte.txt";
                 bool traiter = false;
                 do
                 {
-                    if (File.Exists(path)) //Si le fichier existe
+                    if (File.Exists(Chemin+path)) //Si le fichier existe
                     {
-                        File.Delete(path);
+                        File.Delete(Chemin + path);
                     }
                     else //Si le fichier existe pas
                     {
-                        StreamWriter sw = File.CreateText(path);
+                        StreamWriter sw = File.CreateText(Chemin + path);
                         sw.WriteLine(t_ndc_chef.Text);
                         sw.WriteLine(t_mdp_chef.Text);
                         sw.WriteLine(t_ndc_admin.Text);
                         sw.WriteLine(t_mdp_admin.Text);
                         sw.Close();
                         traiter = true;
+                        string config = @"\config.txt";
+                        StreamWriter streamwriter = File.CreateText(Chemin + config);
+                        streamwriter.WriteLine("1");
+                        streamwriter.Close();
+                        MessageBox.Show("CONFIGURATION REUSSI, MERCI DE RELANCER L'APPLICATION");
+                        Application.Exit();
                     }
                 } while (traiter != true);
             }

@@ -18,29 +18,33 @@ namespace prototype_app_chef_infirmier
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            string path = "config.txt";
-            bool traiter = false;
+            string Chemin = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Medical_admin";
+            string path = @"\config.txt";
+        bool traiter = false;
             do
             {
-                if (File.Exists(path)) //Si le fichier existe
+                if (File.Exists(Chemin + path)) //Si le fichier text existe
                 {
-                    StreamReader sr = File.OpenText(path);
+                    StreamReader sr = File.OpenText(Chemin + path);
                     string s = sr.ReadLine();//On lis la ligne
                     if (s == "1") //Si sa correspond à 1 donc configurer
                     {
                         Application.Run(new F_Acceuil());
                         traiter = true;
+                        sr.Close();
                     }
                     else //Sinon 0 donc pas configurer
                     {
+                        sr.Close();
                         Application.Run(new F_config());
                     }
-                    sr.Close();
                 }
                 else //Si le fichier existe pas
                 {
-                    StreamWriter sw = File.CreateText(path);
+                    Directory.CreateDirectory(Chemin);
+                    StreamWriter sw = File.CreateText(Chemin + path);
                     sw.WriteLine("0");
+                    sw.Close();
                 }
             } while (traiter != true);
         }
