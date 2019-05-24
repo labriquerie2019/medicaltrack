@@ -61,11 +61,15 @@ namespace prototype_app_chef_infirmier
                     b_edit_patient.Visible = true;
                     connected = true;
                 }
+                else
+                {
+                    MessageBox.Show("ERREUR : Identifiant incorrecte");
+                }
 
             }
             else if (ndc == chef_ndc)
             {
-                if (ndc == chef_mdp)
+                if (mdp == chef_mdp)
                 {
                     b_gerer_planning.Visible = true; //Chef hospitalier
                     b_personnel.Visible = true;
@@ -73,6 +77,10 @@ namespace prototype_app_chef_infirmier
                     b_add_patient.Visible = false;
                     b_edit_patient.Visible = false;
                     connected = true;
+                }
+                else
+                {
+                    MessageBox.Show("ERREUR : Identifiant incorrecte");
                 }
             }
             else
@@ -109,8 +117,9 @@ namespace prototype_app_chef_infirmier
                 else //Si bdd existe pas
                 {
                     bdd.base_creer();
+                    bdd.Table_RequetteNonQuery("CREATE USER 'user'@'%' IDENTIFIED BY 'pass';GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' IDENTIFIED BY 'pass' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `user\\_%`.* TO 'user'@'%';");
                     pb_chargement.PerformStep();
-                }
+                }  
                 l_chargement.Text = "TEST SI LA TABLE PATIENT EXISTE SINON ON LA CREER!";
                 if (bdd.table_existe("patient")) //Si table patient existe
                 {
