@@ -42,7 +42,7 @@ namespace prototype_app_chef_infirmier
             }
             catch(Exception e)
             {
-                MessageBox.Show("ERREUR PORT COM", "PORT COM ERREUR, VERIFIER QUE LE LECTEUR RFID EST BRANCHER.\nREDEMARRER L'APPLICATION UNE FOIS LE LECTEUR BRANCHER.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("PORT COM ERREUR, VERIFIER QUE LE LECTEUR RFID EST BRANCHER.\nREDEMARRER L'APPLICATION UNE FOIS LE LECTEUR BRANCHER.", "ERREUR PORT COM", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         void Form_FormClosed(object sender, FormClosedEventArgs e)
@@ -108,12 +108,18 @@ namespace prototype_app_chef_infirmier
         {
             if (t_rfid.Text.Length > 0 && t_nom.Text.Length > 0 && t_prenom.Text.Length > 0 && t_age.Text.Length > 0  && t_sexe.Text.Length > 0 && t_situation_familial.Text.Length > 0 && t_note.Text.Length > 0 && t_poid.Text.Length > 0 && t_taille.Text.Length > 0 && t_allergie.Text.Length > 0 && t_antecedent_medicaux.Text.Length > 0)//tous les champs remplie
             {
-                string req = "SELECT id_rfid FROM patient WHERE id_rfid='" + t_rfid + "'";
-                MySqlConnection connection = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;");
-                connection.Open();
-                MySqlCommand commande = new MySqlCommand(req, connection);
-                if (t_rfid.Text != commande.ExecuteScalar().ToString()) //Execution requete querry et savoir si le bracelet est pas utiliser
+                try
                 {
+                    string req = "SELECT id_rfid FROM patient WHERE id_rfid='" + t_rfid.Text + "'";
+                    MySqlConnection connection = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;");
+                    connection.Open();
+                    MySqlCommand commande = new MySqlCommand(req, connection);
+                    string data = commande.ExecuteScalar().ToString();
+                    connection.Close();
+                    MessageBox.Show("Bracelet RFID déjà utilisé, merci d'en choisir un autre ou de supprimer celui du patient qui n'est plus dans l'établissement.", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
+                }
+                catch//Return erreur si pas utiliser
+                {                   
                     ///////////////////////////////////////////////////////////////Partie info patient
                     string nom = t_nom.Text;
                     string prenom = t_prenom.Text;
@@ -138,7 +144,7 @@ namespace prototype_app_chef_infirmier
                     MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
                     cmd.ExecuteNonQuery();
                     con.Close(); //Fermuture du flux BDD
-                                 ///////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////
                     #region clear textbox
                     t_nom.Clear();
                     t_prenom.Clear();
@@ -156,11 +162,6 @@ namespace prototype_app_chef_infirmier
                     #endregion
                     MessageBox.Show("INSERTION REUSSI", "PATIENT AJOUTER", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else //Si le bracelet est déjà utiliser
-                {
-                    MessageBox.Show("ERREUR", "Bracelet RFID déjà utiliser, merci d'en choisir un autre ou de supprimer celui du patient qui n'est plus dans l'établissement.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                connection.Close();
             }
             else //pas tout les champs remplie
             {

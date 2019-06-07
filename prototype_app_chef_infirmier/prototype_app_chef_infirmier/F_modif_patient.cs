@@ -93,19 +93,21 @@ namespace prototype_app_chef_infirmier
             }
             else
             {
-                textCOM = textCOM.Substring(1, textCOM.Length - 2);
-                string req = "SELECT id_rfid FROM patient WHERE id_rfid='" + t_rfid + "'";
-                MySqlConnection connection = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;");
-                connection.Open();
-                MySqlCommand commande = new MySqlCommand(req, connection);
-                if (t_rfid.Text != commande.ExecuteScalar().ToString()) //Execution requete querry et savoir si le bracelet est pas utiliser
+                try
+                {
+                    textCOM = textCOM.Substring(1, textCOM.Length - 2);
+                    string req = "SELECT id_rfid FROM patient WHERE id_rfid='" + t_rfid + "'";
+                    MySqlConnection connection = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;");
+                    connection.Open();
+                    MySqlCommand commande = new MySqlCommand(req, connection);
+                    string data = commande.ExecuteScalar().ToString();
+                    connection.Close();                    
+                    MessageBox.Show("Bracelet RFID déjà utiliser, merci d'en choisir un autre ou de supprimer celui du patient qui n'est plus dans l'établissement.", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch //Return erreur si pas utiliser
                 {
                     t_rfid.Text = "";
                     t_rfid.Text += textCOM;
-                }
-                else //Deja utiliser
-                {
-                    MessageBox.Show("ERREUR", "Bracelet RFID déjà utiliser, merci d'en choisir un autre ou de supprimer celui du patient qui n'est plus dans l'établissement.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
