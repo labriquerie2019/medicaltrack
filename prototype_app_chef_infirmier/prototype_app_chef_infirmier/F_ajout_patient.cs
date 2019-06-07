@@ -105,47 +105,59 @@ namespace prototype_app_chef_infirmier
         {
             if (t_rfid.Text.Length > 0 && t_nom.Text.Length > 0 && t_prenom.Text.Length > 0 && t_age.Text.Length > 0  && t_sexe.Text.Length > 0 && t_situation_familial.Text.Length > 0 && t_note.Text.Length > 0 && t_poid.Text.Length > 0 && t_taille.Text.Length > 0 && t_allergie.Text.Length > 0 && t_antecedent_medicaux.Text.Length > 0)//tous les champs remplie
             {
-                ///////////////////////////////////////////////////////////////Partie info patient
-                string nom = t_nom.Text;
-                string prenom = t_prenom.Text;
-                int age = Convert.ToInt32(t_age.Text);
-                DateTime date_naissance = dp_date_naissance.Value;
-                string dt_nai = date_naissance.ToString("yyyy-MM-dd HH:mm:ss"); //Format americain 
-                DateTime date_admission = System.DateTime.Now;
-                string dt_adm = date_admission.ToString("yyyy-MM-dd HH:mm:ss"); //Format americain 
-                string sexe = t_sexe.Text;
-                string situation_familial = t_situation_familial.Text;
-                string note = t_note.Text;
-                ///////////////////////////////////////////////////////////////Partie médical
-                string poid = t_poid.Text;
-                string taille = t_taille.Text;
-                string allergie = t_allergie.Text;
-                string antecedant = t_antecedent_medicaux.Text;
-                string rfid = t_rfid.Text;
-                //////////////////////////////////////////////////////////////
-                string requette = "INSERT INTO patient (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant, id_rfid) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "' , '" + rfid + "')";
-                MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
-                con.Open(); //On ouvre le flux BDD
-                MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
-                cmd.ExecuteNonQuery();
-                con.Close(); //Fermuture du flux BDD
-                ///////////////////////////////////////////////////////////////
-                #region clear textbox
-                            t_nom.Clear();
-                            t_prenom.Clear();
-                            t_age.Clear();
-                            t_age.Clear();
-                            date_naissance = System.DateTime.Now;
-                            t_sexe.Clear();
-                            t_situation_familial.Clear();
-                            t_note.Clear();
-                            t_poid.Clear();
-                            t_taille.Clear();
-                            t_allergie.Clear();
-                            t_antecedent_medicaux.Clear();
-                            t_rfid.Clear();
-                            #endregion
-                MessageBox.Show("INSERTION REUSSI", "PATIENT AJOUTER", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string req = "SELECT id_rfid FROM patient WHERE id_rfid='" + t_rfid + "'";
+                MySqlConnection connection = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;");
+                connection.Open();
+                MySqlCommand commande = new MySqlCommand(req, connection);
+                if (t_rfid.Text != commande.ExecuteScalar().ToString()) //Execution requete querry et savoir si le bracelet est pas utiliser
+                {
+                    ///////////////////////////////////////////////////////////////Partie info patient
+                    string nom = t_nom.Text;
+                    string prenom = t_prenom.Text;
+                    int age = Convert.ToInt32(t_age.Text);
+                    DateTime date_naissance = dp_date_naissance.Value;
+                    string dt_nai = date_naissance.ToString("yyyy-MM-dd HH:mm:ss"); //Format americain 
+                    DateTime date_admission = System.DateTime.Now;
+                    string dt_adm = date_admission.ToString("yyyy-MM-dd HH:mm:ss"); //Format americain 
+                    string sexe = t_sexe.Text;
+                    string situation_familial = t_situation_familial.Text;
+                    string note = t_note.Text;
+                    ///////////////////////////////////////////////////////////////Partie médical
+                    string poid = t_poid.Text;
+                    string taille = t_taille.Text;
+                    string allergie = t_allergie.Text;
+                    string antecedant = t_antecedent_medicaux.Text;
+                    string rfid = t_rfid.Text;
+                    //////////////////////////////////////////////////////////////
+                    string requette = "INSERT INTO patient (nom, prenom, age, date_naissance, date_admission, sexe, situation_familial, note, poid, taille, allergie, antecedant, id_rfid) VALUES('" + nom + "' , '" + prenom + "' , '" + age + "' , '" + dt_nai + "' , '" + dt_adm + "' , '" + sexe + "' , '" + situation_familial + "' , '" + note + "' , '" + poid + "' , '" + taille + "' , '" + allergie + "' , '" + antecedant + "' , '" + rfid + "')";
+                    MySqlConnection con = new MySqlConnection("server=localhost;SslMode=none;database=medicaltrack;user id=root;"); //On prépare la connexion en passant les arguments nécessaire
+                    con.Open(); //On ouvre le flux BDD
+                    MySqlCommand cmd = new MySqlCommand(requette, con); // On prépare la requette SQL, et comme deuxieme argument on met l'objet connexion MySQL
+                    cmd.ExecuteNonQuery();
+                    con.Close(); //Fermuture du flux BDD
+                                 ///////////////////////////////////////////////////////////////
+                    #region clear textbox
+                    t_nom.Clear();
+                    t_prenom.Clear();
+                    t_age.Clear();
+                    t_age.Clear();
+                    date_naissance = System.DateTime.Now;
+                    t_sexe.Clear();
+                    t_situation_familial.Clear();
+                    t_note.Clear();
+                    t_poid.Clear();
+                    t_taille.Clear();
+                    t_allergie.Clear();
+                    t_antecedent_medicaux.Clear();
+                    t_rfid.Clear();
+                    #endregion
+                    MessageBox.Show("INSERTION REUSSI", "PATIENT AJOUTER", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else //Si le bracelet est déjà utiliser
+                {
+                    MessageBox.Show("ERREUR", "Bracelet RFID déjà utiliser, merci d'en choisir un autre ou de supprimer celui du patient qui n'est plus dans l'établissement.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                connection.Close();
             }
             else //pas tout les champs remplie
             {
@@ -184,5 +196,22 @@ namespace prototype_app_chef_infirmier
         {
 
         }
+
+        private void dp_date_naissance_ValueChanged(object sender, EventArgs e)
+        {
+            // Age théorique
+            int age = DateTime.Now.Year - dp_date_naissance.Value.Year;
+
+            // Date de l'anniversaire de cette année
+            DateTime DateAnniv = new DateTime(DateTime.Now.Year, dp_date_naissance.Value.Month, dp_date_naissance.Value.Day);
+
+            // Si pas encore passé, retirer 1 an
+            if (DateAnniv > DateTime.Now)
+            {
+                age--;
+            }
+            t_age.Text = age.ToString();
+        }
+
     }
 }

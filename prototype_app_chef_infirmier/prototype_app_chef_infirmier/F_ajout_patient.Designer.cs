@@ -332,6 +332,7 @@
             this.dp_date_naissance.Name = "dp_date_naissance";
             this.dp_date_naissance.Size = new System.Drawing.Size(197, 29);
             this.dp_date_naissance.TabIndex = 14;
+            this.dp_date_naissance.ValueChanged += new System.EventHandler(this.dp_date_naissance_ValueChanged);
             // 
             // t_note
             // 
