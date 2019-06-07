@@ -401,6 +401,7 @@
             // 
             this.t_age.Location = new System.Drawing.Point(12, 212);
             this.t_age.Name = "t_age";
+            this.t_age.ReadOnly = true;
             this.t_age.Size = new System.Drawing.Size(197, 29);
             this.t_age.TabIndex = 5;
             // 

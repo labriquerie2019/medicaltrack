@@ -40,7 +40,10 @@ namespace prototype_app_chef_infirmier
                 my_serie.DataReceived += new SerialDataReceivedEventHandler(ReceptionSerie);
                 //"Ouverture du port " + portCom;
             }
-            catch { }
+            catch(Exception e)
+            {
+                MessageBox.Show("ERREUR PORT COM", "PORT COM ERREUR, VERIFIER QUE LE LECTEUR RFID EST BRANCHER.\nREDEMARRER L'APPLICATION UNE FOIS LE LECTEUR BRANCHER.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
